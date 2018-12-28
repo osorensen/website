@@ -24,7 +24,7 @@ where $\lambda$ is a regularization parameter, $y$ is a response vector, and $X$
 
 ## Solution Using glmnet
 
-In R, the **glmnet** package is the main tool for computing the lasso. It is based based on a Fortran implementation of the coordinate descent. When implementing the lasso in various languages, I will use the [Boston house-price data](http://lib.stat.cmu.edu/datasets/boston), and try to predict the median house value using the other variables in the dataset. This dataset is actually also available in R through the **MASS** package, so in order to have a reference solution, we can execute the following lines:
+In R, the **glmnet** package is the main tool for computing the lasso. It is based on a Fortran implementation of the coordinate descent. When implementing the lasso in various languages, I will use the [Boston house-price data](http://lib.stat.cmu.edu/datasets/boston), and try to predict the median house value using the other variables in the dataset. This dataset is actually also available in R through the **MASS** package, so in order to have a reference solution, we can execute the following lines:
 
 ```{r, message=FALSE}
 library(glmnet)
