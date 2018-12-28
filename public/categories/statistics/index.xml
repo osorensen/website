@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statistics on Øystein Sørensen</title>
+    <link>/categories/statistics/</link>
+    <description>Recent content in Statistics on Øystein Sørensen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Fri, 28 Dec 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/statistics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Lasso in Twelve Languages</title>
+      <link>/post/lasso-in-12-languages/</link>
+      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/lasso-in-12-languages/</guid>
+      <description>During the holidays, I finally took the time to read The Pragmatic Programmer. Among other things, the book inspired me to learn some new languages, while also making me realize how many programming languages I have never used. My plan for 2019 is thus to implement Tibshirani’s lasso in twelve different languages, hopefully learning something along the way. It starts with R, in this post, and then I will follow up with the following:</description>
+    </item>
+    
+  </channel>
+</rss>

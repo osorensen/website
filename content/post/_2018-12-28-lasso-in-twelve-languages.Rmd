@@ -1,0 +1,17 @@
+---
+title: Lasso in Twelve Languages
+author: Øystein Sørensen
+date: '2018-12-28'
+slug: lasso-in-12-languages
+categories:
+  - Statistics
+  - Machine Learning
+tags: []
+image:
+  caption: ''
+  focal_point: ''
+---
+
+During the holidays, I finally took the time to read [The Pragmatic Programmer](https://www.amazon.com/Pragmatic-Programmer-Journeyman-Master/dp/020161622X/ref=sr_1_1?ie=UTF8&qid=1546001035&sr=8-1&keywords=pragmatic+programmer). Among other things, the book inspired me to learn some new languages, while also making me realize how many programming languages I have never used. My plan for 2019 is thus to implement [Tibshirani's lasso](http://statweb.stanford.edu/~tibs/lasso.html) in twelve different languages, hopefully learning something along the way. It starts with R, in this post, and then I will follow up with the following:
+
+* [Julia](https://julialang.org/) (one of the most fashionable languages at the moment, if I am not mistaken)
