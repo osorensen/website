@@ -40,23 +40,23 @@ fit &amp;lt;- cv.glmnet(medv ~ ., data = Boston)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coef(fit, s = &amp;quot;lambda.1se&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## 14 x 1 sparse Matrix of class &amp;quot;dgCMatrix&amp;quot;
 ##                        1
-## (Intercept) 20.443234513
-## crim        -0.029579467
-## zn           0.005117086
+## (Intercept) 17.471486255
+## crim        -0.021826808
+## zn           .          
 ## indus        .          
-## chas         2.168428935
-## nox         -6.478368167
-## rm           4.261458164
+## chas         1.897718334
+## nox         -3.341293682
+## rm           4.266279454
 ## age          .          
-## dis         -0.553162685
+## dis         -0.317122207
 ## rad          .          
 ## tax          .          
-## ptratio     -0.813351925
-## black        0.006958142
-## lstat       -0.519363373&lt;/code&gt;&lt;/pre&gt;
+## ptratio     -0.787265491
+## black        0.006558204
+## lstat       -0.518129464&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In addition, we can find the cross-validation estimate of the mean squared error:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit$cvm[fit$lambda == fit$lambda.1se]&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 25.83565&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 26.96739&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;These are the values I will try to reproduce by actually implementing the lasso in twelve different languages.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;steps-involved-in-computing-the-lasso&#34; class=&#34;section level2&#34;&gt;
@@ -102,7 +102,7 @@ until convergence, where &lt;span class=&#34;math inline&#34;&gt;\(S(\cdot, \cdo
 &lt;li&gt;&lt;a href=&#34;https://www.r-project.org/&#34;&gt;R&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.scala-lang.org/&#34;&gt;Scala&lt;/a&gt; (the main language used in Apache Spark, so it must me good to know, right?)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;I will right one blogpost for each, detailing the solution. The number twelwe was chosen for reasons related to the number of full moons occuring between each time the earth circles around the sun, so the absolute deadline for finishing everything is on the 31st December 2019.&lt;/p&gt;
+&lt;p&gt;I will write one blogpost for each, detailing the solution. The number twelwe was chosen for reasons related to the number of full moons occuring between each time the earth circles around the sun, so the absolute deadline for finishing everything is on the 31st December 2019.&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
