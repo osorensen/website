@@ -22,7 +22,7 @@
 &lt;p&gt;During the holidays, I finally took the time to read &lt;a href=&#34;https://www.amazon.com/Pragmatic-Programmer-Journeyman-Master/dp/020161622X/ref=sr_1_1?ie=UTF8&amp;amp;qid=1546001035&amp;amp;sr=8-1&amp;amp;keywords=pragmatic+programmer&#34;&gt;The Pragmatic Programmer&lt;/a&gt;. The book inspired me to learn some new programming languages, so in 2019, I am going to implement &lt;a href=&#34;http://statweb.stanford.edu/~tibs/lasso.html&#34;&gt;Tibshirani’s lasso&lt;/a&gt; in twelve different languages, some of which I know very well, and others in which I have never even said &lt;em&gt;hello world&lt;/em&gt;. This post is a warm-up, in which I am going to give a brief introduction to the lasso and show how it can be computed very conveniently using the &lt;strong&gt;glmnet&lt;/strong&gt; package.&lt;/p&gt;
 &lt;div id=&#34;lasso&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Lasso&lt;/h2&gt;
-&lt;p&gt;The lasso is a fairly simple and very well-known machine learning algorithm. It imposes an &lt;span class=&#34;math inline&#34;&gt;\(\ell_{1}\)&lt;/span&gt;-penalty on the coefficients of a regression model. In its simplest case, the criterion is&lt;/p&gt;
+&lt;p&gt;I chose the lasso because is a fairly simple and very well-known machine learning algorithm, cited tens of thousands of times. It imposes an &lt;span class=&#34;math inline&#34;&gt;\(\ell_{1}\)&lt;/span&gt;-penalty on the coefficients of a regression model. In its simplest case, the criterion is&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat{\beta} = \text{arg}~\text{min}_{\beta} \left\| y - X \beta\right\|_{2}^{2} + \lambda \left\|\beta\right\|_{1}\]&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;where &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; is a regularization parameter, &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; is a response vector, and &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; is a matrix of regression coefficients. Because of the absolute value in the penalty term (&lt;span class=&#34;math inline&#34;&gt;\(\|\beta\|_{1} = \sum_{j} |\beta_{j}|\)&lt;/span&gt;), the lasso estimate &lt;span class=&#34;math inline&#34;&gt;\(\hat{\beta}\)&lt;/span&gt; typically sets some of the regression coefficients exactly to zero. This yields a sparse solution, in contrast to what an &lt;span class=&#34;math inline&#34;&gt;\(\ell_{2}\)&lt;/span&gt;-penalty would give. This property makes the lasso really useful in a lot of settings, including in &lt;a href=&#34;https://www.deeplearningbook.org/contents/regularization.html&#34;&gt;regularization of neural networks&lt;/a&gt; estimation of graphical model structures, and generalized linear models. The theory of the lasso has been described in lots of papers, much of which is summarized in &lt;a href=&#34;https://www.springer.com/la/book/9783642201912&#34;&gt;this book&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -40,23 +40,23 @@ fit &amp;lt;- cv.glmnet(medv ~ ., data = Boston)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coef(fit, s = &amp;quot;lambda.1se&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## 14 x 1 sparse Matrix of class &amp;quot;dgCMatrix&amp;quot;
 ##                        1
-## (Intercept) 18.567394066
-## crim        -0.024001671
-## zn           .          
+## (Intercept) 20.443234513
+## crim        -0.029579467
+## zn           0.005117086
 ## indus        .          
-## chas         1.994355941
-## nox         -4.485651769
-## rm           4.272373008
+## chas         2.168428935
+## nox         -6.478368167
+## rm           4.261458164
 ## age          .          
-## dis         -0.390100181
+## dis         -0.553162685
 ## rad          .          
 ## tax          .          
-## ptratio     -0.801611503
-## black        0.006695178
-## lstat       -0.518555953&lt;/code&gt;&lt;/pre&gt;
+## ptratio     -0.813351925
+## black        0.006958142
+## lstat       -0.519363373&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In addition, we can find the cross-validation estimate of the mean squared error:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit$cvm[fit$lambda == fit$lambda.1se]&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 26.16966&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 25.83565&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;These are the values I will try to reproduce by actually implementing the lasso in twelve different languages.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;steps-involved-in-computing-the-lasso&#34; class=&#34;section level2&#34;&gt;

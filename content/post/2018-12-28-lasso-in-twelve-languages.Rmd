@@ -16,7 +16,7 @@ During the holidays, I finally took the time to read [The Pragmatic Programmer](
 
 ## Lasso
 
-The lasso is a fairly simple and very well-known machine learning algorithm. It imposes an $\ell_{1}$-penalty on the coefficients of a regression model. In its simplest case, the criterion is
+I chose the lasso because is a fairly simple and very well-known machine learning algorithm, cited tens of thousands of times. It imposes an $\ell_{1}$-penalty on the coefficients of a regression model. In its simplest case, the criterion is
 
 $$\hat{\beta} = \text{arg}~\text{min}_{\beta} \left\| y - X \beta\right\|_{2}^{2} + \lambda \left\|\beta\right\|_{1}$$
 
@@ -92,4 +92,4 @@ My current plan is to implement the lasso in the following languages, partly bas
 * [R](https://www.r-project.org/)
 * [Scala](https://www.scala-lang.org/) (the main language used in Apache Spark, so it must me good to know, right?)
 
-I will right one blogpost for each, detailing the solution. The number twelwe was chosen for reasons related to the number of full moons occuring between each time the earth circles around the sun, so the absolute deadline for finishing everything is on the 31st December 2019. 
+I will right one blogpost for each, detailing the solution. The number twelwe was chosen for reasons related to the number of full moons occuring between each time the earth circles around the sun, so the absolute deadline for finishing everything is on the 31st December 2019.

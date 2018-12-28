@@ -389,7 +389,7 @@
 <p>During the holidays, I finally took the time to read <a href="https://www.amazon.com/Pragmatic-Programmer-Journeyman-Master/dp/020161622X/ref=sr_1_1?ie=UTF8&amp;qid=1546001035&amp;sr=8-1&amp;keywords=pragmatic+programmer">The Pragmatic Programmer</a>. The book inspired me to learn some new programming languages, so in 2019, I am going to implement <a href="http://statweb.stanford.edu/~tibs/lasso.html">Tibshirani’s lasso</a> in twelve different languages, some of which I know very well, and others in which I have never even said <em>hello world</em>. This post is a warm-up, in which I am going to give a brief introduction to the lasso and show how it can be computed very conveniently using the <strong>glmnet</strong> package.</p>
 <div id="lasso" class="section level2">
 <h2>Lasso</h2>
-<p>The lasso is a fairly simple and very well-known machine learning algorithm. It imposes an <span class="math inline">\(\ell_{1}\)</span>-penalty on the coefficients of a regression model. In its simplest case, the criterion is</p>
+<p>I chose the lasso because is a fairly simple and very well-known machine learning algorithm, cited tens of thousands of times. It imposes an <span class="math inline">\(\ell_{1}\)</span>-penalty on the coefficients of a regression model. In its simplest case, the criterion is</p>
 <p><span class="math display">\[\hat{\beta} = \text{arg}~\text{min}_{\beta} \left\| y - X \beta\right\|_{2}^{2} + \lambda \left\|\beta\right\|_{1}\]</span></p>
 <p>where <span class="math inline">\(\lambda\)</span> is a regularization parameter, <span class="math inline">\(y\)</span> is a response vector, and <span class="math inline">\(X\)</span> is a matrix of regression coefficients. Because of the absolute value in the penalty term (<span class="math inline">\(\|\beta\|_{1} = \sum_{j} |\beta_{j}|\)</span>), the lasso estimate <span class="math inline">\(\hat{\beta}\)</span> typically sets some of the regression coefficients exactly to zero. This yields a sparse solution, in contrast to what an <span class="math inline">\(\ell_{2}\)</span>-penalty would give. This property makes the lasso really useful in a lot of settings, including in <a href="https://www.deeplearningbook.org/contents/regularization.html">regularization of neural networks</a> estimation of graphical model structures, and generalized linear models. The theory of the lasso has been described in lots of papers, much of which is summarized in <a href="https://www.springer.com/la/book/9783642201912">this book</a>.</p>
 </div>
@@ -407,23 +407,23 @@ fit &lt;- cv.glmnet(medv ~ ., data = Boston)</code></pre>
 <pre class="r"><code>coef(fit, s = &quot;lambda.1se&quot;)</code></pre>
 <pre><code>## 14 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                        1
-## (Intercept) 18.567394066
-## crim        -0.024001671
-## zn           .          
+## (Intercept) 20.443234513
+## crim        -0.029579467
+## zn           0.005117086
 ## indus        .          
-## chas         1.994355941
-## nox         -4.485651769
-## rm           4.272373008
+## chas         2.168428935
+## nox         -6.478368167
+## rm           4.261458164
 ## age          .          
-## dis         -0.390100181
+## dis         -0.553162685
 ## rad          .          
 ## tax          .          
-## ptratio     -0.801611503
-## black        0.006695178
-## lstat       -0.518555953</code></pre>
+## ptratio     -0.813351925
+## black        0.006958142
+## lstat       -0.519363373</code></pre>
 <p>In addition, we can find the cross-validation estimate of the mean squared error:</p>
 <pre class="r"><code>fit$cvm[fit$lambda == fit$lambda.1se]</code></pre>
-<pre><code>## [1] 26.16966</code></pre>
+<pre><code>## [1] 25.83565</code></pre>
 <p>These are the values I will try to reproduce by actually implementing the lasso in twelve different languages.</p>
 </div>
 <div id="steps-involved-in-computing-the-lasso" class="section level2">
