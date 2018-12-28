@@ -1,0 +1,101 @@
+---
+title: Lasso in Twelve Languages
+author: Øystein Sørensen
+date: '2018-12-28'
+slug: lasso-in-12-languages
+categories:
+  - Statistics
+  - Machine Learning
+tags: []
+image:
+  caption: ''
+  focal_point: ''
+---
+
+
+
+<p>During the holidays, I finally took the time to read <a href="https://www.amazon.com/Pragmatic-Programmer-Journeyman-Master/dp/020161622X/ref=sr_1_1?ie=UTF8&amp;qid=1546001035&amp;sr=8-1&amp;keywords=pragmatic+programmer">The Pragmatic Programmer</a>. The book inspired me to learn some new programming languages, so in 2019, I am going to implement <a href="http://statweb.stanford.edu/~tibs/lasso.html">Tibshirani’s lasso</a> in twelve different languages, some of which I know very well, and others in which I have never even said <em>hello world</em>. This post is a warm-up, in which I am going to give a brief introduction to the lasso and show how it can be computed very conveniently using the <strong>glmnet</strong> package.</p>
+<div id="lasso" class="section level2">
+<h2>Lasso</h2>
+<p>The lasso is a fairly simple and very well-known machine learning algorithm. It imposes an <span class="math inline">\(\ell_{1}\)</span>-penalty on the coefficients of a regression model. In its simplest case, the criterion is</p>
+<p><span class="math display">\[\hat{\beta} = \text{arg}~\text{min}_{\beta} \left\| y - X \beta\right\|_{2}^{2} + \lambda \left\|\beta\right\|_{1}\]</span></p>
+<p>where <span class="math inline">\(\lambda\)</span> is a regularization parameter, <span class="math inline">\(y\)</span> is a response vector, and <span class="math inline">\(X\)</span> is a matrix of regression coefficients. Because of the absolute value in the penalty term (<span class="math inline">\(\|\beta\|_{1} = \sum_{j} |\beta_{j}|\)</span>), the lasso estimate <span class="math inline">\(\hat{\beta}\)</span> typically sets some of the regression coefficients exactly to zero. This yields a sparse solution, in contrast to what an <span class="math inline">\(\ell_{2}\)</span>-penalty would give. This property makes the lasso really useful in a lot of settings, including in <a href="https://www.deeplearningbook.org/contents/regularization.html">regularization of neural networks</a> estimation of graphical model structures, and generalized linear models. The theory of the lasso has been described in lots of papers, much of which is summarized in <a href="https://www.springer.com/la/book/9783642201912">this book</a>.</p>
+</div>
+<div id="solution-using-glmnet" class="section level2">
+<h2>Solution Using glmnet</h2>
+<p>In R, the <strong>glmnet</strong> package is the main tool for computing the lasso. It is based based on a Fortran implementation of the coordinate descent. When implementing the lasso in various languages, I will use the <a href="http://lib.stat.cmu.edu/datasets/boston">Boston house-price data</a>, and try to predict the median house value using the other variables in the dataset. This dataset is actually also available in R through the <strong>MASS</strong> package, so in order to have a reference solution, we can execute the following lines:</p>
+<pre class="r"><code>library(glmnet)
+library(glmnetUtils)
+library(MASS)
+fit &lt;- cv.glmnet(medv ~ ., data = Boston)</code></pre>
+<p>This estimates the cross-validated loss function of the lasso along a grid of <span class="math inline">\(\lambda\)</span> values. We can visualize it as follows:</p>
+<pre class="r"><code>plot(fit)</code></pre>
+<p><img src="/post/2018-12-28-lasso-in-twelve-languages_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>The numbers in the upper horizontal bar show how many coefficients are nonzero. The rightmost line is the value of <span class="math inline">\(\lambda\)</span> corresponding to the “one standard error rule”, and we choose this one as our final value of the regularization parameter. We get the regression coefficients as follows:</p>
+<pre class="r"><code>coef(fit, s = &quot;lambda.1se&quot;)</code></pre>
+<pre><code>## 14 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                        1
+## (Intercept) 18.567394066
+## crim        -0.024001671
+## zn           .          
+## indus        .          
+## chas         1.994355941
+## nox         -4.485651769
+## rm           4.272373008
+## age          .          
+## dis         -0.390100181
+## rad          .          
+## tax          .          
+## ptratio     -0.801611503
+## black        0.006695178
+## lstat       -0.518555953</code></pre>
+<p>In addition, we can find the cross-validation estimate of the mean squared error:</p>
+<pre class="r"><code>fit$cvm[fit$lambda == fit$lambda.1se]</code></pre>
+<pre><code>## [1] 26.16966</code></pre>
+<p>These are the values I will try to reproduce by actually implementing the lasso in twelve different languages.</p>
+</div>
+<div id="steps-involved-in-computing-the-lasso" class="section level2">
+<h2>Steps Involved in Computing the Lasso</h2>
+<p>Packages/libraries/etc. for computing the lasso exist in several languages, but in order to make it a bit more interesting, I am going to implement what <strong>glmnet</strong> computed for me above by actually coding it. This includes:</p>
+<div id="data" class="section level3">
+<h3>Data</h3>
+<p>Download the <a href="http://lib.stat.cmu.edu/datasets/boston">Boston Housing Dataset</a> and convert it to a proper object.</p>
+</div>
+<div id="coordinate-descent" class="section level3">
+<h3>Coordinate Descent</h3>
+<p>Implement the <a href="https://projecteuclid.org/euclid.aoas/1206367819">coordinate descent algorithm</a> for estimating <span class="math inline">\(\beta\)</span> at a given <span class="math inline">\(\lambda\)</span>. This involves iterating</p>
+<p><span class="math display">\[\tilde{\beta}_{j}(\lambda) \leftarrow S\left(\sum_{i=1}^{N} x_{ij}(y_{i} - \tilde{y}_{i}^{(j)}), \lambda \right)\]</span>
+until convergence, where <span class="math inline">\(S(\cdot, \cdot)\)</span> is the soft-thresholding operator and <span class="math inline">\(\tilde{y}_{i}^{(j)}\)</span> is the current fitted value for observation <span class="math inline">\(i\)</span> with covariate <span class="math inline">\(j\)</span> removed.</p>
+</div>
+<div id="cross-validation" class="section level3">
+<h3>Cross-Validation</h3>
+<p>Ten-fold cross-validation for estimating the mean-squared prediction error as a function of <span class="math inline">\(\lambda\)</span>. Ideally this can be done in parallel.</p>
+</div>
+<div id="plotting" class="section level3">
+<h3>Plotting</h3>
+<p>Function for plotting the cross-validation curve.</p>
+</div>
+<div id="standardization" class="section level3">
+<h3>Standardization</h3>
+<p>Standardization of covariates before using the algorithm and rescaling to get <span class="math inline">\(\hat{\beta}\)</span> in the proper scale. This is because all columns of <span class="math inline">\(X\)</span> must have the same standard deviation as long as we use a common <span class="math inline">\(\lambda\)</span>.</p>
+</div>
+</div>
+<div id="plan" class="section level2">
+<h2>Plan</h2>
+<p>My current plan is to implement the lasso in the following languages, partly based on looking at <a href="https://insights.stackoverflow.com/survey/2018/#most-popular-technologies">the Stack Overflow Developer Survey</a>:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a> (must be possible…)</li>
+<li><a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> (should be really fast)</li>
+<li>C++ (using classes and stuff, not C-style)</li>
+<li><a href="https://en.wikipedia.org/wiki/Fortran">Fortran</a> (really old and really fast?)</li>
+<li><a href="https://en.wikipedia.org/wiki/Java_(programming_language)">Java</a></li>
+<li>JavaScript</li>
+<li><a href="https://julialang.org/">Julia</a> (might be the next big thing?)</li>
+<li><a href="https://common-lisp.net/">Common Lisp</a> (because references to Lisp keep showing up in R)</li>
+<li><a href="https://www.gnu.org/software/octave/">GNU Octave</a></li>
+<li><a href="https://www.python.org/">Python</a> (obviously)</li>
+<li><a href="https://www.r-project.org/">R</a></li>
+<li><a href="https://www.scala-lang.org/">Scala</a> (the main language used in Apache Spark, so it must me good to know, right?)</li>
+</ul>
+<p>I will right one blogpost for each, detailing the solution. The number twelwe was chosen for reasons related to the number of full moons occuring between each time the earth circles around the sun, so the absolute deadline for finishing everything is on the 31st December 2019.</p>
+</div>

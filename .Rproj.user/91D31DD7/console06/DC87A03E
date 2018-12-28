@@ -1,985 +1,4 @@
 
- create mode 100644 content/home/teaching.md
- delete mode 100644 content/post/2015-01-01-lorem-ipsum.md
- delete mode 100644 content/post/2015-07-23-r-rmarkdown.html
- delete mode 100644 content/post/2016-12-30-hello-markdown.md
- create mode 100644 content/post/_index.md
- create mode 100644 content/post/getting-started/featured.jpg
- create mode 100644 content/post/getting-started/gallery/theme-1950s.png
- create mode 100644 content/post/getting-started/gallery/theme-apogee.png
- create mode 100644 content/post/getting-started/gallery/theme-coffee-playfair.png
- create mode 100644 content/post/getting-started/gallery/theme-cupcake.png
- create mode 100644 content/post/getting-started/gallery/theme-dark.png
- create mode 100644 content/post/getting-started/gallery/theme-default.png
- create mode 100644 content/post/getting-started/gallery/theme-forest.png
- create mode 100644 content/post/getting-started/gallery/theme-ocean.png
- create mode 100644 content/post/getting-started/index.md
- create mode 100644 content/privacy.md
- create mode 100644 content/project/external-project/featured.jpg
- create mode 100644 content/project/external-project/index.md
- create mode 100644 content/project/internal-project/featured.jpg
- create mode 100644 content/project/internal-project/index.md
- create mode 100644 content/publication/_index.md
- create mode 100644 content/publication/clothing-search/cite.bib
- create mode 100644 content/publication/clothing-search/featured.jpg
- create mode 100644 content/publication/clothing-search/index.md
- create mode 100644 content/publication/person-re-id/featured.jpg
- create mode 100644 content/publication/person-re-id/index.md
- create mode 100644 content/slides/example-slides.md
- create mode 100644 content/talk/_index.md
- create mode 100644 content/talk/example/featured.jpg
- create mode 100644 content/talk/example/index.md
- create mode 100644 content/tutorial/_index.md
- create mode 100644 content/tutorial/example.md
- delete mode 100644 public/2015/01/01/lorem-ipsum/index.html
- delete mode 100644 public/2015/07/23/hello-r-markdown/index.html
- delete mode 100644 public/2016/12/30/a-plain-markdown-post/index.html
- delete mode 100644 public/about/index.html
- delete mode 100644 public/categories/index.html
- delete mode 100644 public/categories/index.xml
- delete mode 100644 public/categories/r/index.html
- delete mode 100644 public/categories/r/index.xml
- delete mode 100644 public/css/fonts.css
- delete mode 100644 public/css/main.css
- delete mode 100644 public/fonts/lato-v11-latin-regular.woff
- delete mode 100644 public/fonts/lato-v11-latin-regular.woff2
- delete mode 100644 public/fonts/merriweather-v13-latin-regular.woff
- delete mode 100644 public/fonts/merriweather-v13-latin-regular.woff2
- delete mode 100644 public/images/hugo-logo.png
- delete mode 100644 public/images/logo.png
- delete mode 100644 public/index.html
- delete mode 100644 public/index.xml
- delete mode 100644 public/js/math-code.js
- delete mode 100644 public/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png
- delete mode 100644 public/post/index.html
- delete mode 100644 public/post/index.xml
- delete mode 100644 public/sitemap.xml
- delete mode 100644 public/tags/index.html
- delete mode 100644 public/tags/index.xml
- delete mode 100644 public/tags/plot/index.html
- delete mode 100644 public/tags/plot/index.xml
- delete mode 100644 public/tags/r-markdown/index.html
- delete mode 100644 public/tags/r-markdown/index.xml
- delete mode 100644 public/tags/regression/index.html
- delete mode 100644 public/tags/regression/index.xml
- create mode 100644 static/img/boards.jpg
- create mode 100644 static/img/headers/bubbles-wide.jpg
- create mode 100644 static/img/portrait.jpg
- delete mode 100644 static/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png
- create mode 100644 themes/hugo-academic/.editorconfig
- create mode 100644 themes/hugo-academic/.github/PULL_REQUEST_TEMPLATE.md
- create mode 100644 themes/hugo-academic/.gitignore
- rename themes/{hugo-lithium => hugo-academic}/LICENSE.md (94%)
- create mode 100644 themes/hugo-academic/README.md
- create mode 100644 themes/hugo-academic/academic.png
- create mode 100644 themes/hugo-academic/archetypes/default.md
- create mode 100644 themes/hugo-academic/archetypes/docs.md
- create mode 100644 themes/hugo-academic/archetypes/home.md
- create mode 100644 themes/hugo-academic/archetypes/post/index.md
- create mode 100644 themes/hugo-academic/archetypes/project/index.md
- create mode 100644 themes/hugo-academic/archetypes/publication/index.md
- create mode 100644 themes/hugo-academic/archetypes/slides.md
- create mode 100644 themes/hugo-academic/archetypes/talk/index.md
- create mode 100644 themes/hugo-academic/assets/css/reveal.css
- rename .Rproj.user/91D31DD7/sources/s-4CFC2910/lock_file => themes/hugo-academic/assets/css/reveal_custom.css (100%)
- create mode 100644 themes/hugo-academic/assets/js/academic-search.js
- create mode 100644 themes/hugo-academic/assets/js/academic.js
- create mode 100644 themes/hugo-academic/assets/js/algolia-search.js
- create mode 100644 themes/hugo-academic/assets/js/mathjax-config.js
- create mode 100644 themes/hugo-academic/data/academic.toml
- create mode 100644 themes/hugo-academic/data/assets.toml
- create mode 100644 themes/hugo-academic/data/fonts/classic.toml
- create mode 100644 themes/hugo-academic/data/fonts/default.toml
- create mode 100644 themes/hugo-academic/data/fonts/playfair.toml
- create mode 100644 themes/hugo-academic/data/i18n/languages.yaml
- create mode 100644 themes/hugo-academic/data/themes/1950s.toml
- create mode 100644 themes/hugo-academic/data/themes/apogee.toml
- create mode 100644 themes/hugo-academic/data/themes/coffee.toml
- create mode 100644 themes/hugo-academic/data/themes/cupcake.toml
- create mode 100644 themes/hugo-academic/data/themes/dark.toml
- create mode 100644 themes/hugo-academic/data/themes/default.toml
- create mode 100644 themes/hugo-academic/data/themes/forest.toml
- create mode 100644 themes/hugo-academic/data/themes/ocean.toml
- create mode 100644 themes/hugo-academic/demo.sh
- create mode 100644 themes/hugo-academic/exampleSite/config.toml
- create mode 100644 themes/hugo-academic/exampleSite/content/home/about.md
- create mode 100644 themes/hugo-academic/exampleSite/content/home/contact.md
- create mode 100644 themes/hugo-academic/exampleSite/content/home/experience.md
- create mode 100644 themes/hugo-academic/exampleSite/content/home/hero.md
- create mode 100644 themes/hugo-academic/exampleSite/content/home/hero_carousel.md
- create mode 100644 themes/hugo-academic/exampleSite/content/home/posts.md
- create mode 100644 themes/hugo-academic/exampleSite/content/home/projects.md
- create mode 100644 themes/hugo-academic/exampleSite/content/home/publications.md
- create mode 100644 themes/hugo-academic/exampleSite/content/home/publications_selected.md
- create mode 100644 themes/hugo-academic/exampleSite/content/home/skills.md
- create mode 100644 themes/hugo-academic/exampleSite/content/home/tags.md
- create mode 100644 themes/hugo-academic/exampleSite/content/home/talks.md
- create mode 100644 themes/hugo-academic/exampleSite/content/home/talks_selected.md
- create mode 100644 themes/hugo-academic/exampleSite/content/home/teaching.md
- create mode 100644 themes/hugo-academic/exampleSite/content/post/_index.md
- create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/featured.jpg
- create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-1950s.png
- create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-apogee.png
- create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-coffee-playfair.png
- create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-cupcake.png
- create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-dark.png
- create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-default.png
- create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-forest.png
- create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-ocean.png
- create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/index.md
- create mode 100644 themes/hugo-academic/exampleSite/content/privacy.md
- create mode 100644 themes/hugo-academic/exampleSite/content/project/external-project/featured.jpg
- create mode 100644 themes/hugo-academic/exampleSite/content/project/external-project/index.md
- create mode 100644 themes/hugo-academic/exampleSite/content/project/internal-project/featured.jpg
- create mode 100644 themes/hugo-academic/exampleSite/content/project/internal-project/index.md
- create mode 100644 themes/hugo-academic/exampleSite/content/publication/_index.md
- create mode 100644 themes/hugo-academic/exampleSite/content/publication/clothing-search/cite.bib
- create mode 100644 themes/hugo-academic/exampleSite/content/publication/clothing-search/featured.jpg
- create mode 100644 themes/hugo-academic/exampleSite/content/publication/clothing-search/index.md
- create mode 100644 themes/hugo-academic/exampleSite/content/publication/person-re-id/featured.jpg
- create mode 100644 themes/hugo-academic/exampleSite/content/publication/person-re-id/index.md
- create mode 100644 themes/hugo-academic/exampleSite/content/slides/example-slides.md
- create mode 100644 themes/hugo-academic/exampleSite/content/talk/_index.md
- create mode 100644 themes/hugo-academic/exampleSite/content/talk/example/featured.jpg
- create mode 100644 themes/hugo-academic/exampleSite/content/talk/example/index.md
- create mode 100644 themes/hugo-academic/exampleSite/content/tutorial/_index.md
- create mode 100644 themes/hugo-academic/exampleSite/content/tutorial/example.md
- create mode 100644 themes/hugo-academic/exampleSite/static/img/boards.jpg
- create mode 100644 themes/hugo-academic/exampleSite/static/img/headers/bubbles-wide.jpg
- create mode 100644 themes/hugo-academic/exampleSite/static/img/portrait.jpg
- create mode 100644 themes/hugo-academic/i18n/ca.yaml
- create mode 100644 themes/hugo-academic/i18n/de.yaml
- create mode 100644 themes/hugo-academic/i18n/el.yaml
- create mode 100644 themes/hugo-academic/i18n/en.yaml
- create mode 100644 themes/hugo-academic/i18n/es.yaml
- create mode 100644 themes/hugo-academic/i18n/eu.yaml
- create mode 100644 themes/hugo-academic/i18n/fr.yaml
- create mode 100644 themes/hugo-academic/i18n/id.yaml
- create mode 100644 themes/hugo-academic/i18n/it.yaml
- create mode 100644 themes/hugo-academic/i18n/ja.yaml
- create mode 100644 themes/hugo-academic/i18n/ko.yaml
- create mode 100644 themes/hugo-academic/i18n/nl.yaml
- create mode 100644 themes/hugo-academic/i18n/pl.yaml
- create mode 100644 themes/hugo-academic/i18n/pt.yaml
- create mode 100644 themes/hugo-academic/i18n/ru.yaml
- create mode 100644 themes/hugo-academic/i18n/tr.yaml
- create mode 100644 themes/hugo-academic/i18n/vi.yaml
- create mode 100644 themes/hugo-academic/i18n/zh.yaml
- create mode 100644 themes/hugo-academic/images/screenshot.png
- create mode 100644 themes/hugo-academic/images/theme-1950s.png
- create mode 100644 themes/hugo-academic/images/theme-apogee.png
- create mode 100644 themes/hugo-academic/images/theme-coffee-playfair.png
- create mode 100644 themes/hugo-academic/images/theme-cupcake.png
- create mode 100644 themes/hugo-academic/images/theme-dark.png
- create mode 100644 themes/hugo-academic/images/theme-default.png
- create mode 100644 themes/hugo-academic/images/theme-forest.png
- create mode 100644 themes/hugo-academic/images/theme-ocean.png
- create mode 100644 themes/hugo-academic/images/theme-spacer.png
- create mode 100644 themes/hugo-academic/images/tn.png
- create mode 100644 themes/hugo-academic/layouts/404.html
- create mode 100644 themes/hugo-academic/layouts/_default/list.html
- create mode 100644 themes/hugo-academic/layouts/_default/single.html
- create mode 100644 themes/hugo-academic/layouts/docs/list.html
- create mode 100644 themes/hugo-academic/layouts/docs/single.html
- rename public/.gitkeep => themes/hugo-academic/layouts/home/list.html (100%)
- rename static/.gitkeep => themes/hugo-academic/layouts/home/single.html (100%)
- create mode 100644 themes/hugo-academic/layouts/index.css
- create mode 100644 themes/hugo-academic/layouts/index.html
- create mode 100644 themes/hugo-academic/layouts/index.json
- create mode 100644 themes/hugo-academic/layouts/partials/comments.html
- create mode 100644 themes/hugo-academic/layouts/partials/cookie_consent.html
- create mode 100644 themes/hugo-academic/layouts/partials/css/academic.css
- create mode 100644 themes/hugo-academic/layouts/partials/css/parse_theme.css
- create mode 100644 themes/hugo-academic/layouts/partials/docs_layout.html
- create mode 100644 themes/hugo-academic/layouts/partials/docs_sidebar.html
- rename themes/{hugo-lithium/exampleSite/static/.gitkeep => hugo-academic/layouts/partials/docs_toc_foot.html} (100%)
- create mode 100644 themes/hugo-academic/layouts/partials/footer.html
- create mode 100644 themes/hugo-academic/layouts/partials/footer_container.html
- create mode 100644 themes/hugo-academic/layouts/partials/footer_section.html
- rename themes/{hugo-lithium => hugo-academic}/layouts/partials/head_custom.html (100%)
- create mode 100644 themes/hugo-academic/layouts/partials/header.html
- create mode 100644 themes/hugo-academic/layouts/partials/navbar.html
- create mode 100644 themes/hugo-academic/layouts/partials/page_author.html
- create mode 100644 themes/hugo-academic/layouts/partials/page_header.html
- create mode 100644 themes/hugo-academic/layouts/partials/page_links.html
- create mode 100644 themes/hugo-academic/layouts/partials/page_links_div.html
- create mode 100644 themes/hugo-academic/layouts/partials/page_metadata.html
- create mode 100644 themes/hugo-academic/layouts/partials/pagination.html
- create mode 100644 themes/hugo-academic/layouts/partials/post_li_detailed.html
- create mode 100644 themes/hugo-academic/layouts/partials/post_li_simple.html
- create mode 100644 themes/hugo-academic/layouts/partials/post_li_stream.html
- create mode 100644 themes/hugo-academic/layouts/partials/project_li_card.html
- create mode 100644 themes/hugo-academic/layouts/partials/project_li_showcase.html
- create mode 100644 themes/hugo-academic/layouts/partials/project_li_simple.html
- create mode 100644 themes/hugo-academic/layouts/partials/publication_li_apa.html
- create mode 100644 themes/hugo-academic/layouts/partials/publication_li_detailed.html
- create mode 100644 themes/hugo-academic/layouts/partials/publication_li_mla.html
- create mode 100644 themes/hugo-academic/layouts/partials/publication_li_simple.html
- create mode 100644 themes/hugo-academic/layouts/partials/publication_li_stream.html
- create mode 100644 themes/hugo-academic/layouts/partials/search.html
- create mode 100644 themes/hugo-academic/layouts/partials/section_pager.html
- create mode 100644 themes/hugo-academic/layouts/partials/share.html
- create mode 100644 themes/hugo-academic/layouts/partials/slides.html
- create mode 100644 themes/hugo-academic/layouts/partials/tags.html
- create mode 100644 themes/hugo-academic/layouts/partials/talk_li_detailed.html
- create mode 100644 themes/hugo-academic/layouts/partials/talk_li_simple.html
- create mode 100644 themes/hugo-academic/layouts/partials/talk_li_stream.html
- create mode 100644 themes/hugo-academic/layouts/partials/widget_page.html
- create mode 100644 themes/hugo-academic/layouts/partials/widgets/about.html
- create mode 100644 themes/hugo-academic/layouts/partials/widgets/contact.html
- create mode 100644 themes/hugo-academic/layouts/partials/widgets/custom.html
- create mode 100644 themes/hugo-academic/layouts/partials/widgets/experience.html
- create mode 100644 themes/hugo-academic/layouts/partials/widgets/featurette.html
- create mode 100644 themes/hugo-academic/layouts/partials/widgets/hero.html
- create mode 100644 themes/hugo-academic/layouts/partials/widgets/hero_carousel.html
- create mode 100644 themes/hugo-academic/layouts/partials/widgets/posts.html
- create mode 100644 themes/hugo-academic/layouts/partials/widgets/projects.html
- create mode 100644 themes/hugo-academic/layouts/partials/widgets/publications.html
- create mode 100644 themes/hugo-academic/layouts/partials/widgets/publications_selected.html
- create mode 100644 themes/hugo-academic/layouts/partials/widgets/tag_cloud.html
- create mode 100644 themes/hugo-academic/layouts/partials/widgets/talks.html
- create mode 100644 themes/hugo-academic/layouts/partials/widgets/talks_selected.html
- create mode 100644 themes/hugo-academic/layouts/project/single.html
- create mode 100644 themes/hugo-academic/layouts/publication/single.html
- create mode 100644 themes/hugo-academic/layouts/rss.xml
- create mode 100644 themes/hugo-academic/layouts/section/home.html
- create mode 100644 themes/hugo-academic/layouts/section/post.html
- create mode 100644 themes/hugo-academic/layouts/section/publication.html
- create mode 100644 themes/hugo-academic/layouts/section/talk.html
- create mode 100644 themes/hugo-academic/layouts/shortcodes/alert.html
- create mode 100644 themes/hugo-academic/layouts/shortcodes/figure.html
- create mode 100644 themes/hugo-academic/layouts/shortcodes/fragment.html
- create mode 100644 themes/hugo-academic/layouts/shortcodes/gallery.html
- create mode 100644 themes/hugo-academic/layouts/shortcodes/gdocs.html
- create mode 100644 themes/hugo-academic/layouts/shortcodes/hl.html
- create mode 100644 themes/hugo-academic/layouts/shortcodes/list_categories.html
- create mode 100644 themes/hugo-academic/layouts/shortcodes/list_tags.html
- create mode 100644 themes/hugo-academic/layouts/shortcodes/slide.html
- create mode 100644 themes/hugo-academic/layouts/shortcodes/speaker_note.html
- create mode 100644 themes/hugo-academic/layouts/shortcodes/staticref.html
- create mode 100644 themes/hugo-academic/layouts/shortcodes/toc.html
- create mode 100644 themes/hugo-academic/layouts/shortcodes/video.html
- create mode 100644 themes/hugo-academic/layouts/sitemap.xml
- create mode 100644 themes/hugo-academic/layouts/slides/baseof.html
- create mode 100644 themes/hugo-academic/layouts/slides/list.html
- create mode 100644 themes/hugo-academic/layouts/slides/single.html
- create mode 100644 themes/hugo-academic/layouts/talk/single.html
- create mode 100644 themes/hugo-academic/static/img/icon-192.png
- create mode 100644 themes/hugo-academic/static/img/icon.png
- create mode 100644 themes/hugo-academic/static/img/portrait.jpg
- create mode 100644 themes/hugo-academic/static/js/vendor/reveal.js/plugin/notes/notes.html
- create mode 100644 themes/hugo-academic/static/js/vendor/reveal.js/plugin/notes/notes.js
- create mode 100644 themes/hugo-academic/static/site.webmanifest
- create mode 100644 themes/hugo-academic/theme.toml
- delete mode 100644 themes/hugo-lithium/README.md
- delete mode 100644 themes/hugo-lithium/archetypes/default.md
- delete mode 100644 themes/hugo-lithium/exampleSite/config.toml
- delete mode 100644 themes/hugo-lithium/exampleSite/content/about.md
- delete mode 100644 themes/hugo-lithium/exampleSite/content/post/2015-01-01-lorem-ipsum.md
- delete mode 100644 themes/hugo-lithium/exampleSite/content/post/2016-12-30-hello-markdown.md
- delete mode 100644 themes/hugo-lithium/layouts/_default/list.html
- delete mode 100644 themes/hugo-lithium/layouts/_default/single.html
- delete mode 100644 themes/hugo-lithium/layouts/partials/disqus.html
- delete mode 100644 themes/hugo-lithium/layouts/partials/footer.html
- delete mode 100644 themes/hugo-lithium/layouts/partials/footer_highlightjs.html
- delete mode 100644 themes/hugo-lithium/layouts/partials/footer_mathjax.html
- delete mode 100644 themes/hugo-lithium/layouts/partials/head.html
- delete mode 100644 themes/hugo-lithium/layouts/partials/head_highlightjs.html
- delete mode 100644 themes/hugo-lithium/layouts/partials/header.html
- delete mode 100644 themes/hugo-lithium/layouts/partials/nav.html
- delete mode 100644 themes/hugo-lithium/static/css/fonts.css
- delete mode 100644 themes/hugo-lithium/static/css/main.css
- delete mode 100644 themes/hugo-lithium/static/fonts/lato-v11-latin-regular.woff
- delete mode 100644 themes/hugo-lithium/static/fonts/lato-v11-latin-regular.woff2
- delete mode 100644 themes/hugo-lithium/static/fonts/merriweather-v13-latin-regular.woff
- delete mode 100644 themes/hugo-lithium/static/fonts/merriweather-v13-latin-regular.woff2
- delete mode 100644 themes/hugo-lithium/static/images/hugo-logo.png
- delete mode 100644 themes/hugo-lithium/static/images/logo.png
- delete mode 100644 themes/hugo-lithium/static/js/math-code.js
-]0;~/Repos/websiteysteins-MBP:website oyss$ git push
-To https://github.com/osorensen/website.git
- ! [rejected]        master -> master (fetch first)
-error: failed to push some refs to 'https://github.com/osorensen/website.git'
-hint: Updates were rejected because the remote contains work that you do
-hint: not have locally. This is usually caused by another repository pushing
-hint: to the same ref. You may want to first integrate the remote changes
-hint: (e.g., 'git pull ...') before pushing again.
-hint: See the 'Note about fast-forwards' in 'git push --help' for details.
-]0;~/Repos/websiteysteins-MBP:website oyss$ git pull
-remote: Enumerating objects: 4, done.[K
-remote: Counting objects:  25% (1/4)   [Kremote: Counting objects:  50% (2/4)   [Kremote: Counting objects:  75% (3/4)   [Kremote: Counting objects: 100% (4/4)   [Kremote: Counting objects: 100% (4/4), done.[K
-remote: Compressing objects:  33% (1/3)   [Kremote: Compressing objects:  66% (2/3)   [Kremote: Compressing objects: 100% (3/3)   [Kremote: Compressing objects: 100% (3/3), done.[K
-remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0[K
-Unpacking objects:  33% (1/3)   Unpacking objects:  66% (2/3)   Unpacking objects: 100% (3/3)   Unpacking objects: 100% (3/3), done.
-From https://github.com/osorensen/website
-   aac197b..e881917  master     -> origin/master
-hint: Waiting for your editor to close the file... 25h[39;49m25h[39;49m[KMerge made by the 'recursive' strategy.
- README.md | 3 [32m+++[m
- 1 file changed, 3 insertions(+)
- create mode 100644 README.md
-]0;~/Repos/websiteysteins-MBP:website oyss$ git pull
-Already up to date.
-]0;~/Repos/websiteysteins-MBP:website oyss$ git push
-Counting objects: 263, done.
-Delta compression using up to 12 threads.
-Compressing objects:   0% (1/241)   Compressing objects:   1% (3/241)   Compressing objects:   2% (5/241)   Compressing objects:   3% (8/241)   Compressing objects:   4% (10/241)   Compressing objects:   5% (13/241)   Compressing objects:   6% (15/241)   Compressing objects:   7% (17/241)   Compressing objects:   8% (20/241)   Compressing objects:   9% (22/241)   Compressing objects:  10% (25/241)   Compressing objects:  11% (27/241)   Compressing objects:  12% (29/241)   Compressing objects:  13% (32/241)   Compressing objects:  14% (34/241)   Compressing objects:  15% (37/241)   Compressing objects:  16% (39/241)   Compressing objects:  17% (41/241)   Compressing objects:  18% (44/241)   Compressing objects:  19% (46/241)   Compressing objects:  20% (49/241)   Compressing objects:  21% (51/241)   Compressing objects:  22% (54/241)   Compressing objects:  23% (56/241)   Compressing objects:  24% (58/241)   Compressing objects:  25% (61/241)   Compressing objects:  26% (63/241)   Compressing objects:  27% (66/241)   Compressing objects:  28% (68/241)   Compressing objects:  29% (70/241)   Compressing objects:  30% (73/241)   Compressing objects:  31% (75/241)   Compressing objects:  32% (78/241)   Compressing objects:  33% (80/241)   Compressing objects:  34% (82/241)   Compressing objects:  35% (85/241)   Compressing objects:  36% (87/241)   Compressing objects:  37% (90/241)   Compressing objects:  38% (92/241)   Compressing objects:  39% (94/241)   Compressing objects:  40% (97/241)   Compressing objects:  41% (99/241)   Compressing objects:  42% (102/241)   Compressing objects:  43% (104/241)   Compressing objects:  44% (107/241)   Compressing objects:  45% (109/241)   Compressing objects:  46% (111/241)   Compressing objects:  47% (114/241)   Compressing objects:  48% (116/241)   Compressing objects:  49% (119/241)   Compressing objects:  50% (121/241)   Compressing objects:  51% (123/241)   Compressing objects:  52% (126/241)   Compressing objects:  53% (128/241)   Compressing objects:  54% (131/241)   Compressing objects:  55% (133/241)   Compressing objects:  56% (135/241)   Compressing objects:  57% (138/241)   Compressing objects:  58% (140/241)   Compressing objects:  59% (143/241)   Compressing objects:  60% (145/241)   Compressing objects:  61% (148/241)   Compressing objects:  62% (150/241)   Compressing objects:  63% (152/241)   Compressing objects:  64% (155/241)   Compressing objects:  65% (157/241)   Compressing objects:  66% (160/241)   Compressing objects:  67% (162/241)   Compressing objects:  68% (164/241)   Compressing objects:  69% (167/241)   Compressing objects:  70% (169/241)   Compressing objects:  71% (172/241)   Compressing objects:  72% (174/241)   Compressing objects:  73% (176/241)   Compressing objects:  74% (179/241)   Compressing objects:  75% (181/241)   Compressing objects:  76% (184/241)   Compressing objects:  77% (186/241)   Compressing objects:  78% (188/241)   Compressing objects:  79% (191/241)   Compressing objects:  80% (193/241)   Compressing objects:  81% (196/241)   Compressing objects:  82% (198/241)   Compressing objects:  83% (201/241)   Compressing objects:  84% (203/241)   Compressing objects:  85% (205/241)   Compressing objects:  86% (208/241)   Compressing objects:  87% (210/241)   Compressing objects:  88% (213/241)   Compressing objects:  89% (215/241)   Compressing objects:  90% (217/241)   Compressing objects:  91% (220/241)   Compressing objects:  92% (222/241)   Compressing objects:  93% (225/241)   Compressing objects:  94% (227/241)   Compressing objects:  95% (229/241)   Compressing objects:  96% (232/241)   Compressing objects:  97% (234/241)   Compressing objects:  98% (237/241)   Compressing objects:  99% (239/241)   Compressing objects: 100% (241/241)   Compressing objects: 100% (241/241), done.
-Writing objects:   0% (1/263)   Writing objects:   1% (3/263)   Writing objects:   2% (6/263)   Writing objects:   3% (8/263)   Writing objects:   4% (11/263)   Writing objects:   5% (14/263)   Writing objects:   6% (17/263)   Writing objects:   7% (19/263)   Writing objects:   8% (22/263)   Writing objects:   9% (24/263)   Writing objects:  10% (27/263)   Writing objects:  11% (29/263)   Writing objects:  12% (32/263)   Writing objects:  13% (35/263)   Writing objects:  14% (37/263)   Writing objects:  15% (40/263)   Writing objects:  16% (43/263)   Writing objects:  17% (45/263)   Writing objects:  18% (48/263)   Writing objects:  19% (50/263)   Writing objects:  20% (54/263)   Writing objects:  21% (56/263)   Writing objects:  22% (58/263)   Writing objects:  23% (61/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  24% (64/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  25% (66/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  26% (69/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  27% (72/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  28% (74/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  29% (77/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  30% (79/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  31% (82/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  32% (85/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  33% (87/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  34% (90/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  35% (93/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  36% (95/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  37% (98/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  38% (100/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  39% (103/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  40% (106/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  41% (108/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  42% (111/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  43% (114/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  44% (116/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  45% (119/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  46% (121/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  47% (124/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  48% (128/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  49% (129/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  50% (132/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  51% (135/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  52% (137/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  53% (142/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  54% (143/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  55% (146/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  56% (148/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  57% (150/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  58% (153/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  59% (156/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  60% (158/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  61% (161/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  62% (164/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  63% (166/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  64% (169/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  65% (171/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  66% (174/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  67% (177/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  68% (179/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  69% (182/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  70% (185/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  71% (187/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  72% (190/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  73% (192/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  74% (195/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  75% (198/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  76% (200/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  77% (203/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  78% (206/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  79% (208/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  80% (211/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  81% (214/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  82% (216/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  83% (219/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  84% (221/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  85% (224/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  86% (227/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  87% (229/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  88% (232/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  89% (235/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  90% (237/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  91% (240/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  92% (242/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  93% (245/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  94% (248/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  95% (250/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  96% (253/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  97% (256/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  98% (258/263), 1.09 MiB | 1.34 MiB/s   Writing objects:  99% (261/263), 1.09 MiB | 1.34 MiB/s   Writing objects: 100% (263/263), 1.09 MiB | 1.34 MiB/s   Writing objects: 100% (263/263), 3.00 MiB | 2.37 MiB/s, done.
-Total 263 (delta 38), reused 0 (delta 0)
-remote: Resolving deltas:   0% (0/38)   [Kremote: Resolving deltas:   2% (1/38)   [Kremote: Resolving deltas:   5% (2/38)   [Kremote: Resolving deltas:   7% (3/38)   [Kremote: Resolving deltas:  10% (4/38)   [Kremote: Resolving deltas:  13% (5/38)   [Kremote: Resolving deltas:  15% (6/38)   [Kremote: Resolving deltas:  21% (8/38)   [Kremote: Resolving deltas:  26% (10/38)   [Kremote: Resolving deltas:  28% (11/38)   [Kremote: Resolving deltas:  31% (12/38)   [Kremote: Resolving deltas:  34% (13/38)   [Kremote: Resolving deltas:  50% (19/38)   [Kremote: Resolving deltas:  57% (22/38)   [Kremote: Resolving deltas:  68% (26/38)   [Kremote: Resolving deltas:  76% (29/38)   [Kremote: Resolving deltas:  78% (30/38)   [Kremote: Resolving deltas:  81% (31/38)   [Kremote: Resolving deltas:  84% (32/38)   [Kremote: Resolving deltas:  86% (33/38)   [Kremote: Resolving deltas:  89% (34/38)   [Kremote: Resolving deltas:  92% (35/38)   [Kremote: Resolving deltas:  94% (36/38)   [Kremote: Resolving deltas:  97% (37/38)   [Kremote: Resolving deltas: 100% (38/38)   [Kremote: Resolving deltas: 100% (38/38), completed with 1 local object.[K
-To https://github.com/osorensen/website.git
-   e881917..acf2b2e  master -> master
-git status
-On branch master
-Your branch is up to date with 'origin/master'.
-
-Changes not staged for commit:
-  (use "git add/rm <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	[31mmodified:   .Rproj.user/91D31DD7/console06/DC87A03E[m
-	[31mmodified:   .Rproj.user/91D31DD7/console06/DC87A03E.env[m
-	[31mmodified:   .Rproj.user/91D31DD7/console06/INDEX001[m
-	[31mmodified:   .Rproj.user/91D31DD7/sources/prop/EC5D57F0[m
-	[31mdeleted:    README.md[m
-	[31mmodified:   config.toml[m
-	[31mdeleted:    content/home/about.md[m
-	[31mdeleted:    content/home/contact.md[m
-	[31mdeleted:    content/home/experience.md[m
-	[31mdeleted:    content/home/hero.md[m
-	[31mdeleted:    content/home/hero_carousel.md[m
-	[31mdeleted:    content/home/posts.md[m
-	[31mdeleted:    content/home/projects.md[m
-	[31mdeleted:    content/home/publications.md[m
-	[31mdeleted:    content/home/publications_selected.md[m
-	[31mdeleted:    content/home/skills.md[m
-	[31mdeleted:    content/home/tags.md[m
-	[31mdeleted:    content/home/talks.md[m
-	[31mdeleted:    content/home/talks_selected.md[m
-	[31mdeleted:    content/home/teaching.md[m
-	[31mdeleted:    content/post/_index.md[m
-	[31mdeleted:    content/post/getting-started/featured.jpg[m
-	[31mdeleted:    content/post/getting-started/gallery/theme-1950s.png[m
-	[31mdeleted:    content/post/getting-started/gallery/theme-apogee.png[m
-	[31mdeleted:    content/post/getting-started/gallery/theme-coffee-playfair.png[m
-	[31mdeleted:    content/post/getting-started/gallery/theme-cupcake.png[m
-	[31mdeleted:    content/post/getting-started/gallery/theme-dark.png[m
-	[31mdeleted:    content/post/getting-started/gallery/theme-default.png[m
-	[31mdeleted:    content/post/getting-started/gallery/theme-forest.png[m
-	[31mdeleted:    content/post/getting-started/gallery/theme-ocean.png[m
-	[31mdeleted:    content/post/getting-started/index.md[m
-	[31mdeleted:    content/privacy.md[m
-	[31mdeleted:    content/project/external-project/featured.jpg[m
-	[31mdeleted:    content/project/external-project/index.md[m
-	[31mdeleted:    content/project/internal-project/featured.jpg[m
-	[31mdeleted:    content/project/internal-project/index.md[m
-	[31mdeleted:    content/publication/_index.md[m
-	[31mdeleted:    content/publication/clothing-search/cite.bib[m
-	[31mdeleted:    content/publication/clothing-search/featured.jpg[m
-	[31mdeleted:    content/publication/clothing-search/index.md[m
-	[31mdeleted:    content/publication/person-re-id/featured.jpg[m
-	[31mdeleted:    content/publication/person-re-id/index.md[m
-	[31mdeleted:    content/slides/example-slides.md[m
-	[31mdeleted:    content/talk/_index.md[m
-	[31mdeleted:    content/talk/example/featured.jpg[m
-	[31mdeleted:    content/talk/example/index.md[m
-	[31mdeleted:    content/tutorial/_index.md[m
-	[31mdeleted:    content/tutorial/example.md[m
-	[31mdeleted:    static/img/boards.jpg[m
-	[31mdeleted:    static/img/headers/bubbles-wide.jpg[m
-	[31mdeleted:    static/img/portrait.jpg[m
-	[31mdeleted:    themes/hugo-academic/.editorconfig[m
-	[31mdeleted:    themes/hugo-academic/.github/PULL_REQUEST_TEMPLATE.md[m
-	[31mdeleted:    themes/hugo-academic/.gitignore[m
-	[31mdeleted:    themes/hugo-academic/LICENSE.md[m
-	[31mdeleted:    themes/hugo-academic/README.md[m
-	[31mdeleted:    themes/hugo-academic/academic.png[m
-	[31mdeleted:    themes/hugo-academic/archetypes/default.md[m
-	[31mdeleted:    themes/hugo-academic/archetypes/docs.md[m
-	[31mdeleted:    themes/hugo-academic/archetypes/home.md[m
-	[31mdeleted:    themes/hugo-academic/archetypes/post/index.md[m
-	[31mdeleted:    themes/hugo-academic/archetypes/project/index.md[m
-	[31mdeleted:    themes/hugo-academic/archetypes/publication/index.md[m
-	[31mdeleted:    themes/hugo-academic/archetypes/slides.md[m
-	[31mdeleted:    themes/hugo-academic/archetypes/talk/index.md[m
-	[31mdeleted:    themes/hugo-academic/assets/css/reveal.css[m
-	[31mdeleted:    themes/hugo-academic/assets/css/reveal_custom.css[m
-	[31mdeleted:    themes/hugo-academic/assets/js/academic-search.js[m
-	[31mdeleted:    themes/hugo-academic/assets/js/academic.js[m
-	[31mdeleted:    themes/hugo-academic/assets/js/algolia-search.js[m
-	[31mdeleted:    themes/hugo-academic/assets/js/mathjax-config.js[m
-	[31mdeleted:    themes/hugo-academic/data/academic.toml[m
-	[31mdeleted:    themes/hugo-academic/data/assets.toml[m
-	[31mdeleted:    themes/hugo-academic/data/fonts/classic.toml[m
-	[31mdeleted:    themes/hugo-academic/data/fonts/default.toml[m
-	[31mdeleted:    themes/hugo-academic/data/fonts/playfair.toml[m
-	[31mdeleted:    themes/hugo-academic/data/i18n/languages.yaml[m
-	[31mdeleted:    themes/hugo-academic/data/themes/1950s.toml[m
-	[31mdeleted:    themes/hugo-academic/data/themes/apogee.toml[m
-	[31mdeleted:    themes/hugo-academic/data/themes/coffee.toml[m
-	[31mdeleted:    themes/hugo-academic/data/themes/cupcake.toml[m
-	[31mdeleted:    themes/hugo-academic/data/themes/dark.toml[m
-	[31mdeleted:    themes/hugo-academic/data/themes/default.toml[m
-	[31mdeleted:    themes/hugo-academic/data/themes/forest.toml[m
-	[31mdeleted:    themes/hugo-academic/data/themes/ocean.toml[m
-	[31mdeleted:    themes/hugo-academic/demo.sh[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/config.toml[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/home/about.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/home/contact.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/home/experience.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/home/hero.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/home/hero_carousel.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/home/posts.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/home/projects.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/home/publications.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/home/publications_selected.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/home/skills.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/home/tags.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/home/talks.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/home/talks_selected.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/home/teaching.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/post/_index.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/post/getting-started/featured.jpg[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-1950s.png[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-apogee.png[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-coffee-playfair.png[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-cupcake.png[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-dark.png[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-default.png[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-forest.png[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-ocean.png[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/post/getting-started/index.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/privacy.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/project/external-project/featured.jpg[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/project/external-project/index.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/project/internal-project/featured.jpg[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/project/internal-project/index.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/publication/_index.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/publication/clothing-search/cite.bib[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/publication/clothing-search/featured.jpg[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/publication/clothing-search/index.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/publication/person-re-id/featured.jpg[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/publication/person-re-id/index.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/slides/example-slides.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/talk/_index.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/talk/example/featured.jpg[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/talk/example/index.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/tutorial/_index.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/content/tutorial/example.md[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/static/img/boards.jpg[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/static/img/headers/bubbles-wide.jpg[m
-	[31mdeleted:    themes/hugo-academic/exampleSite/static/img/portrait.jpg[m
-	[31mdeleted:    themes/hugo-academic/i18n/ca.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/de.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/el.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/en.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/es.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/eu.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/fr.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/id.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/it.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/ja.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/ko.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/nl.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/pl.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/pt.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/ru.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/tr.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/vi.yaml[m
-	[31mdeleted:    themes/hugo-academic/i18n/zh.yaml[m
-	[31mdeleted:    themes/hugo-academic/images/screenshot.png[m
-	[31mdeleted:    themes/hugo-academic/images/theme-1950s.png[m
-	[31mdeleted:    themes/hugo-academic/images/theme-apogee.png[m
-	[31mdeleted:    themes/hugo-academic/images/theme-coffee-playfair.png[m
-	[31mdeleted:    themes/hugo-academic/images/theme-cupcake.png[m
-	[31mdeleted:    themes/hugo-academic/images/theme-dark.png[m
-	[31mdeleted:    themes/hugo-academic/images/theme-default.png[m
-	[31mdeleted:    themes/hugo-academic/images/theme-forest.png[m
-	[31mdeleted:    themes/hugo-academic/images/theme-ocean.png[m
-	[31mdeleted:    themes/hugo-academic/images/theme-spacer.png[m
-	[31mdeleted:    themes/hugo-academic/images/tn.png[m
-	[31mdeleted:    themes/hugo-academic/layouts/404.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/_default/list.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/_default/single.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/docs/list.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/docs/single.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/home/list.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/home/single.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/index.css[m
-	[31mdeleted:    themes/hugo-academic/layouts/index.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/index.json[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/comments.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/cookie_consent.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/css/academic.css[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/css/parse_theme.css[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/docs_layout.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/docs_sidebar.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/docs_toc_foot.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/footer.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/footer_container.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/footer_section.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/head_custom.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/header.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/navbar.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/page_author.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/page_header.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/page_links.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/page_links_div.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/page_metadata.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/pagination.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/post_li_detailed.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/post_li_simple.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/post_li_stream.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/project_li_card.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/project_li_showcase.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/project_li_simple.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/publication_li_apa.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/publication_li_detailed.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/publication_li_mla.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/publication_li_simple.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/publication_li_stream.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/search.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/section_pager.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/share.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/slides.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/tags.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/talk_li_detailed.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/talk_li_simple.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/talk_li_stream.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widget_page.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widgets/about.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widgets/contact.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widgets/custom.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widgets/experience.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widgets/featurette.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widgets/hero.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widgets/hero_carousel.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widgets/posts.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widgets/projects.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widgets/publications.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widgets/publications_selected.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widgets/tag_cloud.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widgets/talks.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/partials/widgets/talks_selected.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/project/single.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/publication/single.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/rss.xml[m
-	[31mdeleted:    themes/hugo-academic/layouts/section/home.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/section/post.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/section/publication.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/section/talk.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/shortcodes/alert.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/shortcodes/figure.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/shortcodes/fragment.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/shortcodes/gallery.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/shortcodes/gdocs.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/shortcodes/hl.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/shortcodes/list_categories.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/shortcodes/list_tags.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/shortcodes/slide.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/shortcodes/speaker_note.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/shortcodes/staticref.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/shortcodes/toc.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/shortcodes/video.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/sitemap.xml[m
-	[31mdeleted:    themes/hugo-academic/layouts/slides/baseof.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/slides/list.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/slides/single.html[m
-	[31mdeleted:    themes/hugo-academic/layouts/talk/single.html[m
-	[31mdeleted:    themes/hugo-academic/static/img/icon-192.png[m
-	[31mdeleted:    themes/hugo-academic/static/img/icon.png[m
-	[31mdeleted:    themes/hugo-academic/static/img/portrait.jpg[m
-	[31mdeleted:    themes/hugo-academic/static/js/vendor/reveal.js/plugin/notes/notes.html[m
-	[31mdeleted:    themes/hugo-academic/static/js/vendor/reveal.js/plugin/notes/notes.js[m
-	[31mdeleted:    themes/hugo-academic/static/site.webmanifest[m
-	[31mdeleted:    themes/hugo-academic/theme.toml[m
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-
-	[31m.DS_Store[m
-	[31mcontent/about.md[m
-	[31mcontent/post/2015-01-01-lorem-ipsum.md[m
-	[31mcontent/post/2015-07-23-r-rmarkdown.html[m
-	[31mcontent/post/2016-12-30-hello-markdown.md[m
-	[31mpublic/[m
-	[31mstatic/.gitkeep[m
-	[31mstatic/post/[m
-	[31mthemes/hugo-lithium/[m
-
-no changes added to commit (use "git add" and/or "git commit -a")
-]0;~/Repos/websiteysteins-MBP:website oyss$ git add .
-]0;~/Repos/websiteysteins-MBP:website oyss$ git commit -m "Switched back to Ynih[K[K[Kinhui theme"
-[master 8ce24b7] Switched back to Yinhui theme
- 319 files changed, 3411 insertions(+), 13821 deletions(-)
- create mode 100644 .DS_Store
- rewrite .Rproj.user/91D31DD7/console06/INDEX001 (84%)
- delete mode 100644 README.md
- rewrite config.toml (98%)
- create mode 100644 content/about.md
- delete mode 100644 content/home/about.md
- delete mode 100644 content/home/contact.md
- delete mode 100644 content/home/experience.md
- delete mode 100644 content/home/hero.md
- delete mode 100644 content/home/hero_carousel.md
- delete mode 100644 content/home/posts.md
- delete mode 100644 content/home/projects.md
- delete mode 100644 content/home/publications.md
- delete mode 100644 content/home/publications_selected.md
- delete mode 100644 content/home/skills.md
- delete mode 100644 content/home/tags.md
- delete mode 100644 content/home/talks.md
- delete mode 100644 content/home/talks_selected.md
- delete mode 100644 content/home/teaching.md
- create mode 100644 content/post/2015-01-01-lorem-ipsum.md
- create mode 100644 content/post/2015-07-23-r-rmarkdown.html
- create mode 100644 content/post/2016-12-30-hello-markdown.md
- delete mode 100644 content/post/_index.md
- delete mode 100644 content/post/getting-started/featured.jpg
- delete mode 100644 content/post/getting-started/gallery/theme-1950s.png
- delete mode 100644 content/post/getting-started/gallery/theme-apogee.png
- delete mode 100644 content/post/getting-started/gallery/theme-coffee-playfair.png
- delete mode 100644 content/post/getting-started/gallery/theme-cupcake.png
- delete mode 100644 content/post/getting-started/gallery/theme-dark.png
- delete mode 100644 content/post/getting-started/gallery/theme-default.png
- delete mode 100644 content/post/getting-started/gallery/theme-forest.png
- delete mode 100644 content/post/getting-started/gallery/theme-ocean.png
- delete mode 100644 content/post/getting-started/index.md
- delete mode 100644 content/privacy.md
- delete mode 100644 content/project/external-project/featured.jpg
- delete mode 100644 content/project/external-project/index.md
- delete mode 100644 content/project/internal-project/featured.jpg
- delete mode 100644 content/project/internal-project/index.md
- delete mode 100644 content/publication/_index.md
- delete mode 100644 content/publication/clothing-search/cite.bib
- delete mode 100644 content/publication/clothing-search/featured.jpg
- delete mode 100644 content/publication/clothing-search/index.md
- delete mode 100644 content/publication/person-re-id/featured.jpg
- delete mode 100644 content/publication/person-re-id/index.md
- delete mode 100644 content/slides/example-slides.md
- delete mode 100644 content/talk/_index.md
- delete mode 100644 content/talk/example/featured.jpg
- delete mode 100644 content/talk/example/index.md
- delete mode 100644 content/tutorial/_index.md
- delete mode 100644 content/tutorial/example.md
- rename themes/hugo-academic/assets/css/reveal_custom.css => public/.gitkeep (100%)
- create mode 100644 public/2015/01/01/lorem-ipsum/index.html
- create mode 100644 public/2015/07/23/hello-r-markdown/index.html
- create mode 100644 public/2016/12/30/a-plain-markdown-post/index.html
- create mode 100644 public/about/index.html
- create mode 100644 public/categories/index.html
- create mode 100644 public/categories/index.xml
- create mode 100644 public/categories/r/index.html
- create mode 100644 public/categories/r/index.xml
- create mode 100644 public/css/fonts.css
- create mode 100644 public/css/main.css
- create mode 100644 public/fonts/lato-v11-latin-regular.woff
- create mode 100644 public/fonts/lato-v11-latin-regular.woff2
- create mode 100644 public/fonts/merriweather-v13-latin-regular.woff
- create mode 100644 public/fonts/merriweather-v13-latin-regular.woff2
- create mode 100644 public/images/hugo-logo.png
- create mode 100644 public/images/logo.png
- create mode 100644 public/index.html
- create mode 100644 public/index.xml
- create mode 100644 public/js/math-code.js
- create mode 100644 public/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png
- create mode 100644 public/post/index.html
- create mode 100644 public/post/index.xml
- create mode 100644 public/sitemap.xml
- create mode 100644 public/tags/index.html
- create mode 100644 public/tags/index.xml
- create mode 100644 public/tags/plot/index.html
- create mode 100644 public/tags/plot/index.xml
- create mode 100644 public/tags/r-markdown/index.html
- create mode 100644 public/tags/r-markdown/index.xml
- create mode 100644 public/tags/regression/index.html
- create mode 100644 public/tags/regression/index.xml
- rename themes/hugo-academic/layouts/home/list.html => static/.gitkeep (100%)
- delete mode 100644 static/img/boards.jpg
- delete mode 100644 static/img/headers/bubbles-wide.jpg
- delete mode 100644 static/img/portrait.jpg
- create mode 100644 static/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png
- delete mode 100644 themes/hugo-academic/.editorconfig
- delete mode 100644 themes/hugo-academic/.github/PULL_REQUEST_TEMPLATE.md
- delete mode 100644 themes/hugo-academic/.gitignore
- delete mode 100644 themes/hugo-academic/README.md
- delete mode 100644 themes/hugo-academic/academic.png
- delete mode 100644 themes/hugo-academic/archetypes/default.md
- delete mode 100644 themes/hugo-academic/archetypes/docs.md
- delete mode 100644 themes/hugo-academic/archetypes/home.md
- delete mode 100644 themes/hugo-academic/archetypes/post/index.md
- delete mode 100644 themes/hugo-academic/archetypes/project/index.md
- delete mode 100644 themes/hugo-academic/archetypes/publication/index.md
- delete mode 100644 themes/hugo-academic/archetypes/slides.md
- delete mode 100644 themes/hugo-academic/archetypes/talk/index.md
- delete mode 100644 themes/hugo-academic/assets/css/reveal.css
- delete mode 100644 themes/hugo-academic/assets/js/academic-search.js
- delete mode 100644 themes/hugo-academic/assets/js/academic.js
- delete mode 100644 themes/hugo-academic/assets/js/algolia-search.js
- delete mode 100644 themes/hugo-academic/assets/js/mathjax-config.js
- delete mode 100644 themes/hugo-academic/data/academic.toml
- delete mode 100644 themes/hugo-academic/data/assets.toml
- delete mode 100644 themes/hugo-academic/data/fonts/classic.toml
- delete mode 100644 themes/hugo-academic/data/fonts/default.toml
- delete mode 100644 themes/hugo-academic/data/fonts/playfair.toml
- delete mode 100644 themes/hugo-academic/data/i18n/languages.yaml
- delete mode 100644 themes/hugo-academic/data/themes/1950s.toml
- delete mode 100644 themes/hugo-academic/data/themes/apogee.toml
- delete mode 100644 themes/hugo-academic/data/themes/coffee.toml
- delete mode 100644 themes/hugo-academic/data/themes/cupcake.toml
- delete mode 100644 themes/hugo-academic/data/themes/dark.toml
- delete mode 100644 themes/hugo-academic/data/themes/default.toml
- delete mode 100644 themes/hugo-academic/data/themes/forest.toml
- delete mode 100644 themes/hugo-academic/data/themes/ocean.toml
- delete mode 100644 themes/hugo-academic/demo.sh
- delete mode 100644 themes/hugo-academic/exampleSite/config.toml
- delete mode 100644 themes/hugo-academic/exampleSite/content/home/about.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/home/contact.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/home/experience.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/home/hero.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/home/hero_carousel.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/home/posts.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/home/projects.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/home/publications.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/home/publications_selected.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/home/skills.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/home/tags.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/home/talks.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/home/talks_selected.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/home/teaching.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/post/_index.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/featured.jpg
- delete mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-1950s.png
- delete mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-apogee.png
- delete mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-coffee-playfair.png
- delete mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-cupcake.png
- delete mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-dark.png
- delete mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-default.png
- delete mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-forest.png
- delete mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-ocean.png
- delete mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/index.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/privacy.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/project/external-project/featured.jpg
- delete mode 100644 themes/hugo-academic/exampleSite/content/project/external-project/index.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/project/internal-project/featured.jpg
- delete mode 100644 themes/hugo-academic/exampleSite/content/project/internal-project/index.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/publication/_index.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/publication/clothing-search/cite.bib
- delete mode 100644 themes/hugo-academic/exampleSite/content/publication/clothing-search/featured.jpg
- delete mode 100644 themes/hugo-academic/exampleSite/content/publication/clothing-search/index.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/publication/person-re-id/featured.jpg
- delete mode 100644 themes/hugo-academic/exampleSite/content/publication/person-re-id/index.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/slides/example-slides.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/talk/_index.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/talk/example/featured.jpg
- delete mode 100644 themes/hugo-academic/exampleSite/content/talk/example/index.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/tutorial/_index.md
- delete mode 100644 themes/hugo-academic/exampleSite/content/tutorial/example.md
- delete mode 100644 themes/hugo-academic/exampleSite/static/img/boards.jpg
- delete mode 100644 themes/hugo-academic/exampleSite/static/img/headers/bubbles-wide.jpg
- delete mode 100644 themes/hugo-academic/exampleSite/static/img/portrait.jpg
- delete mode 100644 themes/hugo-academic/i18n/ca.yaml
- delete mode 100644 themes/hugo-academic/i18n/de.yaml
- delete mode 100644 themes/hugo-academic/i18n/el.yaml
- delete mode 100644 themes/hugo-academic/i18n/en.yaml
- delete mode 100644 themes/hugo-academic/i18n/es.yaml
- delete mode 100644 themes/hugo-academic/i18n/eu.yaml
- delete mode 100644 themes/hugo-academic/i18n/fr.yaml
- delete mode 100644 themes/hugo-academic/i18n/id.yaml
- delete mode 100644 themes/hugo-academic/i18n/it.yaml
- delete mode 100644 themes/hugo-academic/i18n/ja.yaml
- delete mode 100644 themes/hugo-academic/i18n/ko.yaml
- delete mode 100644 themes/hugo-academic/i18n/nl.yaml
- delete mode 100644 themes/hugo-academic/i18n/pl.yaml
- delete mode 100644 themes/hugo-academic/i18n/pt.yaml
- delete mode 100644 themes/hugo-academic/i18n/ru.yaml
- delete mode 100644 themes/hugo-academic/i18n/tr.yaml
- delete mode 100644 themes/hugo-academic/i18n/vi.yaml
- delete mode 100644 themes/hugo-academic/i18n/zh.yaml
- delete mode 100644 themes/hugo-academic/images/screenshot.png
- delete mode 100644 themes/hugo-academic/images/theme-1950s.png
- delete mode 100644 themes/hugo-academic/images/theme-apogee.png
- delete mode 100644 themes/hugo-academic/images/theme-coffee-playfair.png
- delete mode 100644 themes/hugo-academic/images/theme-cupcake.png
- delete mode 100644 themes/hugo-academic/images/theme-dark.png
- delete mode 100644 themes/hugo-academic/images/theme-default.png
- delete mode 100644 themes/hugo-academic/images/theme-forest.png
- delete mode 100644 themes/hugo-academic/images/theme-ocean.png
- delete mode 100644 themes/hugo-academic/images/theme-spacer.png
- delete mode 100644 themes/hugo-academic/images/tn.png
- delete mode 100644 themes/hugo-academic/layouts/404.html
- delete mode 100644 themes/hugo-academic/layouts/_default/list.html
- delete mode 100644 themes/hugo-academic/layouts/_default/single.html
- delete mode 100644 themes/hugo-academic/layouts/docs/list.html
- delete mode 100644 themes/hugo-academic/layouts/docs/single.html
- delete mode 100644 themes/hugo-academic/layouts/index.css
- delete mode 100644 themes/hugo-academic/layouts/index.html
- delete mode 100644 themes/hugo-academic/layouts/index.json
- delete mode 100644 themes/hugo-academic/layouts/partials/comments.html
- delete mode 100644 themes/hugo-academic/layouts/partials/cookie_consent.html
- delete mode 100644 themes/hugo-academic/layouts/partials/css/academic.css
- delete mode 100644 themes/hugo-academic/layouts/partials/css/parse_theme.css
- delete mode 100644 themes/hugo-academic/layouts/partials/docs_layout.html
- delete mode 100644 themes/hugo-academic/layouts/partials/docs_sidebar.html
- delete mode 100644 themes/hugo-academic/layouts/partials/docs_toc_foot.html
- delete mode 100644 themes/hugo-academic/layouts/partials/footer.html
- delete mode 100644 themes/hugo-academic/layouts/partials/footer_container.html
- delete mode 100644 themes/hugo-academic/layouts/partials/footer_section.html
- delete mode 100644 themes/hugo-academic/layouts/partials/header.html
- delete mode 100644 themes/hugo-academic/layouts/partials/navbar.html
- delete mode 100644 themes/hugo-academic/layouts/partials/page_author.html
- delete mode 100644 themes/hugo-academic/layouts/partials/page_header.html
- delete mode 100644 themes/hugo-academic/layouts/partials/page_links.html
- delete mode 100644 themes/hugo-academic/layouts/partials/page_links_div.html
- delete mode 100644 themes/hugo-academic/layouts/partials/page_metadata.html
- delete mode 100644 themes/hugo-academic/layouts/partials/pagination.html
- delete mode 100644 themes/hugo-academic/layouts/partials/post_li_detailed.html
- delete mode 100644 themes/hugo-academic/layouts/partials/post_li_simple.html
- delete mode 100644 themes/hugo-academic/layouts/partials/post_li_stream.html
- delete mode 100644 themes/hugo-academic/layouts/partials/project_li_card.html
- delete mode 100644 themes/hugo-academic/layouts/partials/project_li_showcase.html
- delete mode 100644 themes/hugo-academic/layouts/partials/project_li_simple.html
- delete mode 100644 themes/hugo-academic/layouts/partials/publication_li_apa.html
- delete mode 100644 themes/hugo-academic/layouts/partials/publication_li_detailed.html
- delete mode 100644 themes/hugo-academic/layouts/partials/publication_li_mla.html
- delete mode 100644 themes/hugo-academic/layouts/partials/publication_li_simple.html
- delete mode 100644 themes/hugo-academic/layouts/partials/publication_li_stream.html
- delete mode 100644 themes/hugo-academic/layouts/partials/search.html
- delete mode 100644 themes/hugo-academic/layouts/partials/section_pager.html
- delete mode 100644 themes/hugo-academic/layouts/partials/share.html
- delete mode 100644 themes/hugo-academic/layouts/partials/slides.html
- delete mode 100644 themes/hugo-academic/layouts/partials/tags.html
- delete mode 100644 themes/hugo-academic/layouts/partials/talk_li_detailed.html
- delete mode 100644 themes/hugo-academic/layouts/partials/talk_li_simple.html
- delete mode 100644 themes/hugo-academic/layouts/partials/talk_li_stream.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widget_page.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widgets/about.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widgets/contact.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widgets/custom.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widgets/experience.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widgets/featurette.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widgets/hero.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widgets/hero_carousel.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widgets/posts.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widgets/projects.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widgets/publications.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widgets/publications_selected.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widgets/tag_cloud.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widgets/talks.html
- delete mode 100644 themes/hugo-academic/layouts/partials/widgets/talks_selected.html
- delete mode 100644 themes/hugo-academic/layouts/project/single.html
- delete mode 100644 themes/hugo-academic/layouts/publication/single.html
- delete mode 100644 themes/hugo-academic/layouts/rss.xml
- delete mode 100644 themes/hugo-academic/layouts/section/home.html
- delete mode 100644 themes/hugo-academic/layouts/section/post.html
- delete mode 100644 themes/hugo-academic/layouts/section/publication.html
- delete mode 100644 themes/hugo-academic/layouts/section/talk.html
- delete mode 100644 themes/hugo-academic/layouts/shortcodes/alert.html
- delete mode 100644 themes/hugo-academic/layouts/shortcodes/figure.html
- delete mode 100644 themes/hugo-academic/layouts/shortcodes/fragment.html
- delete mode 100644 themes/hugo-academic/layouts/shortcodes/gallery.html
- delete mode 100644 themes/hugo-academic/layouts/shortcodes/gdocs.html
- delete mode 100644 themes/hugo-academic/layouts/shortcodes/hl.html
- delete mode 100644 themes/hugo-academic/layouts/shortcodes/list_categories.html
- delete mode 100644 themes/hugo-academic/layouts/shortcodes/list_tags.html
- delete mode 100644 themes/hugo-academic/layouts/shortcodes/slide.html
- delete mode 100644 themes/hugo-academic/layouts/shortcodes/speaker_note.html
- delete mode 100644 themes/hugo-academic/layouts/shortcodes/staticref.html
- delete mode 100644 themes/hugo-academic/layouts/shortcodes/toc.html
- delete mode 100644 themes/hugo-academic/layouts/shortcodes/video.html
- delete mode 100644 themes/hugo-academic/layouts/sitemap.xml
- delete mode 100644 themes/hugo-academic/layouts/slides/baseof.html
- delete mode 100644 themes/hugo-academic/layouts/slides/list.html
- delete mode 100644 themes/hugo-academic/layouts/slides/single.html
- delete mode 100644 themes/hugo-academic/layouts/talk/single.html
- delete mode 100644 themes/hugo-academic/static/img/icon-192.png
- delete mode 100644 themes/hugo-academic/static/img/icon.png
- delete mode 100644 themes/hugo-academic/static/img/portrait.jpg
- delete mode 100644 themes/hugo-academic/static/js/vendor/reveal.js/plugin/notes/notes.html
- delete mode 100644 themes/hugo-academic/static/js/vendor/reveal.js/plugin/notes/notes.js
- delete mode 100644 themes/hugo-academic/static/site.webmanifest
- delete mode 100644 themes/hugo-academic/theme.toml
- create mode 100644 themes/hugo-lithium/.gitignore
- rename themes/{hugo-academic => hugo-lithium}/LICENSE.md (94%)
- create mode 100644 themes/hugo-lithium/README.md
- create mode 100644 themes/hugo-lithium/archetypes/default.md
- create mode 100644 themes/hugo-lithium/exampleSite/config.toml
- create mode 100644 themes/hugo-lithium/exampleSite/content/about.md
- create mode 100644 themes/hugo-lithium/exampleSite/content/post/2015-01-01-lorem-ipsum.md
- create mode 100644 themes/hugo-lithium/exampleSite/content/post/2016-12-30-hello-markdown.md
- rename themes/{hugo-academic/layouts/home/single.html => hugo-lithium/exampleSite/static/.gitkeep} (100%)
- create mode 100644 themes/hugo-lithium/layouts/_default/list.html
- create mode 100644 themes/hugo-lithium/layouts/_default/single.html
- create mode 100644 themes/hugo-lithium/layouts/partials/disqus.html
- create mode 100644 themes/hugo-lithium/layouts/partials/footer.html
- create mode 100644 themes/hugo-lithium/layouts/partials/footer_highlightjs.html
- create mode 100644 themes/hugo-lithium/layouts/partials/footer_mathjax.html
- create mode 100644 themes/hugo-lithium/layouts/partials/head.html
- rename themes/{hugo-academic => hugo-lithium}/layouts/partials/head_custom.html (100%)
- create mode 100644 themes/hugo-lithium/layouts/partials/head_highlightjs.html
- create mode 100644 themes/hugo-lithium/layouts/partials/header.html
- create mode 100644 themes/hugo-lithium/layouts/partials/nav.html
- create mode 100644 themes/hugo-lithium/static/css/fonts.css
- create mode 100644 themes/hugo-lithium/static/css/main.css
- create mode 100644 themes/hugo-lithium/static/fonts/lato-v11-latin-regular.woff
- create mode 100644 themes/hugo-lithium/static/fonts/lato-v11-latin-regular.woff2
- create mode 100644 themes/hugo-lithium/static/fonts/merriweather-v13-latin-regular.woff
- create mode 100644 themes/hugo-lithium/static/fonts/merriweather-v13-latin-regular.woff2
- create mode 100644 themes/hugo-lithium/static/images/hugo-logo.png
- create mode 100644 themes/hugo-lithium/static/images/logo.png
- create mode 100644 themes/hugo-lithium/static/js/math-code.js
-]0;~/Repos/websiteysteins-MBP:website oyss$ git push
-Counting objects: 103, done.
-Delta compression using up to 12 threads.
-Compressing objects:   1% (1/84)   Compressing objects:   2% (2/84)   Compressing objects:   3% (3/84)   Compressing objects:   4% (4/84)   Compressing objects:   5% (5/84)   Compressing objects:   7% (6/84)   Compressing objects:   8% (7/84)   Compressing objects:   9% (8/84)   Compressing objects:  10% (9/84)   Compressing objects:  11% (10/84)   Compressing objects:  13% (11/84)   Compressing objects:  14% (12/84)   Compressing objects:  15% (13/84)   Compressing objects:  16% (14/84)   Compressing objects:  17% (15/84)   Compressing objects:  19% (16/84)   Compressing objects:  20% (17/84)   Compressing objects:  21% (18/84)   Compressing objects:  22% (19/84)   Compressing objects:  23% (20/84)   Compressing objects:  25% (21/84)   Compressing objects:  26% (22/84)   Compressing objects:  27% (23/84)   Compressing objects:  28% (24/84)   Compressing objects:  29% (25/84)   Compressing objects:  30% (26/84)   Compressing objects:  32% (27/84)   Compressing objects:  33% (28/84)   Compressing objects:  34% (29/84)   Compressing objects:  35% (30/84)   Compressing objects:  36% (31/84)   Compressing objects:  38% (32/84)   Compressing objects:  39% (33/84)   Compressing objects:  40% (34/84)   Compressing objects:  41% (35/84)   Compressing objects:  42% (36/84)   Compressing objects:  44% (37/84)   Compressing objects:  45% (38/84)   Compressing objects:  46% (39/84)   Compressing objects:  47% (40/84)   Compressing objects:  48% (41/84)   Compressing objects:  50% (42/84)   Compressing objects:  51% (43/84)   Compressing objects:  52% (44/84)   Compressing objects:  53% (45/84)   Compressing objects:  54% (46/84)   Compressing objects:  55% (47/84)   Compressing objects:  57% (48/84)   Compressing objects:  58% (49/84)   Compressing objects:  59% (50/84)   Compressing objects:  60% (51/84)   Compressing objects:  61% (52/84)   Compressing objects:  63% (53/84)   Compressing objects:  64% (54/84)   Compressing objects:  65% (55/84)   Compressing objects:  66% (56/84)   Compressing objects:  67% (57/84)   Compressing objects:  69% (58/84)   Compressing objects:  70% (59/84)   Compressing objects:  71% (60/84)   Compressing objects:  72% (61/84)   Compressing objects:  73% (62/84)   Compressing objects:  75% (63/84)   Compressing objects:  76% (64/84)   Compressing objects:  77% (65/84)   Compressing objects:  78% (66/84)   Compressing objects:  79% (67/84)   Compressing objects:  80% (68/84)   Compressing objects:  82% (69/84)   Compressing objects:  83% (70/84)   Compressing objects:  84% (71/84)   Compressing objects:  85% (72/84)   Compressing objects:  86% (73/84)   Compressing objects:  88% (74/84)   Compressing objects:  89% (75/84)   Compressing objects:  90% (76/84)   Compressing objects:  91% (77/84)   Compressing objects:  92% (78/84)   Compressing objects:  94% (79/84)   Compressing objects:  95% (80/84)   Compressing objects:  96% (81/84)   Compressing objects:  97% (82/84)   Compressing objects:  98% (83/84)   Compressing objects: 100% (84/84)   Compressing objects: 100% (84/84), done.
-Writing objects:   0% (1/103)   Writing objects:   1% (2/103)   Writing objects:   2% (3/103)   Writing objects:   3% (4/103)   Writing objects:   4% (5/103)   Writing objects:   5% (6/103)   Writing objects:   6% (7/103)   Writing objects:   7% (8/103)   Writing objects:   8% (9/103)   Writing objects:   9% (10/103)   Writing objects:  10% (11/103)   Writing objects:  11% (12/103)   Writing objects:  13% (14/103)   Writing objects:  14% (15/103)   Writing objects:  15% (16/103)   Writing objects:  16% (17/103)   Writing objects:  17% (18/103)   Writing objects:  18% (19/103)   Writing objects:  19% (20/103)   Writing objects:  20% (21/103)   Writing objects:  21% (22/103)   Writing objects:  22% (23/103)   Writing objects:  23% (24/103)   Writing objects:  24% (25/103)   Writing objects:  26% (27/103)   Writing objects:  27% (28/103)   Writing objects:  28% (29/103)   Writing objects:  29% (30/103)   Writing objects:  30% (31/103)   Writing objects:  31% (32/103)   Writing objects:  32% (33/103)   Writing objects:  33% (34/103)   Writing objects:  34% (36/103)   Writing objects:  35% (37/103)   Writing objects:  36% (38/103)   Writing objects:  38% (40/103)   Writing objects:  40% (42/103)   Writing objects:  41% (43/103)   Writing objects:  43% (45/103)   Writing objects:  45% (47/103)   Writing objects:  46% (48/103)   Writing objects:  47% (49/103)   Writing objects:  48% (50/103)   Writing objects:  49% (51/103)   Writing objects:  50% (52/103)   Writing objects:  51% (53/103)   Writing objects:  52% (54/103)   Writing objects:  53% (55/103)   Writing objects:  54% (56/103)   Writing objects:  55% (57/103)   Writing objects:  56% (58/103)   Writing objects:  57% (59/103)   Writing objects:  58% (60/103)   Writing objects:  59% (61/103)   Writing objects:  60% (62/103)   Writing objects:  61% (63/103)   Writing objects:  62% (64/103)   Writing objects:  63% (65/103)   Writing objects:  64% (66/103)   Writing objects:  65% (67/103)   Writing objects:  66% (68/103)   Writing objects:  67% (70/103)   Writing objects:  68% (71/103)   Writing objects:  69% (72/103)   Writing objects:  70% (73/103)   Writing objects:  71% (74/103)   Writing objects:  72% (75/103)   Writing objects:  73% (76/103)   Writing objects:  74% (77/103)   Writing objects:  75% (78/103)   Writing objects:  76% (79/103)   Writing objects:  77% (80/103)   Writing objects:  78% (81/103)   Writing objects:  79% (82/103)   Writing objects:  80% (83/103)   Writing objects:  81% (84/103)   Writing objects:  82% (85/103)   Writing objects:  83% (86/103)   Writing objects:  84% (87/103)   Writing objects:  85% (88/103)   Writing objects:  86% (89/103)   Writing objects:  87% (90/103)   Writing objects:  88% (91/103)   Writing objects:  89% (92/103)   Writing objects:  90% (93/103)   Writing objects:  91% (94/103)   Writing objects:  92% (95/103)   Writing objects:  93% (96/103)   Writing objects:  94% (97/103)   Writing objects:  95% (98/103)   Writing objects:  96% (99/103)   Writing objects:  97% (100/103)   Writing objects:  98% (101/103)   Writing objects:  99% (102/103)   Writing objects: 100% (103/103)   Writing objects: 100% (103/103), 183.83 KiB | 1.18 MiB/s, done.
-Total 103 (delta 20), reused 0 (delta 0)
-remote: Resolving deltas:   0% (0/20)   [Kremote: Resolving deltas:   5% (1/20)   [Kremote: Resolving deltas:  55% (11/20)   [Kremote: Resolving deltas:  90% (18/20)   [Kremote: Resolving deltas:  95% (19/20)   [Kremote: Resolving deltas: 100% (20/20)   [Kremote: Resolving deltas: 100% (20/20), completed with 2 local objects.[K
-To https://github.com/osorensen/website.git
-   acf2b2e..8ce24b7  master -> master
-]0;~/Repos/websiteysteins-MBP:website oyss$ git status
-On branch master
-Your branch is up to date with 'origin/master'.
-
-Changes not staged for commit:
-  (use "git add/rm <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	[31mmodified:   .Rproj.user/91D31DD7/console06/DC87A03E[m
-	[31mmodified:   .Rproj.user/91D31DD7/console06/DC87A03E.env[m
-	[31mmodified:   .Rproj.user/91D31DD7/sources/prop/796C9FDF[m
-	[31mmodified:   .Rproj.user/91D31DD7/sources/prop/EC5D57F0[m
-	[31mmodified:   .Rproj.user/91D31DD7/sources/prop/INDEX[m
-	[31mmodified:   .Rproj.user/shared/notebooks/paths[m
-	[31mmodified:   content/about.md[m
-	[31mdeleted:    content/post/2015-01-01-lorem-ipsum.md[m
-	[31mdeleted:    content/post/2015-07-23-r-rmarkdown.Rmd[m
-	[31mdeleted:    content/post/2015-07-23-r-rmarkdown.html[m
-	[31mdeleted:    content/post/2016-12-30-hello-markdown.md[m
-	[31mmodified:   public/about/index.html[m
-	[31mmodified:   public/categories/index.html[m
-	[31mmodified:   public/categories/index.xml[m
-	[31mmodified:   public/index.html[m
-	[31mmodified:   public/index.xml[m
-	[31mmodified:   public/post/index.html[m
-	[31mmodified:   public/post/index.xml[m
-	[31mmodified:   public/sitemap.xml[m
-	[31mmodified:   public/tags/index.html[m
-	[31mmodified:   public/tags/index.xml[m
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-
-	[31mcontent/post/2018-12-28-my-first-post.Rmd[m
-	[31mcontent/post/2018-12-28-my-first-post.html[m
-	[31mpublic/2018/[m
-
-no changes added to commit (use "git add" and/or "git commit -a")
-]0;~/Repos/websiteysteins-MBP:website oyss$ git add .
-]0;~/Repos/websiteysteins-MBP:website oyss$ git commit -m "Wrote About"
-[master b37dab2] Wrote About
- 24 files changed, 621 insertions(+), 425 deletions(-)
- rewrite content/about.md (93%)
- delete mode 100644 content/post/2015-01-01-lorem-ipsum.md
  delete mode 100644 content/post/2015-07-23-r-rmarkdown.Rmd
  delete mode 100644 content/post/2015-07-23-r-rmarkdown.html
  delete mode 100644 content/post/2016-12-30-hello-markdown.md
@@ -1570,3 +589,453 @@ Untracked files:
 	[31mcontent/post/_2018-12-28-lasso-in-twelve-languages.Rmd[m
 
 ]0;~/Repos/websiteysteins-MBP:website oyss$ git adi[Kd .
+]0;~/Repos/websiteysteins-MBP:website oyss$ git commit -m "Site ready in academic layout"
+[master 5152c6a] Site ready in academic layout
+ 409 files changed, 35839 insertions(+), 2770 deletions(-)
+ rewrite .Rproj.user/91D31DD7/console06/INDEX001 (85%)
+ rewrite .Rproj.user/shared/notebooks/paths (62%)
+ rewrite config.toml (79%)
+ delete mode 100644 content/about.md
+ create mode 100644 content/home/about.md
+ create mode 100644 content/home/experience.md
+ create mode 100644 content/home/hero_carousel.md
+ create mode 100644 content/home/posts.md
+ create mode 100644 content/home/tags.md
+ delete mode 100644 content/post/2018-12-28-my-first-post.Rmd
+ delete mode 100644 content/post/2018-12-28-my-first-post.html
+ create mode 100644 content/post/_2018-12-28-lasso-in-twelve-languages.Rmd
+ create mode 100644 content/post/_index.md
+ create mode 100644 content/privacy.md
+ delete mode 100644 public/2015/01/01/lorem-ipsum/index.html
+ delete mode 100644 public/2015/07/23/hello-r-markdown/index.html
+ delete mode 100644 public/2016/12/30/a-plain-markdown-post/index.html
+ delete mode 100644 public/2018/12/28/my-first-post/index.html
+ create mode 100644 public/404.html
+ delete mode 100644 public/about/index.html
+ rewrite public/categories/index.html (90%)
+ create mode 100644 public/categories/machine-learning/index.html
+ create mode 100644 public/categories/machine-learning/index.xml
+ create mode 100644 public/categories/machine-learning/page/1/index.html
+ create mode 100644 public/categories/page/1/index.html
+ rewrite public/categories/r/index.html (90%)
+ create mode 100644 public/categories/r/page/1/index.html
+ create mode 100644 public/categories/statistics/index.html
+ create mode 100644 public/categories/statistics/index.xml
+ create mode 100644 public/categories/statistics/page/1/index.html
+ delete mode 100644 public/css/fonts.css
+ delete mode 100644 public/css/main.css
+ create mode 100644 public/css/reveal_custom.min.css
+ delete mode 100644 public/fonts/lato-v11-latin-regular.woff
+ delete mode 100644 public/fonts/lato-v11-latin-regular.woff2
+ delete mode 100644 public/fonts/merriweather-v13-latin-regular.woff
+ delete mode 100644 public/fonts/merriweather-v13-latin-regular.woff2
+ create mode 100644 public/home/index.xml
+ delete mode 100644 public/images/hugo-logo.png
+ delete mode 100644 public/images/logo.png
+ create mode 100644 public/img/boards.jpg
+ create mode 100644 public/img/headers/bubbles-wide.jpg
+ create mode 100644 public/img/icon-192.png
+ create mode 100644 public/img/icon.png
+ create mode 100644 public/img/portrait.jpg
+ rewrite public/index.html (87%)
+ create mode 100644 public/index.json
+ rewrite public/index.xml (83%)
+ create mode 100644 public/js/academic.min.d037ee5294b166a79dec317c58aea9cc.js
+ delete mode 100644 public/js/math-code.js
+ create mode 100644 public/js/mathjax-config.js
+ create mode 100644 public/js/vendor/reveal.js/plugin/notes/notes.html
+ create mode 100644 public/js/vendor/reveal.js/plugin/notes/notes.js
+ create mode 100644 public/post/2015-07-23-r-rmarkdown/index.html
+ create mode 100644 public/post/getting-started/featured.jpg
+ create mode 100644 public/post/getting-started/featured_hub9ee31969f44a6711206a2baf9f065b4_241861_150x0_resize_q75_box.jpg
+ create mode 100644 public/post/getting-started/featured_hub9ee31969f44a6711206a2baf9f065b4_241861_680x500_fill_q90_box_smart1.jpg
+ create mode 100644 public/post/getting-started/featured_hub9ee31969f44a6711206a2baf9f065b4_241861_800x0_resize_q75_box.jpg
+ create mode 100644 public/post/getting-started/gallery/theme-1950s.png
+ create mode 100644 public/post/getting-started/gallery/theme-apogee.png
+ create mode 100644 public/post/getting-started/gallery/theme-coffee-playfair.png
+ create mode 100644 public/post/getting-started/gallery/theme-cupcake.png
+ create mode 100644 public/post/getting-started/gallery/theme-dark.png
+ create mode 100644 public/post/getting-started/gallery/theme-default.png
+ create mode 100644 public/post/getting-started/gallery/theme-forest.png
+ create mode 100644 public/post/getting-started/gallery/theme-ocean.png
+ create mode 100644 public/post/getting-started/index.html
+ rewrite public/post/index.html (90%)
+ create mode 100644 public/post/lasso-in-12-languages/index.html
+ create mode 100644 public/post/page/1/index.html
+ create mode 100644 public/privacy/index.html
+ create mode 100644 public/project/external-project/featured.jpg
+ create mode 100644 public/project/external-project/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_329522_550x0_resize_q90_box.jpg
+ create mode 100644 public/project/external-project/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_329522_680x500_fill_q90_box_smart1.jpg
+ create mode 100644 public/project/external-project/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_329522_800x0_resize_q75_box.jpg
+ create mode 100644 public/project/external-project/index.html
+ create mode 100644 public/project/index.html
+ create mode 100644 public/project/index.xml
+ create mode 100644 public/project/internal-project/featured.jpg
+ create mode 100644 public/project/internal-project/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_224363_550x0_resize_q90_box.jpg
+ create mode 100644 public/project/internal-project/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_224363_680x500_fill_q90_box_smart1.jpg
+ create mode 100644 public/project/internal-project/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_224363_800x0_resize_q75_box.jpg
+ create mode 100644 public/project/internal-project/index.html
+ create mode 100644 public/project/page/1/index.html
+ create mode 100644 public/publication/clothing-search/cite.bib
+ create mode 100644 public/publication/clothing-search/featured.jpg
+ create mode 100644 public/publication/clothing-search/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_312700_150x0_resize_q75_box.jpg
+ create mode 100644 public/publication/clothing-search/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_312700_680x500_fill_q90_box_smart1.jpg
+ create mode 100644 public/publication/clothing-search/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_312700_800x0_resize_q75_box.jpg
+ create mode 100644 public/publication/clothing-search/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_312700_918x517_fill_q90_box_smart1.jpg
+ create mode 100644 public/publication/clothing-search/index.html
+ create mode 100644 public/publication/index.html
+ create mode 100644 public/publication/index.xml
+ create mode 100644 public/publication/person-re-id/featured.jpg
+ create mode 100644 public/publication/person-re-id/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_214168_150x0_resize_q75_box.jpg
+ create mode 100644 public/publication/person-re-id/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_214168_680x500_fill_q90_box_smart1.jpg
+ create mode 100644 public/publication/person-re-id/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_214168_800x0_resize_q75_box.jpg
+ create mode 100644 public/publication/person-re-id/index.html
+ create mode 100644 public/publication_types/1/index.html
+ create mode 100644 public/publication_types/1/index.xml
+ create mode 100644 public/publication_types/1/page/1/index.html
+ create mode 100644 public/publication_types/2/index.html
+ create mode 100644 public/publication_types/2/index.xml
+ create mode 100644 public/publication_types/2/page/1/index.html
+ create mode 100644 public/publication_types/index.html
+ create mode 100644 public/publication_types/index.xml
+ create mode 100644 public/publication_types/page/1/index.html
+ create mode 100644 public/site.webmanifest
+ rewrite public/sitemap.xml (90%)
+ create mode 100644 public/slides/example-slides/index.html
+ create mode 100644 public/slides/index.xml
+ create mode 100644 public/styles.css
+ create mode 100644 public/tags/academic/index.html
+ create mode 100644 public/tags/academic/index.xml
+ create mode 100644 public/tags/academic/page/1/index.html
+ create mode 100644 public/tags/deep-learning/index.html
+ create mode 100644 public/tags/deep-learning/index.xml
+ create mode 100644 public/tags/deep-learning/page/1/index.html
+ create mode 100644 public/tags/demo/index.html
+ create mode 100644 public/tags/demo/index.xml
+ create mode 100644 public/tags/demo/page/1/index.html
+ rewrite public/tags/index.html (90%)
+ create mode 100644 public/tags/page/1/index.html
+ rewrite public/tags/plot/index.html (90%)
+ create mode 100644 public/tags/plot/page/1/index.html
+ rewrite public/tags/r-markdown/index.html (90%)
+ create mode 100644 public/tags/r-markdown/page/1/index.html
+ rewrite public/tags/regression/index.html (90%)
+ create mode 100644 public/tags/regression/page/1/index.html
+ create mode 100644 public/talk/example/featured.jpg
+ create mode 100644 public/talk/example/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_620088_150x0_resize_q75_box.jpg
+ create mode 100644 public/talk/example/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_620088_680x500_fill_q90_box_right.jpg
+ create mode 100644 public/talk/example/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_620088_800x0_resize_q75_box.jpg
+ create mode 100644 public/talk/example/index.html
+ create mode 100644 public/talk/index.html
+ create mode 100644 public/talk/index.xml
+ create mode 100644 public/tutorial/example/index.html
+ create mode 100644 public/tutorial/index.html
+ create mode 100644 public/tutorial/index.xml
+ create mode 100644 resources/_gen/assets/css/css/reveal_custom.css_d3f53f09220d597dac26fe7840c31fc9.content
+ create mode 100644 resources/_gen/assets/css/css/reveal_custom.css_d3f53f09220d597dac26fe7840c31fc9.json
+ create mode 100644 resources/_gen/assets/js/js/academic-bundle-pre.js_d3f53f09220d597dac26fe7840c31fc9.content
+ create mode 100644 resources/_gen/assets/js/js/academic-bundle-pre.js_d3f53f09220d597dac26fe7840c31fc9.json
+ create mode 100644 resources/_gen/assets/js/js/academic.min.js_187be290e8222f6bb644052568a2fb6d.content
+ create mode 100644 resources/_gen/assets/js/js/academic.min.js_187be290e8222f6bb644052568a2fb6d.json
+ create mode 100644 resources/_gen/images/post/getting-started/featured_hub9ee31969f44a6711206a2baf9f065b4_241861_150x0_resize_q75_box.jpg
+ create mode 100644 resources/_gen/images/post/getting-started/featured_hub9ee31969f44a6711206a2baf9f065b4_241861_680x500_fill_q90_box_smart1.jpg
+ create mode 100644 resources/_gen/images/post/getting-started/featured_hub9ee31969f44a6711206a2baf9f065b4_241861_800x0_resize_q75_box.jpg
+ create mode 100644 resources/_gen/images/project/external-project/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_329522_550x0_resize_q90_box.jpg
+ create mode 100644 resources/_gen/images/project/external-project/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_329522_680x500_fill_q90_box_smart1.jpg
+ create mode 100644 resources/_gen/images/project/external-project/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_329522_800x0_resize_q75_box.jpg
+ create mode 100644 resources/_gen/images/project/internal-project/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_224363_550x0_resize_q90_box.jpg
+ create mode 100644 resources/_gen/images/project/internal-project/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_224363_680x500_fill_q90_box_smart1.jpg
+ create mode 100644 resources/_gen/images/project/internal-project/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_224363_800x0_resize_q75_box.jpg
+ create mode 100644 resources/_gen/images/publication/clothing-search/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_312700_150x0_resize_q75_box.jpg
+ create mode 100644 resources/_gen/images/publication/clothing-search/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_312700_680x500_fill_q90_box_smart1.jpg
+ create mode 100644 resources/_gen/images/publication/clothing-search/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_312700_800x0_resize_q75_box.jpg
+ create mode 100644 resources/_gen/images/publication/clothing-search/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_312700_918x517_fill_q90_box_smart1.jpg
+ create mode 100644 resources/_gen/images/publication/person-re-id/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_214168_150x0_resize_q75_box.jpg
+ create mode 100644 resources/_gen/images/publication/person-re-id/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_214168_680x500_fill_q90_box_smart1.jpg
+ create mode 100644 resources/_gen/images/publication/person-re-id/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_214168_800x0_resize_q75_box.jpg
+ create mode 100644 resources/_gen/images/talk/example/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_620088_150x0_resize_q75_box.jpg
+ create mode 100644 resources/_gen/images/talk/example/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_620088_680x500_fill_q90_box_right.jpg
+ create mode 100644 resources/_gen/images/talk/example/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_620088_800x0_resize_q75_box.jpg
+ create mode 100644 static/img/boards.jpg
+ create mode 100644 static/img/headers/bubbles-wide.jpg
+ create mode 100644 static/img/portrait.jpg
+ create mode 100644 themes/hugo-academic/.editorconfig
+ create mode 100644 themes/hugo-academic/.github/PULL_REQUEST_TEMPLATE.md
+ create mode 100644 themes/hugo-academic/.gitignore
+ rename themes/{hugo-lithium => hugo-academic}/LICENSE.md (94%)
+ create mode 100644 themes/hugo-academic/README.md
+ create mode 100644 themes/hugo-academic/academic.png
+ create mode 100644 themes/hugo-academic/archetypes/default.md
+ create mode 100644 themes/hugo-academic/archetypes/docs.md
+ create mode 100644 themes/hugo-academic/archetypes/home.md
+ create mode 100644 themes/hugo-academic/archetypes/post/index.md
+ create mode 100644 themes/hugo-academic/archetypes/project/index.md
+ create mode 100644 themes/hugo-academic/archetypes/publication/index.md
+ create mode 100644 themes/hugo-academic/archetypes/slides.md
+ create mode 100644 themes/hugo-academic/archetypes/talk/index.md
+ create mode 100644 themes/hugo-academic/assets/css/reveal.css
+ rename public/.gitkeep => themes/hugo-academic/assets/css/reveal_custom.css (100%)
+ create mode 100644 themes/hugo-academic/assets/js/academic-search.js
+ create mode 100644 themes/hugo-academic/assets/js/academic.js
+ create mode 100644 themes/hugo-academic/assets/js/algolia-search.js
+ create mode 100644 themes/hugo-academic/assets/js/mathjax-config.js
+ create mode 100644 themes/hugo-academic/data/academic.toml
+ create mode 100644 themes/hugo-academic/data/assets.toml
+ create mode 100644 themes/hugo-academic/data/fonts/classic.toml
+ create mode 100644 themes/hugo-academic/data/fonts/default.toml
+ create mode 100644 themes/hugo-academic/data/fonts/playfair.toml
+ create mode 100644 themes/hugo-academic/data/i18n/languages.yaml
+ create mode 100644 themes/hugo-academic/data/themes/1950s.toml
+ create mode 100644 themes/hugo-academic/data/themes/apogee.toml
+ create mode 100644 themes/hugo-academic/data/themes/coffee.toml
+ create mode 100644 themes/hugo-academic/data/themes/cupcake.toml
+ create mode 100644 themes/hugo-academic/data/themes/dark.toml
+ create mode 100644 themes/hugo-academic/data/themes/default.toml
+ create mode 100644 themes/hugo-academic/data/themes/forest.toml
+ create mode 100644 themes/hugo-academic/data/themes/ocean.toml
+ create mode 100644 themes/hugo-academic/demo.sh
+ create mode 100644 themes/hugo-academic/exampleSite/config.toml
+ create mode 100644 themes/hugo-academic/exampleSite/content/home/about.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/home/contact.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/home/experience.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/home/hero.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/home/hero_carousel.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/home/posts.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/home/projects.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/home/publications.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/home/publications_selected.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/home/skills.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/home/tags.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/home/talks.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/home/talks_selected.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/home/teaching.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/post/_index.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/featured.jpg
+ create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-1950s.png
+ create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-apogee.png
+ create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-coffee-playfair.png
+ create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-cupcake.png
+ create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-dark.png
+ create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-default.png
+ create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-forest.png
+ create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/gallery/theme-ocean.png
+ create mode 100644 themes/hugo-academic/exampleSite/content/post/getting-started/index.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/privacy.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/project/external-project/featured.jpg
+ create mode 100644 themes/hugo-academic/exampleSite/content/project/external-project/index.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/project/internal-project/featured.jpg
+ create mode 100644 themes/hugo-academic/exampleSite/content/project/internal-project/index.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/publication/_index.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/publication/clothing-search/cite.bib
+ create mode 100644 themes/hugo-academic/exampleSite/content/publication/clothing-search/featured.jpg
+ create mode 100644 themes/hugo-academic/exampleSite/content/publication/clothing-search/index.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/publication/person-re-id/featured.jpg
+ create mode 100644 themes/hugo-academic/exampleSite/content/publication/person-re-id/index.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/slides/example-slides.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/talk/_index.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/talk/example/featured.jpg
+ create mode 100644 themes/hugo-academic/exampleSite/content/talk/example/index.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/tutorial/_index.md
+ create mode 100644 themes/hugo-academic/exampleSite/content/tutorial/example.md
+ create mode 100644 themes/hugo-academic/exampleSite/static/img/boards.jpg
+ create mode 100644 themes/hugo-academic/exampleSite/static/img/headers/bubbles-wide.jpg
+ create mode 100644 themes/hugo-academic/exampleSite/static/img/portrait.jpg
+ create mode 100644 themes/hugo-academic/i18n/ca.yaml
+ create mode 100644 themes/hugo-academic/i18n/de.yaml
+ create mode 100644 themes/hugo-academic/i18n/el.yaml
+ create mode 100644 themes/hugo-academic/i18n/en.yaml
+ create mode 100644 themes/hugo-academic/i18n/es.yaml
+ create mode 100644 themes/hugo-academic/i18n/eu.yaml
+ create mode 100644 themes/hugo-academic/i18n/fr.yaml
+ create mode 100644 themes/hugo-academic/i18n/id.yaml
+ create mode 100644 themes/hugo-academic/i18n/it.yaml
+ create mode 100644 themes/hugo-academic/i18n/ja.yaml
+ create mode 100644 themes/hugo-academic/i18n/ko.yaml
+ create mode 100644 themes/hugo-academic/i18n/nl.yaml
+ create mode 100644 themes/hugo-academic/i18n/pl.yaml
+ create mode 100644 themes/hugo-academic/i18n/pt.yaml
+ create mode 100644 themes/hugo-academic/i18n/ru.yaml
+ create mode 100644 themes/hugo-academic/i18n/tr.yaml
+ create mode 100644 themes/hugo-academic/i18n/vi.yaml
+ create mode 100644 themes/hugo-academic/i18n/zh.yaml
+ create mode 100644 themes/hugo-academic/images/screenshot.png
+ create mode 100644 themes/hugo-academic/images/theme-1950s.png
+ create mode 100644 themes/hugo-academic/images/theme-apogee.png
+ create mode 100644 themes/hugo-academic/images/theme-coffee-playfair.png
+ create mode 100644 themes/hugo-academic/images/theme-cupcake.png
+ create mode 100644 themes/hugo-academic/images/theme-dark.png
+ create mode 100644 themes/hugo-academic/images/theme-default.png
+ create mode 100644 themes/hugo-academic/images/theme-forest.png
+ create mode 100644 themes/hugo-academic/images/theme-ocean.png
+ create mode 100644 themes/hugo-academic/images/theme-spacer.png
+ create mode 100644 themes/hugo-academic/images/tn.png
+ create mode 100644 themes/hugo-academic/layouts/404.html
+ create mode 100644 themes/hugo-academic/layouts/_default/list.html
+ create mode 100644 themes/hugo-academic/layouts/_default/single.html
+ create mode 100644 themes/hugo-academic/layouts/docs/list.html
+ create mode 100644 themes/hugo-academic/layouts/docs/single.html
+ rename static/.gitkeep => themes/hugo-academic/layouts/home/list.html (100%)
+ rename themes/{hugo-lithium/exampleSite/static/.gitkeep => hugo-academic/layouts/home/single.html} (100%)
+ create mode 100644 themes/hugo-academic/layouts/index.css
+ create mode 100644 themes/hugo-academic/layouts/index.html
+ create mode 100644 themes/hugo-academic/layouts/index.json
+ create mode 100644 themes/hugo-academic/layouts/partials/comments.html
+ create mode 100644 themes/hugo-academic/layouts/partials/cookie_consent.html
+ create mode 100644 themes/hugo-academic/layouts/partials/css/academic.css
+ create mode 100644 themes/hugo-academic/layouts/partials/css/parse_theme.css
+ create mode 100644 themes/hugo-academic/layouts/partials/docs_layout.html
+ create mode 100644 themes/hugo-academic/layouts/partials/docs_sidebar.html
+ rename themes/{hugo-lithium/layouts/partials/head_custom.html => hugo-academic/layouts/partials/docs_toc_foot.html} (100%)
+ create mode 100644 themes/hugo-academic/layouts/partials/footer.html
+ create mode 100644 themes/hugo-academic/layouts/partials/footer_container.html
+ create mode 100644 themes/hugo-academic/layouts/partials/footer_section.html
+ create mode 100644 themes/hugo-academic/layouts/partials/head_custom.html
+ create mode 100644 themes/hugo-academic/layouts/partials/header.html
+ create mode 100644 themes/hugo-academic/layouts/partials/navbar.html
+ create mode 100644 themes/hugo-academic/layouts/partials/page_author.html
+ create mode 100644 themes/hugo-academic/layouts/partials/page_header.html
+ create mode 100644 themes/hugo-academic/layouts/partials/page_links.html
+ create mode 100644 themes/hugo-academic/layouts/partials/page_links_div.html
+ create mode 100644 themes/hugo-academic/layouts/partials/page_metadata.html
+ create mode 100644 themes/hugo-academic/layouts/partials/pagination.html
+ create mode 100644 themes/hugo-academic/layouts/partials/post_li_detailed.html
+ create mode 100644 themes/hugo-academic/layouts/partials/post_li_simple.html
+ create mode 100644 themes/hugo-academic/layouts/partials/post_li_stream.html
+ create mode 100644 themes/hugo-academic/layouts/partials/project_li_card.html
+ create mode 100644 themes/hugo-academic/layouts/partials/project_li_showcase.html
+ create mode 100644 themes/hugo-academic/layouts/partials/project_li_simple.html
+ create mode 100644 themes/hugo-academic/layouts/partials/publication_li_apa.html
+ create mode 100644 themes/hugo-academic/layouts/partials/publication_li_detailed.html
+ create mode 100644 themes/hugo-academic/layouts/partials/publication_li_mla.html
+ create mode 100644 themes/hugo-academic/layouts/partials/publication_li_simple.html
+ create mode 100644 themes/hugo-academic/layouts/partials/publication_li_stream.html
+ create mode 100644 themes/hugo-academic/layouts/partials/search.html
+ create mode 100644 themes/hugo-academic/layouts/partials/section_pager.html
+ create mode 100644 themes/hugo-academic/layouts/partials/share.html
+ create mode 100644 themes/hugo-academic/layouts/partials/slides.html
+ create mode 100644 themes/hugo-academic/layouts/partials/tags.html
+ create mode 100644 themes/hugo-academic/layouts/partials/talk_li_detailed.html
+ create mode 100644 themes/hugo-academic/layouts/partials/talk_li_simple.html
+ create mode 100644 themes/hugo-academic/layouts/partials/talk_li_stream.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widget_page.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widgets/about.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widgets/contact.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widgets/custom.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widgets/experience.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widgets/featurette.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widgets/hero.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widgets/hero_carousel.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widgets/posts.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widgets/projects.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widgets/publications.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widgets/publications_selected.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widgets/tag_cloud.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widgets/talks.html
+ create mode 100644 themes/hugo-academic/layouts/partials/widgets/talks_selected.html
+ create mode 100644 themes/hugo-academic/layouts/project/single.html
+ create mode 100644 themes/hugo-academic/layouts/publication/single.html
+ create mode 100644 themes/hugo-academic/layouts/rss.xml
+ create mode 100644 themes/hugo-academic/layouts/section/home.html
+ create mode 100644 themes/hugo-academic/layouts/section/post.html
+ create mode 100644 themes/hugo-academic/layouts/section/publication.html
+ create mode 100644 themes/hugo-academic/layouts/section/talk.html
+ create mode 100644 themes/hugo-academic/layouts/shortcodes/alert.html
+ create mode 100644 themes/hugo-academic/layouts/shortcodes/figure.html
+ create mode 100644 themes/hugo-academic/layouts/shortcodes/fragment.html
+ create mode 100644 themes/hugo-academic/layouts/shortcodes/gallery.html
+ create mode 100644 themes/hugo-academic/layouts/shortcodes/gdocs.html
+ create mode 100644 themes/hugo-academic/layouts/shortcodes/hl.html
+ create mode 100644 themes/hugo-academic/layouts/shortcodes/list_categories.html
+ create mode 100644 themes/hugo-academic/layouts/shortcodes/list_tags.html
+ create mode 100644 themes/hugo-academic/layouts/shortcodes/slide.html
+ create mode 100644 themes/hugo-academic/layouts/shortcodes/speaker_note.html
+ create mode 100644 themes/hugo-academic/layouts/shortcodes/staticref.html
+ create mode 100644 themes/hugo-academic/layouts/shortcodes/toc.html
+ create mode 100644 themes/hugo-academic/layouts/shortcodes/video.html
+ create mode 100644 themes/hugo-academic/layouts/sitemap.xml
+ create mode 100644 themes/hugo-academic/layouts/slides/baseof.html
+ create mode 100644 themes/hugo-academic/layouts/slides/list.html
+ create mode 100644 themes/hugo-academic/layouts/slides/single.html
+ create mode 100644 themes/hugo-academic/layouts/talk/single.html
+ create mode 100644 themes/hugo-academic/static/img/icon-192.png
+ create mode 100644 themes/hugo-academic/static/img/icon.png
+ create mode 100644 themes/hugo-academic/static/img/portrait.jpg
+ create mode 100644 themes/hugo-academic/static/js/vendor/reveal.js/plugin/notes/notes.html
+ create mode 100644 themes/hugo-academic/static/js/vendor/reveal.js/plugin/notes/notes.js
+ create mode 100644 themes/hugo-academic/static/site.webmanifest
+ create mode 100644 themes/hugo-academic/theme.toml
+ delete mode 100644 themes/hugo-lithium/.gitignore
+ delete mode 100644 themes/hugo-lithium/README.md
+ delete mode 100644 themes/hugo-lithium/archetypes/default.md
+ delete mode 100644 themes/hugo-lithium/exampleSite/config.toml
+ delete mode 100644 themes/hugo-lithium/exampleSite/content/about.md
+ delete mode 100644 themes/hugo-lithium/exampleSite/content/post/2015-01-01-lorem-ipsum.md
+ delete mode 100644 themes/hugo-lithium/exampleSite/content/post/2016-12-30-hello-markdown.md
+ delete mode 100644 themes/hugo-lithium/layouts/_default/list.html
+ delete mode 100644 themes/hugo-lithium/layouts/_default/single.html
+ delete mode 100644 themes/hugo-lithium/layouts/partials/disqus.html
+ delete mode 100644 themes/hugo-lithium/layouts/partials/footer.html
+ delete mode 100644 themes/hugo-lithium/layouts/partials/footer_highlightjs.html
+ delete mode 100644 themes/hugo-lithium/layouts/partials/footer_mathjax.html
+ delete mode 100644 themes/hugo-lithium/layouts/partials/head.html
+ delete mode 100644 themes/hugo-lithium/layouts/partials/head_highlightjs.html
+ delete mode 100644 themes/hugo-lithium/layouts/partials/header.html
+ delete mode 100644 themes/hugo-lithium/layouts/partials/nav.html
+ delete mode 100644 themes/hugo-lithium/static/css/fonts.css
+ delete mode 100644 themes/hugo-lithium/static/css/main.css
+ delete mode 100644 themes/hugo-lithium/static/fonts/lato-v11-latin-regular.woff
+ delete mode 100644 themes/hugo-lithium/static/fonts/lato-v11-latin-regular.woff2
+ delete mode 100644 themes/hugo-lithium/static/fonts/merriweather-v13-latin-regular.woff
+ delete mode 100644 themes/hugo-lithium/static/fonts/merriweather-v13-latin-regular.woff2
+ delete mode 100644 themes/hugo-lithium/static/images/hugo-logo.png
+ delete mode 100644 themes/hugo-lithium/static/images/logo.png
+ delete mode 100644 themes/hugo-lithium/static/js/math-code.js
+]0;~/Repos/websiteysteins-MBP:website oyss$ git push
+Counting objects: 452, done.
+Delta compression using up to 12 threads.
+Compressing objects:   0% (1/385)   Compressing objects:   1% (4/385)   Compressing objects:   2% (8/385)   Compressing objects:   3% (12/385)   Compressing objects:   4% (16/385)   Compressing objects:   5% (20/385)   Compressing objects:   6% (24/385)   Compressing objects:   7% (27/385)   Compressing objects:   8% (31/385)   Compressing objects:   9% (35/385)   Compressing objects:  10% (39/385)   Compressing objects:  11% (43/385)   Compressing objects:  12% (47/385)   Compressing objects:  13% (51/385)   Compressing objects:  14% (54/385)   Compressing objects:  15% (58/385)   Compressing objects:  16% (62/385)   Compressing objects:  17% (66/385)   Compressing objects:  18% (70/385)   Compressing objects:  19% (74/385)   Compressing objects:  20% (77/385)   Compressing objects:  21% (81/385)   Compressing objects:  22% (85/385)   Compressing objects:  23% (89/385)   Compressing objects:  24% (93/385)   Compressing objects:  25% (97/385)   Compressing objects:  26% (101/385)   Compressing objects:  27% (104/385)   Compressing objects:  28% (108/385)   Compressing objects:  29% (112/385)   Compressing objects:  30% (116/385)   Compressing objects:  31% (120/385)   Compressing objects:  32% (124/385)   Compressing objects:  33% (128/385)   Compressing objects:  34% (131/385)   Compressing objects:  35% (135/385)   Compressing objects:  36% (139/385)   Compressing objects:  37% (143/385)   Compressing objects:  38% (147/385)   Compressing objects:  39% (151/385)   Compressing objects:  40% (154/385)   Compressing objects:  41% (158/385)   Compressing objects:  42% (162/385)   Compressing objects:  43% (166/385)   Compressing objects:  44% (170/385)   Compressing objects:  45% (174/385)   Compressing objects:  46% (178/385)   Compressing objects:  47% (181/385)   Compressing objects:  48% (185/385)   Compressing objects:  49% (189/385)   Compressing objects:  50% (193/385)   Compressing objects:  51% (197/385)   Compressing objects:  52% (201/385)   Compressing objects:  53% (205/385)   Compressing objects:  54% (208/385)   Compressing objects:  55% (212/385)   Compressing objects:  56% (216/385)   Compressing objects:  57% (220/385)   Compressing objects:  58% (224/385)   Compressing objects:  59% (228/385)   Compressing objects:  60% (231/385)   Compressing objects:  61% (235/385)   Compressing objects:  62% (239/385)   Compressing objects:  63% (243/385)   Compressing objects:  64% (247/385)   Compressing objects:  65% (251/385)   Compressing objects:  66% (255/385)   Compressing objects:  67% (258/385)   Compressing objects:  68% (262/385)   Compressing objects:  69% (266/385)   Compressing objects:  70% (270/385)   Compressing objects:  71% (274/385)   Compressing objects:  72% (278/385)   Compressing objects:  73% (282/385)   Compressing objects:  74% (285/385)   Compressing objects:  75% (289/385)   Compressing objects:  76% (293/385)   Compressing objects:  77% (297/385)   Compressing objects:  78% (301/385)   Compressing objects:  79% (305/385)   Compressing objects:  80% (308/385)   Compressing objects:  81% (312/385)   Compressing objects:  82% (316/385)   Compressing objects:  83% (320/385)   Compressing objects:  84% (324/385)   Compressing objects:  85% (328/385)   Compressing objects:  86% (332/385)   Compressing objects:  87% (335/385)   Compressing objects:  88% (339/385)   Compressing objects:  89% (343/385)   Compressing objects:  90% (347/385)   Compressing objects:  91% (351/385)   Compressing objects:  92% (355/385)   Compressing objects:  93% (359/385)   Compressing objects:  94% (362/385)   Compressing objects:  95% (366/385)   Compressing objects:  96% (370/385)   Compressing objects:  97% (374/385)   Compressing objects:  98% (378/385)   Compressing objects:  99% (382/385)   Compressing objects: 100% (385/385)   Compressing objects: 100% (385/385), done.
+Writing objects:   0% (1/452)   Writing objects:   1% (5/452)   Writing objects:   2% (10/452)   Writing objects:   3% (14/452)   Writing objects:   4% (19/452)   Writing objects:   5% (24/452)   Writing objects:   6% (28/452)   Writing objects:   7% (32/452)   Writing objects:   8% (37/452)   Writing objects:   9% (42/452)   Writing objects:  10% (46/452)   Writing objects:  11% (50/452)   Writing objects:  12% (55/452)   Writing objects:  13% (59/452)   Writing objects:  14% (65/452)   Writing objects:  15% (68/452)   Writing objects:  16% (75/452)   Writing objects:  17% (77/452)   Writing objects:  18% (82/452)   Writing objects:  19% (86/452)   Writing objects:  20% (91/452)   Writing objects:  21% (95/452)   Writing objects:  22% (100/452)   Writing objects:  23% (104/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  24% (110/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  25% (113/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  26% (119/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  27% (123/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  28% (127/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  29% (132/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  30% (136/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  31% (141/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  32% (145/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  33% (150/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  34% (154/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  35% (160/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  36% (163/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  37% (168/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  38% (172/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  39% (177/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  40% (181/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  41% (186/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  42% (190/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  43% (195/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  44% (199/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  45% (204/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  46% (208/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  46% (212/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  47% (213/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  48% (217/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  49% (222/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  50% (226/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  51% (231/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  52% (236/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  53% (240/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  54% (245/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  55% (249/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  56% (254/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  57% (258/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  58% (263/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  59% (267/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  60% (272/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  61% (276/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  62% (281/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  63% (285/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  64% (290/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  65% (294/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  66% (299/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  67% (303/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  68% (308/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  69% (312/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  70% (317/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  71% (321/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  72% (326/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  73% (330/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  74% (336/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  75% (339/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  76% (344/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  77% (349/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  78% (353/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  79% (358/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  80% (362/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  81% (367/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  82% (371/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  83% (376/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  84% (380/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  85% (385/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  86% (390/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  87% (394/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  88% (398/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  89% (403/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  90% (407/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  91% (412/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  92% (416/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  93% (421/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  94% (425/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  95% (430/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  96% (434/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  97% (439/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  98% (443/452), 1.07 MiB | 1.28 MiB/s   Writing objects:  99% (448/452), 1.07 MiB | 1.28 MiB/s   Writing objects: 100% (452/452), 1.07 MiB | 1.28 MiB/s   Writing objects: 100% (452/452), 3.78 MiB | 3.23 MiB/s, done.
+Total 452 (delta 112), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/112)   [Kremote: Resolving deltas:   1% (2/112)   [Kremote: Resolving deltas:   2% (3/112)   [Kremote: Resolving deltas:   4% (5/112)   [Kremote: Resolving deltas:  10% (12/112)   [Kremote: Resolving deltas:  29% (33/112)   [Kremote: Resolving deltas:  42% (48/112)   [Kremote: Resolving deltas:  50% (56/112)   [Kremote: Resolving deltas:  51% (58/112)   [Kremote: Resolving deltas:  52% (59/112)   [Kremote: Resolving deltas:  53% (60/112)   [Kremote: Resolving deltas:  55% (62/112)   [Kremote: Resolving deltas:  56% (63/112)   [Kremote: Resolving deltas:  57% (64/112)   [Kremote: Resolving deltas:  58% (65/112)   [Kremote: Resolving deltas:  60% (68/112)   [Kremote: Resolving deltas:  61% (69/112)   [Kremote: Resolving deltas:  63% (71/112)   [Kremote: Resolving deltas:  65% (73/112)   [Kremote: Resolving deltas:  66% (74/112)   [Kremote: Resolving deltas:  75% (84/112)   [Kremote: Resolving deltas:  79% (89/112)   [Kremote: Resolving deltas:  82% (92/112)   [Kremote: Resolving deltas:  83% (94/112)   [Kremote: Resolving deltas:  84% (95/112)   [Kremote: Resolving deltas:  85% (96/112)   [Kremote: Resolving deltas:  87% (98/112)   [Kremote: Resolving deltas:  88% (99/112)   [Kremote: Resolving deltas:  89% (100/112)   [Kremote: Resolving deltas:  90% (101/112)   [Kremote: Resolving deltas:  91% (102/112)   [Kremote: Resolving deltas:  92% (104/112)   [Kremote: Resolving deltas:  93% (105/112)   [Kremote: Resolving deltas:  94% (106/112)   [Kremote: Resolving deltas:  95% (107/112)   [Kremote: Resolving deltas:  99% (111/112)   [Kremote: Resolving deltas: 100% (112/112)   [Kremote: Resolving deltas: 100% (112/112), completed with 7 local objects.[K
+To https://github.com/osorensen/website.git
+   b37dab2..5152c6a  master -> master
+git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/91D31DD7/console06/DC87A03E[m
+	[31mmodified:   .Rproj.user/91D31DD7/console06/DC87A03E.env[m
+	[31mmodified:   .Rproj.user/91D31DD7/console06/INDEX001[m
+	[31mmodified:   .Rproj.user/91D31DD7/sources/prop/INDEX[m
+	[31mdeleted:    content/post/_2018-12-28-lasso-in-twelve-languages.Rmd[m
+	[31mmodified:   public/404.html[m
+	[31mmodified:   public/categories/index.html[m
+	[31mmodified:   public/categories/index.xml[m
+	[31mmodified:   public/categories/machine-learning/index.html[m
+	[31mmodified:   public/categories/machine-learning/index.xml[m
+	[31mmodified:   public/categories/statistics/index.html[m
+	[31mmodified:   public/categories/statistics/index.xml[m
+	[31mmodified:   public/index.html[m
+	[31mmodified:   public/index.json[m
+	[31mmodified:   public/index.xml[m
+	[31mmodified:   public/post/index.html[m
+	[31mmodified:   public/post/index.xml[m
+	[31mmodified:   public/post/lasso-in-12-languages/index.html[m
+	[31mmodified:   public/publication_types/index.html[m
+	[31mmodified:   public/sitemap.xml[m
+	[31mmodified:   public/tags/index.html[m
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	[31mcontent/post/2018-12-28-lasso-in-twelve-languages.Rmd[m
+	[31mcontent/post/2018-12-28-lasso-in-twelve-languages.html[m
+	[31mpublic/post/2018-12-28-lasso-in-twelve-languages_files/[m
+	[31mstatic/post/2018-12-28-lasso-in-twelve-languages_files/[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+]0;~/Repos/websiteysteins-MBP:website oyss$ git add .
