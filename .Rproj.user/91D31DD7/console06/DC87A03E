@@ -1,0 +1,27 @@
+]0;~/Repos/website[?1034hysteins-MBP:website oyss$ [Kysteins-MBP:website oyss$ git remote add origin https://github.com/osorensen/website.git
+fatal: not a git repository (or any of the parent directories): .git
+]0;~/Repos/websiteysteins-MBP:website oyss$ w[Kp[Kgit init
+Initialized empty Git repository in /Users/oyss/Repos/website/.git/
+]0;~/Repos/websiteysteins-MBP:website oyss$ git remote add origin https://github.com/osorensen/website.git
+]0;~/Repos/websiteysteins-MBP:website oyss$ git push -u origin master
+error: src refspec master does not match any.
+error: failed to push some refs to 'https://github.com/osorensen/website.git'
+]0;~/Repos/websiteysteins-MBP:website oyss$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	[31m.Rproj.user/[m
+	[31mconfig.toml[m
+	[31mcontent/[m
+	[31mindex.Rmd[m
+	[31mpublic/[m
+	[31mstatic/[m
+	[31mthemes/[m
+	[31mwebsite.Rproj[m
+
+nothing added to commit but untracked files present (use "git add" to track)
+]0;~/Repos/websiteysteins-MBP:website oyss$ git add .
