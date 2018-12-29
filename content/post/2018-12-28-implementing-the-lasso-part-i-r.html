@@ -1,0 +1,23 @@
+---
+title: 'Implementing the Lasso, Part I: R'
+author: Øystein Sørensen
+date: '2018-12-28'
+slug: implementing-the-lasso-part-i-r
+categories:
+  - Machine Learning
+  - Statistics
+tags:
+  - Lasso2019
+image:
+  caption: ''
+  focal_point: ''
+---
+
+
+
+<p>In a <a href="http://osorensen.rbind.io/post/lasso-in-12-languages/">previous post</a>, I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. The rules are <em>do not use external dependencies</em>, i.e., no calls to <code>library()</code>. This is obviously not how we we do it in real life, but my goal is just to get some practice. (That being said, anyone who has tried to convince an IT department in a large corporation to install R packages, knows the value of base).</p>
+<div id="download-data" class="section level2">
+<h2>Download Data</h2>
+<p>First, we need to download the <a href="http://lib.stat.cmu.edu/datasets/boston">Boston housing dataset</a>, which we are going to analyze. We start by reading in all the lines.</p>
+<pre class="r"><code>vars &lt;- scan(file = &quot;http://lib.stat.cmu.edu/datasets/boston&quot;, what = character(), sep = &quot;\n&quot;)</code></pre>
+</div>

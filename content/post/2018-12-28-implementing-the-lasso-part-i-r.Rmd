@@ -1,0 +1,79 @@
+---
+title: 'Implementing the Lasso, Part I: R'
+author: Øystein Sørensen
+date: '2018-12-28'
+slug: implementing-the-lasso-part-i-r
+categories:
+  - Machine Learning
+  - Statistics
+tags:
+  - Lasso2019
+image:
+  caption: ''
+  focal_point: ''
+---
+
+In a [previous post](http://osorensen.rbind.io/post/lasso-in-12-languages/), I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. The rules are *do not use external dependencies*, i.e., no calls to `library()`. This is obviously not how we we do it in real life, but my goal is just to get some practice. (That being said, anyone who has tried to convince an IT department in a large corporation to install R packages, knows the value of base).
+
+## Download Data
+
+First, we need to download the [Boston housing dataset](http://lib.stat.cmu.edu/datasets/boston), which we are going to analyze. We start by reading in all the lines.
+
+```{r}
+vars <- scan(file = "http://lib.stat.cmu.edu/datasets/boston", what = character(), sep = "\n", 
+             strip.white = TRUE)
+```
+
+Next, we extract the variable names, which start at the line "Variables in order". We deleted everything up to this index.
+
+```{r}
+start_index <- grep("Variables in order", vars)
+vars <- vars[- seq(1, start_index, 1)]
+```
+
+Starting here, we add variable names until we reach a numeric. Performance of this tiny loop is not an issue, so I am growing the vector.
+
+```{r}
+names <- character()
+while(TRUE){
+  # Find location of first non-upper case letter
+  end <- regexpr("[^[:upper:]]", vars[[1]])
+  # Break out of loop if first letter is not uppercase
+  if(end <= 1) {
+    break
+  } else {
+    new_name <- substr(vars[[1]], 1, end - 1)
+    names <- c(names, new_name)  
+  }
+  # Delete the item, and move to the next
+  vars <- vars[-1]
+}
+```
+
+These are the variable names:
+
+```{r}
+names
+```
+
+Now we have come to the numeric values, which are printed below:
+
+```{r}
+head(vars)
+```
+
+There is one issue here, namely that each data point takes up two lines. We handle this by reading the number of variables in `vars` into each row. We start by flattening and removing white spaces.
+
+```{r}
+values <- lapply(strsplit(vars, split = "[[:space:]]"), function(x) as.numeric(x[x != ""]))
+values <- unlist(values)
+values <- matrix(values, ncol = length(names), byrow = TRUE)
+colnames(values) <- names
+```
+
+Now we have our dataset:
+
+```{r}
+head(values)
+```
+

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
@@ -17,10 +15,10 @@
   
     
   
-  <meta name="description" content="Associate Professor of Statistics">
+  <meta name="description" content="In a previous post, I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. The rules are do not use external dependencies, i.e., no calls to library(). This is obviously not how we we do it in real life, but my goal is just to get some practice. (That being said, anyone who has tried to convince an IT department in a large corporation to install R packages, knows the value of base).">
 
   
-  <link rel="alternate" hreflang="en-us" href="/categories/statistics/">
+  <link rel="alternate" hreflang="en-us" href="/post/implementing-the-lasso-part-i-r/">
 
   
 
@@ -100,15 +98,15 @@
   
 
   
-  <link rel="alternate" href="/categories/statistics/index.xml" type="application/rss+xml" title="Øystein Sørensen">
-  <link rel="feed" href="/categories/statistics/index.xml" type="application/rss+xml" title="Øystein Sørensen">
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Øystein Sørensen">
+  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Øystein Sørensen">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="/categories/statistics/">
+  <link rel="canonical" href="/post/implementing-the-lasso-part-i-r/">
 
   
   
@@ -123,19 +121,21 @@
   <meta property="twitter:creator" content="@SorensenOystein">
   
   <meta property="og:site_name" content="Øystein Sørensen">
-  <meta property="og:url" content="/categories/statistics/">
-  <meta property="og:title" content="Statistics | Øystein Sørensen">
-  <meta property="og:description" content="Associate Professor of Statistics"><meta property="og:image" content="/img/portrait.jpg">
+  <meta property="og:url" content="/post/implementing-the-lasso-part-i-r/">
+  <meta property="og:title" content="Implementing the Lasso, Part I: R | Øystein Sørensen">
+  <meta property="og:description" content="In a previous post, I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. The rules are do not use external dependencies, i.e., no calls to library(). This is obviously not how we we do it in real life, but my goal is just to get some practice. (That being said, anyone who has tried to convince an IT department in a large corporation to install R packages, knows the value of base)."><meta property="og:image" content="/img/portrait.jpg">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2018-12-28T00:00:00&#43;00:00">
+  <meta property="article:published_time" content="2018-12-28T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2018-12-28T00:00:00&#43;00:00">
   
 
   
 
   
 
-  <title>Statistics | Øystein Sørensen</title>
+  <title>Implementing the Lasso, Part I: R | Øystein Sørensen</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -254,7 +254,9 @@
 </nav>
 
 
+<article class="article" itemscope itemtype="http://schema.org/Article">
 
+  
 
 
 
@@ -271,46 +273,288 @@
 
   
   
+  
+<div class="article-container pt-3">
+  <h1 itemprop="name">Implementing the Lasso, Part I: R</h1>
+
+  
+
   
     
-  
-<div class="universal-wrapper pt-3">
-  <h1 itemprop="name">Statistics</h1>
+
+<div class="article-metadata">
 
   
+  
+  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Øystein Sørensen">
+  </span>
+  
+
+  <span class="article-date">
+    
+    <meta content="2018-12-28 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+    <time datetime="2018-12-28 00:00:00 &#43;0000 UTC" itemprop="dateModified">
+      Dec 28, 2018
+    </time>
+  </span>
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Øystein Sørensen">
+  </span>
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 min read
+  </span>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/implementing-the-lasso-part-i-r/#disqus_thread"></a>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="/categories/machine-learning/">Machine Learning</a>, 
+    
+    <a href="/categories/statistics/">Statistics</a>
+    
+  </span>
+  
+  
+
+  
+  
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Implementing%20the%20Lasso%2c%20Part%20I%3a%20R&amp;url=%2fpost%2fimplementing-the-lasso-part-i-r%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=%2fpost%2fimplementing-the-lasso-part-i-r%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=%2fpost%2fimplementing-the-lasso-part-i-r%2f&amp;title=Implementing%20the%20Lasso%2c%20Part%20I%3a%20R"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=%2fpost%2fimplementing-the-lasso-part-i-r%2f&amp;title=Implementing%20the%20Lasso%2c%20Part%20I%3a%20R"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Implementing%20the%20Lasso%2c%20Part%20I%3a%20R&amp;body=%2fpost%2fimplementing-the-lasso-part-i-r%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 </div>
 
 
 
-<div class="universal-wrapper">
-  
+  <div class="article-container">
 
-  
-  
-  <div>
-    <h2><a href="/post/implementing-the-lasso-part-i-r/">Implementing the Lasso, Part I: R</a></h2>
-    <div class="article-style">
+    <div class="article-style" itemprop="articleBody">
       
-      In a previous post, I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. The rules are do not use external dependencies, i.e., no calls to library(). This is obviously not how we we do it in real life, but my goal is just to get some practice. (That being said, anyone who has tried to convince an IT department in a large corporation to install R packages, knows the value of base).
-      
-    </div>
-  </div>
-  
-  <div>
-    <h2><a href="/post/lasso-in-12-languages/">Lasso in Twelve Languages</a></h2>
-    <div class="article-style">
-      
-      During the holidays, I finally took the time to read The Pragmatic Programmer. The book inspired me to learn some new programming languages, so in 2019, I am going to implement Tibshirani’s lasso in twelve different languages, some of which I know very well, and others in which I have never even said hello world. This post is a warm-up, in which I am going to give a brief introduction to the lasso and show how it can be computed very conveniently using the glmnet package.
-      
-    </div>
-  </div>
-  
 
-  
 
+<p>In a <a href="http://osorensen.rbind.io/post/lasso-in-12-languages/">previous post</a>, I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. The rules are <em>do not use external dependencies</em>, i.e., no calls to <code>library()</code>. This is obviously not how we we do it in real life, but my goal is just to get some practice. (That being said, anyone who has tried to convince an IT department in a large corporation to install R packages, knows the value of base).</p>
+<div id="download-data" class="section level2">
+<h2>Download Data</h2>
+<p>First, we need to download the <a href="http://lib.stat.cmu.edu/datasets/boston">Boston housing dataset</a>, which we are going to analyze. We start by reading in all the lines.</p>
+<pre class="r"><code>vars &lt;- scan(file = &quot;http://lib.stat.cmu.edu/datasets/boston&quot;, what = character(), sep = &quot;\n&quot;)</code></pre>
 </div>
+
+    </div>
+
+    
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/lasso2019/">Lasso2019</a>
+  
+</div>
+
+
+
+    
+
+
+
+
+
+
+<div class="media author-card" itemscope itemtype="http://schema.org/Person">
+  
+  <img class="portrait mr-3" src="/img/portrait.jpg" itemprop="image" alt="Avatar">
+  
+  <div class="media-body">
+    <h5 class="card-title" itemprop="name"><a href="/">Øystein Sørensen</a></h5>
+    <h6 class="card-subtitle">Associate Professor of Statistics</h6>
+    
+    <ul class="network-icon" aria-hidden="true">
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      <li>
+        <a itemprop="sameAs" href="mailto:oystein.sorensen@psykologi.uio.no" >
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://twitter.com/SorensenOystein" target="_blank" rel="noopener">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://scholar.google.no/citations?user=neOqbw0AAAAJ&amp;hl=no" target="_blank" rel="noopener">
+          <i class="ai ai-google-scholar"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://github.com/osorensen" target="_blank" rel="noopener">
+          <i class="fab fa-github"></i>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+
+    
+    
+    <div class="article-widget">
+      <div class="hr-light"></div>
+      <h3>Related</h3>
+      <ul>
+        
+        <li><a href="/post/lasso-in-12-languages/">Lasso in Twelve Languages</a></li>
+        
+      </ul>
+    </div>
+    
+
+    
+
+    
+<section id="comments">
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "osorensen" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+  </div>
+</article>
+
 <div class="container">
   <footer class="site-footer">
   
@@ -468,6 +712,4 @@
 
   </body>
 </html>
-
-
 
