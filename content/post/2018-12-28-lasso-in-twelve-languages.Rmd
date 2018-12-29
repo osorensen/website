@@ -20,7 +20,7 @@ I chose the lasso because is a fairly simple and very well-known machine learnin
 
 $$\hat{\beta} = \text{arg}~\text{min}_{\beta} \left\| y - X \beta\right\|_{2}^{2} + \lambda \left\|\beta\right\|_{1}$$
 
-where $\lambda$ is a regularization parameter, $y$ is a response vector, and $X$ is a matrix of regression coefficients. Because of the absolute value in the penalty term ($\|\beta\|_{1} = \sum_{j} |\beta_{j}|$), the lasso estimate $\hat{\beta}$ typically sets some of the regression coefficients exactly to zero. This yields a sparse solution, in contrast to what an $\ell_{2}$-penalty would give. This property makes the lasso really useful in a lot of settings, including in [regularization of neural networks](https://www.deeplearningbook.org/contents/regularization.html) estimation of graphical model structures, and generalized linear models. The theory of the lasso has been described in lots of papers, much of which is summarized in [this book](https://www.springer.com/la/book/9783642201912). 
+where $\lambda$ is a regularization parameter, $y$ is a response vector, and $X$ is a matrix of regression coefficients. Because of the absolute value in the penalty term ($\|\beta\|_{1} = \sum_{j} |\beta_{j}|$), the lasso estimate $\hat{\beta}$ typically sets some of the regression coefficients exactly to zero. This yields a sparse solution, in contrast to what an $\ell_{2}$-penalty would give, at the same time the criterion is convex, making it much more efficient than, say, best subset selection. These properties make the lasso really useful in a lot of settings, including in [regularization of neural networks](https://www.deeplearningbook.org/contents/regularization.html) estimation of graphical model structures, and generalized linear models. The theory of the lasso has been described in lots of papers, much of which is summarized in [this book](https://www.springer.com/la/book/9783642201912). 
 
 ## Solution Using glmnet
 
@@ -91,5 +91,7 @@ My current plan is to implement the lasso in the following languages, partly bas
 * [Python](https://www.python.org/) (obviously)
 * [R](https://www.r-project.org/)
 * [Scala](https://www.scala-lang.org/) (the main language used in Apache Spark, so it must me good to know, right?)
+
+And as a bonus, Microsoft Excel, obviously.
 
 I will write one blogpost for each, detailing the solution. The number twelwe was chosen for reasons related to the number of full moons occuring between each time the earth circles around the sun, so the absolute deadline for finishing everything is on the 31st December 2019.
