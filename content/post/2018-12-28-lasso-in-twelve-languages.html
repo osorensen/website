@@ -52,7 +52,7 @@ fit &lt;- cv.glmnet(medv ~ ., data = Boston)</code></pre>
 ## lstat       -0.517661470</code></pre>
 <p>In addition, we can find the cross-validation estimate of the mean squared error:</p>
 <pre class="r"><code>fit$cvm[fit$lambda == fit$lambda.1se]</code></pre>
-<pre><code>## [1] 27.21721</code></pre>
+<pre><code>## [1] 27.25923</code></pre>
 <p>These are the values I will try to reproduce by actually implementing the lasso in twelve different languages.</p>
 </div>
 <div id="steps-involved-in-computing-the-lasso" class="section level2">
@@ -61,6 +61,10 @@ fit &lt;- cv.glmnet(medv ~ ., data = Boston)</code></pre>
 <div id="data" class="section level3">
 <h3>Data</h3>
 <p>Download the <a href="http://lib.stat.cmu.edu/datasets/boston">Boston Housing Dataset</a> and convert it to a proper object.</p>
+</div>
+<div id="standardization" class="section level3">
+<h3>Standardization</h3>
+<p>Standardization of covariates before using the algorithm and rescaling to get <span class="math inline">\(\hat{\beta}\)</span> in the proper scale. This is because all columns of <span class="math inline">\(X\)</span> must have the same standard deviation as long as we use a common <span class="math inline">\(\lambda\)</span>.</p>
 </div>
 <div id="coordinate-descent" class="section level3">
 <h3>Coordinate Descent</h3>
@@ -75,10 +79,6 @@ until convergence, where <span class="math inline">\(S(\cdot, \cdot)\)</span> is
 <div id="plotting" class="section level3">
 <h3>Plotting</h3>
 <p>Function for plotting the cross-validation curve.</p>
-</div>
-<div id="standardization" class="section level3">
-<h3>Standardization</h3>
-<p>Standardization of covariates before using the algorithm and rescaling to get <span class="math inline">\(\hat{\beta}\)</span> in the proper scale. This is because all columns of <span class="math inline">\(X\)</span> must have the same standard deviation as long as we use a common <span class="math inline">\(\lambda\)</span>.</p>
 </div>
 </div>
 <div id="plan" class="section level2">

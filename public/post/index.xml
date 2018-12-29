@@ -18,7 +18,7 @@
       <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/implementing-the-lasso-part-i-r/</guid>
-      <description>In a previous post, I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. The rules are do not use external dependencies, i.e., no calls to library(). This is obviously not how we we do it in real life, but my goal is just to get some practice. (That being said, anyone who has tried to convince an IT department in a large corporation to install R packages, knows the value of base).</description>
+      <description>In a previous post, I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. I am not going to use any external dependencies, i.e., no calls to library(). This is obviously not how we we do it in real life, but really useful in order to understand what the algorithm really does.</description>
     </item>
     
     <item>

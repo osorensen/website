@@ -15,9 +15,162 @@ image:
 
 
 
-<p>In a <a href="http://osorensen.rbind.io/post/lasso-in-12-languages/">previous post</a>, I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. The rules are <em>do not use external dependencies</em>, i.e., no calls to <code>library()</code>. This is obviously not how we we do it in real life, but my goal is just to get some practice. (That being said, anyone who has tried to convince an IT department in a large corporation to install R packages, knows the value of base).</p>
+<p>In a <a href="http://osorensen.rbind.io/post/lasso-in-12-languages/">previous post</a>, I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. I am not going to use any external dependencies, i.e., no calls to <code>library()</code>. This is obviously not how we we do it in real life, but really useful in order to understand what the algorithm really does. Also, anyone who has tried to convince an IT department in a large corporation to install R packages, or installing a package with lots of dependencies on a high-performance computing cluster, knows the value of base R.</p>
 <div id="download-data" class="section level2">
 <h2>Download Data</h2>
 <p>First, we need to download the <a href="http://lib.stat.cmu.edu/datasets/boston">Boston housing dataset</a>, which we are going to analyze. We start by reading in all the lines.</p>
-<pre class="r"><code>vars &lt;- scan(file = &quot;http://lib.stat.cmu.edu/datasets/boston&quot;, what = character(), sep = &quot;\n&quot;)</code></pre>
+<pre class="r"><code>vars &lt;- scan(file = &quot;http://lib.stat.cmu.edu/datasets/boston&quot;, 
+             what = character(), sep = &quot;\n&quot;, strip.white = TRUE)</code></pre>
+<p>Next, we extract the variable names, which start at the line “Variables in order”. We deleted everything up to this index.</p>
+<pre class="r"><code>start_index &lt;- grep(&quot;Variables in order&quot;, vars)
+vars &lt;- vars[- seq(1, start_index, 1)]</code></pre>
+<p>Starting here, we add variable names until we reach a numeric. Performance of this tiny loop is not an issue, so I am growing the vector.</p>
+<pre class="r"><code>names &lt;- character()
+while(TRUE){
+  # Find location of first non-upper case letter
+  end &lt;- regexpr(&quot;[^[:upper:]]&quot;, vars[[1]])
+  # Break out of loop if first letter is not uppercase
+  if(end &lt;= 1) {
+    break
+  } else {
+    new_name &lt;- substr(vars[[1]], 1, end - 1)
+    names &lt;- c(names, new_name)  
+  }
+  # Delete the item, and move to the next
+  vars &lt;- vars[-1]
+}</code></pre>
+<p>These are the variable names:</p>
+<pre class="r"><code>names</code></pre>
+<pre><code>##  [1] &quot;CRIM&quot;    &quot;ZN&quot;      &quot;INDUS&quot;   &quot;CHAS&quot;    &quot;NOX&quot;     &quot;RM&quot;      &quot;AGE&quot;    
+##  [8] &quot;DIS&quot;     &quot;RAD&quot;     &quot;TAX&quot;     &quot;PTRATIO&quot; &quot;B&quot;       &quot;LSTAT&quot;   &quot;MEDV&quot;</code></pre>
+<p>Now we have come to the numeric values, which are printed below:</p>
+<pre class="r"><code>head(vars)</code></pre>
+<pre><code>## [1] &quot;0.00632  18.00   2.310  0  0.5380  6.5750  65.20  4.0900   1  296.0  15.30&quot;
+## [2] &quot;396.90   4.98  24.00&quot;                                                      
+## [3] &quot;0.02731   0.00   7.070  0  0.4690  6.4210  78.90  4.9671   2  242.0  17.80&quot;
+## [4] &quot;396.90   9.14  21.60&quot;                                                      
+## [5] &quot;0.02729   0.00   7.070  0  0.4690  7.1850  61.10  4.9671   2  242.0  17.80&quot;
+## [6] &quot;392.83   4.03  34.70&quot;</code></pre>
+<p>There is one issue here, namely that each data point takes up two lines. We handle this by reading the number of variables in <code>vars</code> into each row.</p>
+<p>We first split the values by one or more space.</p>
+<pre class="r"><code>values &lt;- strsplit(vars, split = &quot;[[:space:]]+&quot;)
+head(values, 2)</code></pre>
+<pre><code>## [[1]]
+##  [1] &quot;0.00632&quot; &quot;18.00&quot;   &quot;2.310&quot;   &quot;0&quot;       &quot;0.5380&quot;  &quot;6.5750&quot;  &quot;65.20&quot;  
+##  [8] &quot;4.0900&quot;  &quot;1&quot;       &quot;296.0&quot;   &quot;15.30&quot;  
+## 
+## [[2]]
+## [1] &quot;396.90&quot; &quot;4.98&quot;   &quot;24.00&quot;</code></pre>
+<p>We then unlist and convert to a numeric vector.</p>
+<pre class="r"><code>values &lt;- as.numeric(unlist(values))
+head(values)</code></pre>
+<pre><code>## [1]  0.00632 18.00000  2.31000  0.00000  0.53800  6.57500</code></pre>
+<p>Finally, we convert to a matrix and set the column names.</p>
+<pre class="r"><code>values &lt;- matrix(values, ncol = length(names), byrow = TRUE,
+                 dimnames = list(NULL, names))</code></pre>
+<p>Now we have our dataset:</p>
+<pre class="r"><code>head(values)</code></pre>
+<pre><code>##         CRIM ZN INDUS CHAS   NOX    RM  AGE    DIS RAD TAX PTRATIO      B
+## [1,] 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90
+## [2,] 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90
+## [3,] 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83
+## [4,] 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63
+## [5,] 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90
+## [6,] 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12
+##      LSTAT MEDV
+## [1,]  4.98 24.0
+## [2,]  9.14 21.6
+## [3,]  4.03 34.7
+## [4,]  2.94 33.4
+## [5,]  5.33 36.2
+## [6,]  5.21 28.7</code></pre>
+<p>We can finish off by extracting the response <span class="math inline">\(y\)</span> and the covariates <span class="math inline">\(X\)</span>:</p>
+<pre class="r"><code>X &lt;- values[, setdiff(colnames(values), &quot;MEDV&quot;)]
+y &lt;- values[, &quot;MEDV&quot;]</code></pre>
+</div>
+<div id="standardize-variables" class="section level2">
+<h2>Standardize Variables</h2>
+<p>Considering the lasso criterion,</p>
+<p><span class="math display">\[\hat{\beta} = \text{arg}~\text{min}_{\beta} \left\| y - X \beta\right\|_{2}^{2} + \lambda \left\|\beta\right\|_{1}\]</span>
+it is clear the if the columns of <span class="math inline">\(X\)</span> do not have equal variance, then the columns with high variance will be penalized more than the columns with low variance, since the regularization parameter <span class="math inline">\(\lambda\)</span> is the same for all of them. The common way of dealing with this is by a reparametrization, where we instead compute</p>
+<p><span class="math display">\[\tilde{\beta} = \sigma_{X} \odot \hat{\beta}\]</span></p>
+<p>where <span class="math inline">\(\sigma_{X}\)</span> is the vector of standard deviations of the columns of <span class="math inline">\(X\)</span>, and <span class="math inline">\(\odot\)</span> is the elementwise product. We standardize <span class="math inline">\(X\)</span>, compute <span class="math inline">\(\tilde{\beta}\)</span> and then find <span class="math inline">\(\hat{\beta}\)</span> by dividing by <span class="math inline">\(\sigma_{X}\)</span>. In addition, we would like to center all the variables by subtracting their mean and doing the same with <span class="math inline">\(y\)</span>. The intercept of the model is then just the sum of <span class="math inline">\(y\)</span>. The base R <code>scale()</code> function does the job. The values we need are stored in the attributes of <code>Xsc</code>:</p>
+<pre class="r"><code>attr(scale(X), &quot;scaled:scale&quot;)</code></pre>
+<pre><code>##        CRIM          ZN       INDUS        CHAS         NOX          RM 
+##   8.6015451  23.3224530   6.8603529   0.2539940   0.1158777   0.7026171 
+##         AGE         DIS         RAD         TAX     PTRATIO           B 
+##  28.1488614   2.1057101   8.7072594 168.5371161   2.1649455  91.2948644 
+##       LSTAT 
+##   7.1410615</code></pre>
+<pre class="r"><code>attr(scale(y, scale = FALSE), &quot;scaled:center&quot;)</code></pre>
+<pre><code>## [1] 22.53281</code></pre>
+<p>We will actually implement this with the lasso function below.</p>
+</div>
+<div id="coordinate-descent" class="section level2">
+<h2>Coordinate Descent</h2>
+<p>The main part of the coordinate descent algorithm is the soft-thresholding function. It is defined as <span class="math inline">\(S(t, \lambda) = \text{sign}(t)(|t| - \lambda)_{+}\)</span>, <a href="https://web.stanford.edu/~hastie/Papers/ESLII.pdf">cf. ESLII, p. 93</a>. We implement it as follows.</p>
+<pre class="r"><code>soft_threshold &lt;- function(t, lambda){
+  test &lt;- abs(t) - lambda
+  sign(t) * ifelse(test &gt; 0, test, 0) 
+}</code></pre>
+<p>The plot below illustrates how it works.</p>
+<pre class="r"><code>lambda &lt;- 1
+t &lt;- seq(from = -2, to = 2, by = 0.1)
+plot(t, soft_threshold(t, lambda), type = &quot;l&quot;,
+     ylab = expression(S(t, lambda)),
+     main = &quot;Soft thresholding operator&quot;)
+abline(a = 0, b = 0, lty = 2)</code></pre>
+<p><img src="/post/2018-12-28-implementing-the-lasso-part-i-r_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>This also summarizes how the lasso works. If a coefficient is too small, it is set exactly to zero!</p>
+<p>Next, we need to implement the actual coordinate descent algorithm taking <span class="math inline">\(X\)</span>, <span class="math inline">\(y\)</span>, and <span class="math inline">\(\lambda\)</span> as input. It returns an estimate of <span class="math inline">\(\beta\)</span>.</p>
+<pre class="r"><code>coordinate_descent &lt;- function(X, y, lambda, 
+                               tol = 1e-7, maxit = 1000){
+  # Number of coefficients
+  p &lt;- ncol(X)
+  # Initial value of beta
+  beta &lt;- rep(0, ncol(X))
+  # Control parameters to avoid an infinite loop
+  eps &lt;- 100
+  control &lt;- 0
+  
+  while(eps &gt; tol &amp;&amp; control &lt; maxit){
+    beta_old &lt;- beta
+    # Loop around the coefficients
+    for(j in seq(from = 1, to = p, by = 1)){
+      # Current partial residual
+      pres &lt;- (y - X[, -j, drop = FALSE] %*% beta[-j])
+      # Sum to soft-threshold
+      t &lt;- mean(X[, j] * pres)
+      # Update current beta
+      beta[j] &lt;- soft_threshold(t, lambda)
+    }
+    eps &lt;- sum(abs(beta - beta_old))
+    control &lt;- control + 1
+  }
+  return(beta)
+}</code></pre>
+<p>We are now ready to compute the lasso.</p>
+<pre class="r"><code>lasso &lt;- function(X, y, lambda){
+  # Scale and center X
+  X &lt;- scale(X)
+  # Center y
+  y &lt;- scale(y, scale = FALSE)
+  # Run the lasso
+  beta &lt;- coordinate_descent(X, y, lambda)
+  # Transform coordinates
+  beta &lt;- beta / attr(X, &quot;scaled:scale&quot;)
+  # Add intercept
+  beta &lt;- c(attr(y, &quot;scaled:center&quot;), beta)
+  # Add names
+  names(beta) &lt;- c(&quot;Intercept&quot;, colnames(X))  
+  # Return beta
+  return(beta)
+}</code></pre>
+<p>In the glmnet fit from the introductory blogpost, the minimized prediction error was achieved at around <span class="math inline">\(\log(\lambda) = -1\)</span>. We hence try this.</p>
+<pre class="r"><code>round(lasso(X, y, lambda = exp(-1)), 3)</code></pre>
+<pre><code>## Intercept      CRIM        ZN     INDUS      CHAS       NOX        RM 
+##    22.533    -0.023     0.000     0.000     1.929    -3.728     4.266 
+##       AGE       DIS       RAD       TAX   PTRATIO         B     LSTAT 
+##     0.000    -0.339     0.000     0.000    -0.791     0.007    -0.517</code></pre>
+<p>Comparing to the glmnet fit, this seems to be at the right order of magnitude. Until further, the implementation seems sound, so we go on to cross-validation, which should give very close to glmnet-fit.</p>
 </div>

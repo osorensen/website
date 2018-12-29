@@ -19,11 +19,164 @@
       <description>
 
 
-&lt;p&gt;In a &lt;a href=&#34;http://osorensen.rbind.io/post/lasso-in-12-languages/&#34;&gt;previous post&lt;/a&gt;, I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. The rules are &lt;em&gt;do not use external dependencies&lt;/em&gt;, i.e., no calls to &lt;code&gt;library()&lt;/code&gt;. This is obviously not how we we do it in real life, but my goal is just to get some practice. (That being said, anyone who has tried to convince an IT department in a large corporation to install R packages, knows the value of base).&lt;/p&gt;
+&lt;p&gt;In a &lt;a href=&#34;http://osorensen.rbind.io/post/lasso-in-12-languages/&#34;&gt;previous post&lt;/a&gt;, I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. I am not going to use any external dependencies, i.e., no calls to &lt;code&gt;library()&lt;/code&gt;. This is obviously not how we we do it in real life, but really useful in order to understand what the algorithm really does. Also, anyone who has tried to convince an IT department in a large corporation to install R packages, or installing a package with lots of dependencies on a high-performance computing cluster, knows the value of base R.&lt;/p&gt;
 &lt;div id=&#34;download-data&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Download Data&lt;/h2&gt;
 &lt;p&gt;First, we need to download the &lt;a href=&#34;http://lib.stat.cmu.edu/datasets/boston&#34;&gt;Boston housing dataset&lt;/a&gt;, which we are going to analyze. We start by reading in all the lines.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;vars &amp;lt;- scan(file = &amp;quot;http://lib.stat.cmu.edu/datasets/boston&amp;quot;, what = character(), sep = &amp;quot;\n&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;vars &amp;lt;- scan(file = &amp;quot;http://lib.stat.cmu.edu/datasets/boston&amp;quot;, 
+             what = character(), sep = &amp;quot;\n&amp;quot;, strip.white = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next, we extract the variable names, which start at the line “Variables in order”. We deleted everything up to this index.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;start_index &amp;lt;- grep(&amp;quot;Variables in order&amp;quot;, vars)
+vars &amp;lt;- vars[- seq(1, start_index, 1)]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Starting here, we add variable names until we reach a numeric. Performance of this tiny loop is not an issue, so I am growing the vector.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;names &amp;lt;- character()
+while(TRUE){
+  # Find location of first non-upper case letter
+  end &amp;lt;- regexpr(&amp;quot;[^[:upper:]]&amp;quot;, vars[[1]])
+  # Break out of loop if first letter is not uppercase
+  if(end &amp;lt;= 1) {
+    break
+  } else {
+    new_name &amp;lt;- substr(vars[[1]], 1, end - 1)
+    names &amp;lt;- c(names, new_name)  
+  }
+  # Delete the item, and move to the next
+  vars &amp;lt;- vars[-1]
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These are the variable names:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;names&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;CRIM&amp;quot;    &amp;quot;ZN&amp;quot;      &amp;quot;INDUS&amp;quot;   &amp;quot;CHAS&amp;quot;    &amp;quot;NOX&amp;quot;     &amp;quot;RM&amp;quot;      &amp;quot;AGE&amp;quot;    
+##  [8] &amp;quot;DIS&amp;quot;     &amp;quot;RAD&amp;quot;     &amp;quot;TAX&amp;quot;     &amp;quot;PTRATIO&amp;quot; &amp;quot;B&amp;quot;       &amp;quot;LSTAT&amp;quot;   &amp;quot;MEDV&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we have come to the numeric values, which are printed below:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(vars)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;0.00632  18.00   2.310  0  0.5380  6.5750  65.20  4.0900   1  296.0  15.30&amp;quot;
+## [2] &amp;quot;396.90   4.98  24.00&amp;quot;                                                      
+## [3] &amp;quot;0.02731   0.00   7.070  0  0.4690  6.4210  78.90  4.9671   2  242.0  17.80&amp;quot;
+## [4] &amp;quot;396.90   9.14  21.60&amp;quot;                                                      
+## [5] &amp;quot;0.02729   0.00   7.070  0  0.4690  7.1850  61.10  4.9671   2  242.0  17.80&amp;quot;
+## [6] &amp;quot;392.83   4.03  34.70&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There is one issue here, namely that each data point takes up two lines. We handle this by reading the number of variables in &lt;code&gt;vars&lt;/code&gt; into each row.&lt;/p&gt;
+&lt;p&gt;We first split the values by one or more space.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;values &amp;lt;- strsplit(vars, split = &amp;quot;[[:space:]]+&amp;quot;)
+head(values, 2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [[1]]
+##  [1] &amp;quot;0.00632&amp;quot; &amp;quot;18.00&amp;quot;   &amp;quot;2.310&amp;quot;   &amp;quot;0&amp;quot;       &amp;quot;0.5380&amp;quot;  &amp;quot;6.5750&amp;quot;  &amp;quot;65.20&amp;quot;  
+##  [8] &amp;quot;4.0900&amp;quot;  &amp;quot;1&amp;quot;       &amp;quot;296.0&amp;quot;   &amp;quot;15.30&amp;quot;  
+## 
+## [[2]]
+## [1] &amp;quot;396.90&amp;quot; &amp;quot;4.98&amp;quot;   &amp;quot;24.00&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We then unlist and convert to a numeric vector.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;values &amp;lt;- as.numeric(unlist(values))
+head(values)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1]  0.00632 18.00000  2.31000  0.00000  0.53800  6.57500&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally, we convert to a matrix and set the column names.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;values &amp;lt;- matrix(values, ncol = length(names), byrow = TRUE,
+                 dimnames = list(NULL, names))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we have our dataset:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(values)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         CRIM ZN INDUS CHAS   NOX    RM  AGE    DIS RAD TAX PTRATIO      B
+## [1,] 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90
+## [2,] 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90
+## [3,] 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83
+## [4,] 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63
+## [5,] 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90
+## [6,] 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12
+##      LSTAT MEDV
+## [1,]  4.98 24.0
+## [2,]  9.14 21.6
+## [3,]  4.03 34.7
+## [4,]  2.94 33.4
+## [5,]  5.33 36.2
+## [6,]  5.21 28.7&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can finish off by extracting the response &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; and the covariates &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;X &amp;lt;- values[, setdiff(colnames(values), &amp;quot;MEDV&amp;quot;)]
+y &amp;lt;- values[, &amp;quot;MEDV&amp;quot;]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;standardize-variables&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Standardize Variables&lt;/h2&gt;
+&lt;p&gt;Considering the lasso criterion,&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat{\beta} = \text{arg}~\text{min}_{\beta} \left\| y - X \beta\right\|_{2}^{2} + \lambda \left\|\beta\right\|_{1}\]&lt;/span&gt;
+it is clear the if the columns of &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; do not have equal variance, then the columns with high variance will be penalized more than the columns with low variance, since the regularization parameter &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; is the same for all of them. The common way of dealing with this is by a reparametrization, where we instead compute&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\tilde{\beta} = \sigma_{X} \odot \hat{\beta}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where &lt;span class=&#34;math inline&#34;&gt;\(\sigma_{X}\)&lt;/span&gt; is the vector of standard deviations of the columns of &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;, and &lt;span class=&#34;math inline&#34;&gt;\(\odot\)&lt;/span&gt; is the elementwise product. We standardize &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;, compute &lt;span class=&#34;math inline&#34;&gt;\(\tilde{\beta}\)&lt;/span&gt; and then find &lt;span class=&#34;math inline&#34;&gt;\(\hat{\beta}\)&lt;/span&gt; by dividing by &lt;span class=&#34;math inline&#34;&gt;\(\sigma_{X}\)&lt;/span&gt;. In addition, we would like to center all the variables by subtracting their mean and doing the same with &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;. The intercept of the model is then just the sum of &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;. The base R &lt;code&gt;scale()&lt;/code&gt; function does the job. The values we need are stored in the attributes of &lt;code&gt;Xsc&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;attr(scale(X), &amp;quot;scaled:scale&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        CRIM          ZN       INDUS        CHAS         NOX          RM 
+##   8.6015451  23.3224530   6.8603529   0.2539940   0.1158777   0.7026171 
+##         AGE         DIS         RAD         TAX     PTRATIO           B 
+##  28.1488614   2.1057101   8.7072594 168.5371161   2.1649455  91.2948644 
+##       LSTAT 
+##   7.1410615&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;attr(scale(y, scale = FALSE), &amp;quot;scaled:center&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 22.53281&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We will actually implement this with the lasso function below.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;coordinate-descent&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Coordinate Descent&lt;/h2&gt;
+&lt;p&gt;The main part of the coordinate descent algorithm is the soft-thresholding function. It is defined as &lt;span class=&#34;math inline&#34;&gt;\(S(t, \lambda) = \text{sign}(t)(|t| - \lambda)_{+}\)&lt;/span&gt;, &lt;a href=&#34;https://web.stanford.edu/~hastie/Papers/ESLII.pdf&#34;&gt;cf. ESLII, p. 93&lt;/a&gt;. We implement it as follows.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soft_threshold &amp;lt;- function(t, lambda){
+  test &amp;lt;- abs(t) - lambda
+  sign(t) * ifelse(test &amp;gt; 0, test, 0) 
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The plot below illustrates how it works.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lambda &amp;lt;- 1
+t &amp;lt;- seq(from = -2, to = 2, by = 0.1)
+plot(t, soft_threshold(t, lambda), type = &amp;quot;l&amp;quot;,
+     ylab = expression(S(t, lambda)),
+     main = &amp;quot;Soft thresholding operator&amp;quot;)
+abline(a = 0, b = 0, lty = 2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-12-28-implementing-the-lasso-part-i-r_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This also summarizes how the lasso works. If a coefficient is too small, it is set exactly to zero!&lt;/p&gt;
+&lt;p&gt;Next, we need to implement the actual coordinate descent algorithm taking &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;, &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;, and &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; as input. It returns an estimate of &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coordinate_descent &amp;lt;- function(X, y, lambda, 
+                               tol = 1e-7, maxit = 1000){
+  # Number of coefficients
+  p &amp;lt;- ncol(X)
+  # Initial value of beta
+  beta &amp;lt;- rep(0, ncol(X))
+  # Control parameters to avoid an infinite loop
+  eps &amp;lt;- 100
+  control &amp;lt;- 0
+  
+  while(eps &amp;gt; tol &amp;amp;&amp;amp; control &amp;lt; maxit){
+    beta_old &amp;lt;- beta
+    # Loop around the coefficients
+    for(j in seq(from = 1, to = p, by = 1)){
+      # Current partial residual
+      pres &amp;lt;- (y - X[, -j, drop = FALSE] %*% beta[-j])
+      # Sum to soft-threshold
+      t &amp;lt;- mean(X[, j] * pres)
+      # Update current beta
+      beta[j] &amp;lt;- soft_threshold(t, lambda)
+    }
+    eps &amp;lt;- sum(abs(beta - beta_old))
+    control &amp;lt;- control + 1
+  }
+  return(beta)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We are now ready to compute the lasso.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lasso &amp;lt;- function(X, y, lambda){
+  # Scale and center X
+  X &amp;lt;- scale(X)
+  # Center y
+  y &amp;lt;- scale(y, scale = FALSE)
+  # Run the lasso
+  beta &amp;lt;- coordinate_descent(X, y, lambda)
+  # Transform coordinates
+  beta &amp;lt;- beta / attr(X, &amp;quot;scaled:scale&amp;quot;)
+  # Add intercept
+  beta &amp;lt;- c(attr(y, &amp;quot;scaled:center&amp;quot;), beta)
+  # Add names
+  names(beta) &amp;lt;- c(&amp;quot;Intercept&amp;quot;, colnames(X))  
+  # Return beta
+  return(beta)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the glmnet fit from the introductory blogpost, the minimized prediction error was achieved at around &lt;span class=&#34;math inline&#34;&gt;\(\log(\lambda) = -1\)&lt;/span&gt;. We hence try this.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;round(lasso(X, y, lambda = exp(-1)), 3)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Intercept      CRIM        ZN     INDUS      CHAS       NOX        RM 
+##    22.533    -0.023     0.000     0.000     1.929    -3.728     4.266 
+##       AGE       DIS       RAD       TAX   PTRATIO         B     LSTAT 
+##     0.000    -0.339     0.000     0.000    -0.791     0.007    -0.517&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Comparing to the glmnet fit, this seems to be at the right order of magnitude. Until further, the implementation seems sound, so we go on to cross-validation, which should give very close to glmnet-fit.&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -74,7 +227,7 @@ fit &amp;lt;- cv.glmnet(medv ~ ., data = Boston)&lt;/code&gt;&lt;/pre&gt;
 ## lstat       -0.517661470&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In addition, we can find the cross-validation estimate of the mean squared error:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit$cvm[fit$lambda == fit$lambda.1se]&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 27.21721&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 27.25923&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;These are the values I will try to reproduce by actually implementing the lasso in twelve different languages.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;steps-involved-in-computing-the-lasso&#34; class=&#34;section level2&#34;&gt;
@@ -83,6 +236,10 @@ fit &amp;lt;- cv.glmnet(medv ~ ., data = Boston)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;data&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Data&lt;/h3&gt;
 &lt;p&gt;Download the &lt;a href=&#34;http://lib.stat.cmu.edu/datasets/boston&#34;&gt;Boston Housing Dataset&lt;/a&gt; and convert it to a proper object.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;standardization&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Standardization&lt;/h3&gt;
+&lt;p&gt;Standardization of covariates before using the algorithm and rescaling to get &lt;span class=&#34;math inline&#34;&gt;\(\hat{\beta}\)&lt;/span&gt; in the proper scale. This is because all columns of &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; must have the same standard deviation as long as we use a common &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;coordinate-descent&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Coordinate Descent&lt;/h3&gt;
@@ -97,10 +254,6 @@ until convergence, where &lt;span class=&#34;math inline&#34;&gt;\(S(\cdot, \cdo
 &lt;div id=&#34;plotting&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Plotting&lt;/h3&gt;
 &lt;p&gt;Function for plotting the cross-validation curve.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;standardization&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Standardization&lt;/h3&gt;
-&lt;p&gt;Standardization of covariates before using the algorithm and rescaling to get &lt;span class=&#34;math inline&#34;&gt;\(\hat{\beta}\)&lt;/span&gt; in the proper scale. This is because all columns of &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; must have the same standard deviation as long as we use a common &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;plan&#34; class=&#34;section level2&#34;&gt;

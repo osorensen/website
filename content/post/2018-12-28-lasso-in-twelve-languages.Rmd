@@ -61,6 +61,9 @@ Packages/libraries/etc. for computing the lasso exist in several languages, but 
 ### Data
 Download the [Boston Housing Dataset](http://lib.stat.cmu.edu/datasets/boston) and convert it to a proper object.
 
+### Standardization
+Standardization of covariates before using the algorithm and rescaling to get $\hat{\beta}$ in the proper scale. This is because all columns of $X$ must have the same standard deviation as long as we use a common $\lambda$.
+
 ### Coordinate Descent
 Implement the [coordinate descent algorithm](https://projecteuclid.org/euclid.aoas/1206367819) for estimating $\beta$ at a given $\lambda$. This involves iterating 
 
@@ -72,9 +75,6 @@ Ten-fold cross-validation for estimating the mean-squared prediction error as a 
 
 ### Plotting
 Function for plotting the cross-validation curve.
-
-### Standardization
-Standardization of covariates before using the algorithm and rescaling to get $\hat{\beta}$ in the proper scale. This is because all columns of $X$ must have the same standard deviation as long as we use a common $\lambda$.
 
 ## Plan
 
