@@ -35,23 +35,23 @@ fit &lt;- cv.glmnet(medv ~ ., data = Boston)</code></pre>
 <pre class="r"><code>coef(fit, s = &quot;lambda.1se&quot;)</code></pre>
 <pre><code>## 14 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                        1
-## (Intercept) 16.268762344
-## crim        -0.019439916
+## (Intercept) 14.952941584
+## crim        -0.016820727
 ## zn           .          
 ## indus        .          
-## chas         1.791658202
-## nox         -2.085387000
-## rm           4.259590139
+## chas         1.675294130
+## nox         -0.708755104
+## rm           4.251922442
 ## age          .          
-## dis         -0.237030301
+## dis         -0.149254585
 ## rad          .          
 ## tax          .          
-## ptratio     -0.771520796
-## black        0.006407868
-## lstat       -0.517661470</code></pre>
+## ptratio     -0.754242569
+## black        0.006241931
+## lstat       -0.517173282</code></pre>
 <p>In addition, we can find the cross-validation estimate of the mean squared error:</p>
 <pre class="r"><code>fit$cvm[fit$lambda == fit$lambda.1se]</code></pre>
-<pre><code>## [1] 26.93809</code></pre>
+<pre><code>## [1] 27.39335</code></pre>
 <p>These are the values I will try to reproduce by actually implementing the lasso in twelve different languages.</p>
 </div>
 <div id="steps-involved-in-computing-the-lasso" class="section level2">

@@ -40,23 +40,23 @@ fit &amp;lt;- cv.glmnet(medv ~ ., data = Boston)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coef(fit, s = &amp;quot;lambda.1se&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## 14 x 1 sparse Matrix of class &amp;quot;dgCMatrix&amp;quot;
 ##                        1
-## (Intercept) 16.268762344
-## crim        -0.019439916
+## (Intercept) 14.952941584
+## crim        -0.016820727
 ## zn           .          
 ## indus        .          
-## chas         1.791658202
-## nox         -2.085387000
-## rm           4.259590139
+## chas         1.675294130
+## nox         -0.708755104
+## rm           4.251922442
 ## age          .          
-## dis         -0.237030301
+## dis         -0.149254585
 ## rad          .          
 ## tax          .          
-## ptratio     -0.771520796
-## black        0.006407868
-## lstat       -0.517661470&lt;/code&gt;&lt;/pre&gt;
+## ptratio     -0.754242569
+## black        0.006241931
+## lstat       -0.517173282&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In addition, we can find the cross-validation estimate of the mean squared error:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit$cvm[fit$lambda == fit$lambda.1se]&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 26.93809&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 27.39335&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;These are the values I will try to reproduce by actually implementing the lasso in twelve different languages.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;steps-involved-in-computing-the-lasso&#34; class=&#34;section level2&#34;&gt;
