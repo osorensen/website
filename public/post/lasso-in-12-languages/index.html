@@ -424,23 +424,23 @@ fit &lt;- cv.glmnet(medv ~ ., data = Boston)</code></pre>
 <pre class="r"><code>coef(fit, s = &quot;lambda.1se&quot;)</code></pre>
 <pre><code>## 14 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                        1
-## (Intercept) 14.952941584
-## crim        -0.016820727
+## (Intercept) 16.268762344
+## crim        -0.019439916
 ## zn           .          
 ## indus        .          
-## chas         1.675294130
-## nox         -0.708755104
-## rm           4.251922442
+## chas         1.791658202
+## nox         -2.085387000
+## rm           4.259590139
 ## age          .          
-## dis         -0.149254585
+## dis         -0.237030301
 ## rad          .          
 ## tax          .          
-## ptratio     -0.754242569
-## black        0.006241931
-## lstat       -0.517173282</code></pre>
+## ptratio     -0.771520796
+## black        0.006407868
+## lstat       -0.517661470</code></pre>
 <p>In addition, we can find the cross-validation estimate of the mean squared error:</p>
 <pre class="r"><code>fit$cvm[fit$lambda == fit$lambda.1se]</code></pre>
-<pre><code>## [1] 27.39335</code></pre>
+<pre><code>## [1] 27.21721</code></pre>
 <p>These are the values I will try to reproduce by actually implementing the lasso in twelve different languages.</p>
 </div>
 <div id="steps-involved-in-computing-the-lasso" class="section level2">
@@ -611,7 +611,7 @@ until convergence, where <span class="math inline">\(S(\cdot, \cdot)\)</span> is
             return;
         }
         var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "ysteinsrensen" + '.disqus.com/embed.js';
+        s.src = '//' + "osorensen" + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();
@@ -715,7 +715,7 @@ until convergence, where <span class="math inline">\(S(\cdot, \cdot)\)</span> is
     
     
     
-    <script id="dsq-count-scr" src="//ysteinsrensen.disqus.com/count.js" async></script>
+    <script id="dsq-count-scr" src="//osorensen.disqus.com/count.js" async></script>
     
 
     

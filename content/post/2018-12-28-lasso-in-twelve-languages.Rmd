@@ -6,7 +6,8 @@ slug: lasso-in-12-languages
 categories:
   - Statistics
   - Machine Learning
-tags: [Lasso2019]
+tags: 
+  - Lasso2019
 image:
   caption: ''
   focal_point: ''
