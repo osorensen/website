@@ -6,7 +6,7 @@ slug: lasso-in-12-languages
 categories:
   - Statistics
   - Machine Learning
-tags: []
+tags: [Lasso2019]
 image:
   caption: ''
   focal_point: ''
@@ -19,7 +19,7 @@ image:
 <h2>Lasso</h2>
 <p>I chose the lasso because is a fairly simple and very well-known machine learning algorithm, cited tens of thousands of times. It imposes an <span class="math inline">\(\ell_{1}\)</span>-penalty on the coefficients of a regression model. In its simplest case, the criterion is</p>
 <p><span class="math display">\[\hat{\beta} = \text{arg}~\text{min}_{\beta} \left\| y - X \beta\right\|_{2}^{2} + \lambda \left\|\beta\right\|_{1}\]</span></p>
-<p>where <span class="math inline">\(\lambda\)</span> is a regularization parameter, <span class="math inline">\(y\)</span> is a response vector, and <span class="math inline">\(X\)</span> is a matrix of regression coefficients. Because of the absolute value in the penalty term (<span class="math inline">\(\|\beta\|_{1} = \sum_{j} |\beta_{j}|\)</span>), the lasso estimate <span class="math inline">\(\hat{\beta}\)</span> typically sets some of the regression coefficients exactly to zero. This yields a sparse solution, in contrast to what an <span class="math inline">\(\ell_{2}\)</span>-penalty would give, at the same time the criterion is convex, making it much more efficient than, say, best subset selection. These properties make the lasso really useful in a lot of settings, including in <a href="https://www.deeplearningbook.org/contents/regularization.html">regularization of neural networks</a> estimation of graphical model structures, and generalized linear models. The theory of the lasso has been described in lots of papers, much of which is summarized in <a href="https://www.springer.com/la/book/9783642201912">this book</a>.</p>
+<p>where <span class="math inline">\(\lambda\)</span> is a regularization parameter, <span class="math inline">\(y\)</span> is a response vector, and <span class="math inline">\(X\)</span> is a matrix of regression coefficients. Because of the absolute value in the penalty term (<span class="math inline">\(\|\beta\|_{1} = \sum_{j} |\beta_{j}|\)</span>), the lasso estimate <span class="math inline">\(\hat{\beta}\)</span> typically sets some of the regression coefficients exactly to zero. This yields a sparse solution, in contrast to what an <span class="math inline">\(\ell_{2}\)</span>-penalty would give, at the same time the criterion is convex, making it much more efficient than, say, best subset selection. These properties make the lasso really useful in a lot of settings, including in <a href="https://www.deeplearningbook.org/contents/regularization.html">regularization of neural networks</a> estimation of graphical model structures, and generalized linear models. The theory of the lasso has been described in <strong>lots of papers</strong>, much of which is summarized in <a href="https://www.springer.com/la/book/9783642201912">this book</a>.</p>
 </div>
 <div id="solution-using-glmnet" class="section level2">
 <h2>Solution Using glmnet</h2>
@@ -35,23 +35,23 @@ fit &lt;- cv.glmnet(medv ~ ., data = Boston)</code></pre>
 <pre class="r"><code>coef(fit, s = &quot;lambda.1se&quot;)</code></pre>
 <pre><code>## 14 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                        1
-## (Intercept) 21.982341070
-## crim        -0.034943926
-## zn           0.011385002
+## (Intercept) 16.268762344
+## crim        -0.019439916
+## zn           .          
 ## indus        .          
-## chas         2.314692508
-## nox         -8.110065854
-## rm           4.242473848
+## chas         1.791658202
+## nox         -2.085387000
+## rm           4.259590139
 ## age          .          
-## dis         -0.702323093
+## dis         -0.237030301
 ## rad          .          
 ## tax          .          
-## ptratio     -0.817644211
-## black        0.007184524
-## lstat       -0.520321166</code></pre>
+## ptratio     -0.771520796
+## black        0.006407868
+## lstat       -0.517661470</code></pre>
 <p>In addition, we can find the cross-validation estimate of the mean squared error:</p>
 <pre class="r"><code>fit$cvm[fit$lambda == fit$lambda.1se]</code></pre>
-<pre><code>## [1] 25.45176</code></pre>
+<pre><code>## [1] 26.93809</code></pre>
 <p>These are the values I will try to reproduce by actually implementing the lasso in twelve different languages.</p>
 </div>
 <div id="steps-involved-in-computing-the-lasso" class="section level2">
@@ -84,18 +84,18 @@ until convergence, where <span class="math inline">\(S(\cdot, \cdot)\)</span> is
 <h2>Plan</h2>
 <p>My current plan is to implement the lasso in the following languages, partly based on looking at <a href="https://insights.stackoverflow.com/survey/2018/#most-popular-technologies">the Stack Overflow Developer Survey</a>:</p>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a> (must be possible…)</li>
-<li><a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> (should be really fast)</li>
+<li>Bash (must be possible…)</li>
+<li>C (should be really fast)</li>
 <li>C++ (using classes and stuff, not C-style)</li>
-<li><a href="https://en.wikipedia.org/wiki/Fortran">Fortran</a> (really old and really fast?)</li>
-<li><a href="https://en.wikipedia.org/wiki/Java_(programming_language)">Java</a></li>
+<li>Fortran (really old and really fast?)</li>
+<li>Java</li>
 <li>JavaScript</li>
-<li><a href="https://julialang.org/">Julia</a> (might be the next big thing?)</li>
-<li><a href="https://common-lisp.net/">Common Lisp</a> (because references to Lisp keep showing up in R)</li>
-<li><a href="https://www.gnu.org/software/octave/">GNU Octave</a></li>
-<li><a href="https://www.python.org/">Python</a> (obviously)</li>
-<li><a href="https://www.r-project.org/">R</a></li>
-<li><a href="https://www.scala-lang.org/">Scala</a> (the main language used in Apache Spark, so it must me good to know, right?)</li>
+<li>Julia (might be the next big thing, so worth learning?)</li>
+<li>Common Lisp (because references to Lisp keep showing up in R)</li>
+<li>GNU Octave</li>
+<li>Python (obviously)</li>
+<li>R</li>
+<li>Scala (the main language used in Apache Spark, so it must me good to know, right?)</li>
 </ul>
 <p>And as a bonus, Microsoft Excel, obviously.</p>
 <p>I will write one blogpost for each, detailing the solution. The number twelwe was chosen for reasons related to the number of full moons occuring between each time the earth circles around the sun, so the absolute deadline for finishing everything is on the 31st December 2019.</p>

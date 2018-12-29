@@ -6,7 +6,7 @@ slug: lasso-in-12-languages
 categories:
   - Statistics
   - Machine Learning
-tags: []
+tags: [Lasso2019]
 image:
   caption: ''
   focal_point: ''
@@ -20,7 +20,7 @@ I chose the lasso because is a fairly simple and very well-known machine learnin
 
 $$\hat{\beta} = \text{arg}~\text{min}_{\beta} \left\| y - X \beta\right\|_{2}^{2} + \lambda \left\|\beta\right\|_{1}$$
 
-where $\lambda$ is a regularization parameter, $y$ is a response vector, and $X$ is a matrix of regression coefficients. Because of the absolute value in the penalty term ($\|\beta\|_{1} = \sum_{j} |\beta_{j}|$), the lasso estimate $\hat{\beta}$ typically sets some of the regression coefficients exactly to zero. This yields a sparse solution, in contrast to what an $\ell_{2}$-penalty would give, at the same time the criterion is convex, making it much more efficient than, say, best subset selection. These properties make the lasso really useful in a lot of settings, including in [regularization of neural networks](https://www.deeplearningbook.org/contents/regularization.html) estimation of graphical model structures, and generalized linear models. The theory of the lasso has been described in lots of papers, much of which is summarized in [this book](https://www.springer.com/la/book/9783642201912). 
+where $\lambda$ is a regularization parameter, $y$ is a response vector, and $X$ is a matrix of regression coefficients. Because of the absolute value in the penalty term ($\|\beta\|_{1} = \sum_{j} |\beta_{j}|$), the lasso estimate $\hat{\beta}$ typically sets some of the regression coefficients exactly to zero. This yields a sparse solution, in contrast to what an $\ell_{2}$-penalty would give, at the same time the criterion is convex, making it much more efficient than, say, best subset selection. These properties make the lasso really useful in a lot of settings, including in [regularization of neural networks](https://www.deeplearningbook.org/contents/regularization.html) estimation of graphical model structures, and generalized linear models. The theory of the lasso has been described in **lots of papers**, much of which is summarized in [this book](https://www.springer.com/la/book/9783642201912). 
 
 ## Solution Using glmnet
 
@@ -79,18 +79,18 @@ Standardization of covariates before using the algorithm and rescaling to get $\
 
 My current plan is to implement the lasso in the following languages, partly based on looking at [the Stack Overflow Developer Survey](https://insights.stackoverflow.com/survey/2018/#most-popular-technologies):
 
-* [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) (must be possible...)
-* [C](https://en.wikipedia.org/wiki/C_(programming_language)) (should be really fast)
+* Bash (must be possible...)
+* C (should be really fast)
 * C++ (using classes and stuff, not C-style)
-* [Fortran](https://en.wikipedia.org/wiki/Fortran) (really old and really fast?)
-* [Java](https://en.wikipedia.org/wiki/Java_(programming_language)) 
+* Fortran (really old and really fast?)
+* Java
 * JavaScript
-* [Julia](https://julialang.org/) (might be the next big thing?)
-* [Common Lisp](https://common-lisp.net/) (because references to Lisp keep showing up in R)
-* [GNU Octave](https://www.gnu.org/software/octave/)
-* [Python](https://www.python.org/) (obviously)
-* [R](https://www.r-project.org/)
-* [Scala](https://www.scala-lang.org/) (the main language used in Apache Spark, so it must me good to know, right?)
+* Julia (might be the next big thing, so worth learning?)
+* Common Lisp (because references to Lisp keep showing up in R)
+* GNU Octave
+* Python (obviously)
+* R
+* Scala (the main language used in Apache Spark, so it must me good to know, right?)
 
 And as a bonus, Microsoft Excel, obviously.
 
