@@ -127,12 +127,16 @@ abline(a = 0, b = 0, lty = 2)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2018-12-28-implementing-the-lasso-part-i-r_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This also summarizes how the lasso works. If a coefficient is too small, it is set exactly to zero!&lt;/p&gt;
 &lt;p&gt;Next, we need to implement the actual coordinate descent algorithm taking &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;, &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;, and &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; as input. It returns an estimate of &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coordinate_descent &amp;lt;- function(X, y, lambda, 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coordinate_descent &amp;lt;- function(X, y, lambda, beta_init = NULL,
                                tol = 1e-7, maxit = 1000){
   # Number of coefficients
   p &amp;lt;- ncol(X)
   # Initial value of beta
-  beta &amp;lt;- rep(0, ncol(X))
+  if(is.null(beta_init)) {
+    beta &amp;lt;- rep(0, ncol(X))
+  } else {
+    beta &amp;lt;- beta_init
+  }
   # Control parameters to avoid an infinite loop
   eps &amp;lt;- 100
   control &amp;lt;- 0
@@ -159,24 +163,77 @@ abline(a = 0, b = 0, lty = 2)&lt;/code&gt;&lt;/pre&gt;
   X &amp;lt;- scale(X)
   # Center y
   y &amp;lt;- scale(y, scale = FALSE)
-  # Run the lasso
-  beta &amp;lt;- coordinate_descent(X, y, lambda)
-  # Transform coordinates
+  
+  # Run the lasso for each value of lambda, using the previous value for a warm start
+  beta &amp;lt;- matrix(nrow = ncol(X), ncol = length(lambda))
+  for(i in seq_along(lambda)){
+    beta[, i] &amp;lt;- coordinate_descent(X, y, lambda[[i]], 
+                                    if(i &amp;gt; 1) beta[, i-1] else NULL)
+  }
+  # Transform coordinates (using recycling)
   beta &amp;lt;- beta / attr(X, &amp;quot;scaled:scale&amp;quot;)
   # Add intercept
-  beta &amp;lt;- c(attr(y, &amp;quot;scaled:center&amp;quot;), beta)
+  beta &amp;lt;- rbind(attr(y, &amp;quot;scaled:center&amp;quot;), beta)
   # Add names
-  names(beta) &amp;lt;- c(&amp;quot;Intercept&amp;quot;, colnames(X))  
+  rownames(beta) &amp;lt;- c(&amp;quot;Intercept&amp;quot;, colnames(X))  
   # Return beta
   return(beta)
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In the glmnet fit from the introductory blogpost, the minimized prediction error was achieved at around &lt;span class=&#34;math inline&#34;&gt;\(\log(\lambda) = -1\)&lt;/span&gt;. We hence try this.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;round(lasso(X, y, lambda = exp(-1)), 3)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Intercept      CRIM        ZN     INDUS      CHAS       NOX        RM 
-##    22.533    -0.023     0.000     0.000     1.929    -3.728     4.266 
-##       AGE       DIS       RAD       TAX   PTRATIO         B     LSTAT 
-##     0.000    -0.339     0.000     0.000    -0.791     0.007    -0.517&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##             [,1]
+## Intercept 22.533
+## CRIM      -0.023
+## ZN         0.000
+## INDUS      0.000
+## CHAS       1.929
+## NOX       -3.728
+## RM         4.266
+## AGE        0.000
+## DIS       -0.339
+## RAD        0.000
+## TAX        0.000
+## PTRATIO   -0.791
+## B          0.007
+## LSTAT     -0.517&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Comparing to the glmnet fit, this seems to be at the right order of magnitude. Until further, the implementation seems sound, so we go on to cross-validation, which should give very close to glmnet-fit.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;cross-validation&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Cross Validation&lt;/h2&gt;
+&lt;p&gt;In order to determine the optimal value of &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt;, cross validation is a good method. We do it ten-fold, by randomly splitting the data into ten folds, fitting the lasso on nine of them, and computing the prediction error on the tenth.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cv_lasso &amp;lt;- function(X, y, nlambda = 100, nfolds = 10){
+  # Create nfolds random folds
+  foldid &amp;lt;- cut(sample(nrow(X)), breaks = nfolds, labels = FALSE)
+  # Create the lambda vector
+  lambda &amp;lt;- exp(seq(log(10), log(0.1), length.out = nlambda))
+  # Perform cross validation
+  squared_error &amp;lt;- matrix(nrow = nfolds, ncol = nlambda)
+  for(i in seq(1, nfolds)){
+    beta &amp;lt;- lasso(X[foldid != i, , drop = FALSE], y[foldid != i], lambda)
+    apply(beta, 2, function(b) {
+      sum((y[foldid == i] - X[foldid == i, ] %*% b[-1])^2)
+    })
+    
+    for(j in seq(1, nlambda)){
+      squared_error[i, j] &amp;lt;- sum((y[foldid == i] - beta[1, j] - 
+                                    X[foldid == i, , drop = FALSE] %*% beta[-1, j])^2)
+    }
+  }
+  mse &amp;lt;- colSums(squared_error) / nrow(X)
+  mse_sd &amp;lt;- apply(squared_error, 2, sd) / sqrt(nrow(X))
+  
+  # Return the values
+  list(mse = mse, mse_sd = mse_sd, lambda = lambda)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can now compute the cross-validated lasso.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit &amp;lt;- cv_lasso(X, y, nlambda = 100)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plotting&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Plotting&lt;/h2&gt;
+&lt;p&gt;We finally plot the cross-validation error curve.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(log(fit$lambda), fit$mse, type = &amp;quot;p&amp;quot;, col = &amp;quot;red&amp;quot;,
+     xlab = expression(log(lambda)), ylab = &amp;quot;Mean-Squared Error&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-12-28-implementing-the-lasso-part-i-r_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>

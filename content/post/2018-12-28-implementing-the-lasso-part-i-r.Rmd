@@ -109,7 +109,7 @@ it is clear the if the columns of $X$ do not have equal variance, then the colum
 
 $$\tilde{\beta} = \sigma_{X} \odot \hat{\beta}$$
 
-where $\sigma_{X}$ is the vector of standard deviations of the columns of $X$, and $\odot$ is the elementwise product. We standardize $X$, compute $\tilde{\beta}$ and then find $\hat{\beta}$ by dividing by $\sigma_{X}$. In addition, we would like to center all the variables by subtracting their mean and doing the same with $y$. The intercept of the model is then just the sum of $y$. The base R `scale()` function does the job. The values we need are stored in the attributes of `Xsc`:
+where $\sigma_{X}$ is the vector of standard deviations of the columns of $X$, and $\odot$ is the elementwise product. We standardize $X$, compute $\tilde{\beta}$ and then find $\hat{\beta}$ by dividing by $\sigma_{X}$. In addition, we would like to center all the variables by subtracting their mean and doing the same with $y$. The base R `scale()` function does the job. The values we need are stored in the attributes of `Xsc`:
 
 ```{r}
 attr(scale(X), "scaled:scale")
@@ -145,12 +145,16 @@ This also summarizes how the lasso works. If a coefficient is too small, it is s
 Next, we need to implement the actual coordinate descent algorithm taking $X$, $y$, and $\lambda$ as input. It returns an estimate of $\beta$.
 
 ```{r}
-coordinate_descent <- function(X, y, lambda, 
+coordinate_descent <- function(X, y, lambda, beta_init = NULL,
                                tol = 1e-7, maxit = 1000){
   # Number of coefficients
   p <- ncol(X)
   # Initial value of beta
-  beta <- rep(0, ncol(X))
+  if(is.null(beta_init)) {
+    beta <- rep(0, ncol(X))
+  } else {
+    beta <- beta_init
+  }
   # Control parameters to avoid an infinite loop
   eps <- 100
   control <- 0
@@ -173,6 +177,7 @@ coordinate_descent <- function(X, y, lambda,
 }
 ```
 
+
 We are now ready to compute the lasso.
 
 ```{r}
@@ -181,20 +186,41 @@ lasso <- function(X, y, lambda){
   X <- scale(X)
   # Center y
   y <- scale(y, scale = FALSE)
-  # Run the lasso
-  beta <- coordinate_descent(X, y, lambda)
-  # Transform coordinates
+  
+  # Run the lasso for each value of lambda, using the previous value for a warm start
+  beta <- matrix(nrow = ncol(X), ncol = length(lambda))
+  for(i in seq_along(lambda)){
+    beta[, i] <- coordinate_descent(X, y, lambda[[i]], 
+                                    if(i > 1) beta[, i-1] else NULL)
+  }
+  # Transform coordinates (using recycling)
   beta <- beta / attr(X, "scaled:scale")
   # Add intercept
-  beta <- c(attr(y, "scaled:center"), beta)
+  beta0 <- attr(y, "scaled:center") - 
+    sum(beta * attr(X, "scaled:center") /attr(X, "scaled:scale"))
+  beta <- rbind(beta0, beta)
   # Add names
-  names(beta) <- c("Intercept", colnames(X))  
+  rownames(beta) <- c("Intercept", colnames(X))  
   # Return beta
   return(beta)
 }
 ```
 
-In the glmnet fit from the introductory blogpost, the minimized prediction error was achieved at around $\log(\lambda) = -1$. We hence try this.
+
+We try a very simple simulated example to confirm that the implementation is correct, setting $\lambda = 0$ to get the least squares solution.
+
+```{r}
+Xtest <- matrix(rnorm(1000 * 3, mean = 1), ncol = 3)
+colnames(Xtest) <- letters[1:3]
+ytest <- 1 - 2 * Xtest[, 2] - 3 * Xtest[, 3] + rnorm(1000, sd = 0.02)
+lasso(Xtest, ytest, lambda = 0)
+rm(Xtest, ytest)
+```
+
+That looks very correct!
+
+As second test is given by the glmnet fit from the introductory blogpost. There the minimized prediction error was achieved at around $\log(\lambda) = -1$. We hence try this.
+
 
 ```{r}
 round(lasso(X, y, lambda = exp(-1)), 3)
@@ -202,4 +228,49 @@ round(lasso(X, y, lambda = exp(-1)), 3)
 
 Comparing to the glmnet fit, this seems to be at the right order of magnitude. Until further, the implementation seems sound, so we go on to cross-validation, which should give very close to glmnet-fit.
 
+## Cross Validation
+
+In order to determine the optimal value of $\lambda$, cross validation is a good method. We do it ten-fold, by randomly splitting the data into ten folds, fitting the lasso on nine of them, and computing the prediction error on the tenth.
+
+```{r}
+cv_lasso <- function(X, y, nlambda = 100, nfolds = 10){
+  # Create nfolds random folds
+  foldid <- cut(sample(nrow(X)), breaks = nfolds, labels = FALSE)
+  # Create the lambda vector
+  lambda <- exp(seq(log(10), log(0.1), length.out = nlambda))
+  # Perform cross validation
+  squared_error <- matrix(nrow = nfolds, ncol = nlambda)
+  for(i in seq(1, nfolds)){
+    beta <- lasso(X[foldid != i, , drop = FALSE], y[foldid != i], lambda)
+    apply(beta, 2, function(b) {
+      sum((y[foldid == i] - b[1] - X[foldid == i, ] %*% b[-1])^2)
+    })
+    
+    for(j in seq(1, nlambda)){
+      squared_error[i, j] <- sum((y[foldid == i] - beta[1, j] - 
+                                    X[foldid == i, , drop = FALSE] %*% beta[-1, j])^2)
+    }
+  }
+  mse <- colSums(squared_error) / nrow(X)
+  mse_sd <- apply(squared_error, 2, sd) / sqrt(nrow(X))
+  
+  # Return the values
+  list(mse = mse, mse_sd = mse_sd, lambda = lambda)
+}
+```
+
+We can now compute the cross-validated lasso.
+
+```{r}
+fit <- cv_lasso(X, y, nlambda = 100)
+```
+
+## Plotting
+
+We finally plot the cross-validation error curve.
+
+```{r}
+plot(log(fit$lambda), fit$mse, type = "p", col = "red",
+     xlab = expression(log(lambda)), ylab = "Mean-Squared Error")
+```
 
