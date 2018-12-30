@@ -25,13 +25,15 @@ where $\lambda$ is a regularization parameter, $y$ is a response vector, and $X$
 
 ## Solution Using glmnet
 
-In R, the **glmnet** package is the main tool for computing the lasso. It is based on a Fortran implementation of the coordinate descent. When implementing the lasso in various languages, I will use the [Boston house-price data](http://lib.stat.cmu.edu/datasets/boston), and try to predict the median house value using the other variables in the dataset. This dataset is actually also available in R through the **MASS** package, so in order to have a reference solution, we can execute the following lines:
+In R, the **glmnet** package is the main tool for computing the lasso. It is based on a Fortran implementation of the coordinate descent. When implementing the lasso in various languages, I will use the [Boston house-price data](http://lib.stat.cmu.edu/datasets/boston), and try to predict the median house value using the other variables in the dataset. This dataset is actually also available in R through the **MASS** package, so in order to have a reference solution, we can execute the following lines, where we create the ten-fold cross-validation outside in order to ensure that it will be the same when reimplementing it.
 
 ```{r, message=FALSE}
 library(glmnet)
 library(glmnetUtils)
 library(MASS)
-fit <- cv.glmnet(medv ~ ., data = Boston)
+set.seed(123)
+foldid <- cut(sample(nrow(Boston)), breaks = 10, labels = FALSE)
+system.time(fit <- cv.glmnet(medv ~ ., data = Boston, foldid = foldid))
 ```
 
 This estimates the cross-validated loss function of the lasso along a grid of $\lambda$ values. We can visualize it as follows:
@@ -40,7 +42,13 @@ This estimates the cross-validated loss function of the lasso along a grid of $\
 plot(fit)
 ```
 
-The numbers in the upper horizontal bar show how many coefficients are nonzero. The rightmost line is the value of $\lambda$ corresponding to the "one standard error rule", and we choose this one as our final value of the regularization parameter. We get the regression coefficients as follows:
+The numbers in the upper horizontal bar show how many coefficients are nonzero. The rightmost line is the value of $\lambda$ corresponding to the "one standard error rule". We get the regression coefficients as follows, first at $\lambda_{min}$.
+
+```{r}
+coef(fit, s = "lambda.min")
+```
+
+Next at $\lambda_{1se}$.
 
 ```{r}
 coef(fit, s = "lambda.1se")
@@ -49,6 +57,7 @@ coef(fit, s = "lambda.1se")
 In addition, we can find the cross-validation estimate of the mean squared error:
 
 ```{r}
+fit$cvm[fit$lambda == fit$lambda.min]
 fit$cvm[fit$lambda == fit$lambda.1se]
 ```
 

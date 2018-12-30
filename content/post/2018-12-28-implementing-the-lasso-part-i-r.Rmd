@@ -104,16 +104,21 @@ y <- values[, "MEDV"]
 
 Considering the lasso criterion,
 
-$$\hat{\beta} = \text{arg}~\text{min}_{\beta} \left\| y - X \beta\right\|_{2}^{2} + \lambda \left\|\beta\right\|_{1}$$
+$$\hat{\beta} = \text{arg}~\text{min}_{\beta} 1/(2n)\left\| y - X \beta\right\|_{2}^{2} + \lambda \left\|\beta\right\|_{1}$$
 it is clear the if the columns of $X$ do not have equal variance, then the columns with high variance will be penalized more than the columns with low variance, since the regularization parameter $\lambda$ is the same for all of them. The common way of dealing with this is by a reparametrization First, I create a function which standardizes the variables, [using exactly the same transformations as glmnet](https://stackoverflow.com/questions/23686067/default-lambda-sequence-in-glmnet-for-cross-validation).
 
+Also, the value of $\lambda$ yielding the zero solution is given by
+
+$$\lambda_{max} = max_{j}\left|x_{j}^{T} y\right|/n$$
+which we can see by differentiating the criterion and setting $\beta=0$. Hence, we also compute $\lambda_{max}$ in this function.
 
 ```{r}
 standardize <- function(X, y){
   mysd <- function(y) sqrt(sum((y-mean(y))^2)/length(y))
   X <- scale(X, scale = apply(X, 2, mysd))
   y <- scale(y, scale = mysd(y))
-  return(list(X = X, y = y))
+  lambda_max <- max(abs(colSums(as.matrix(X) * as.vector(y)))) / nrow(X)
+  return(list(X = X, y = y, lambda_max = lambda_max))
 }
 ```
 
@@ -164,6 +169,8 @@ transform_beta <- function(beta, X, y){
     attr(y, "scaled:scale") * (beta / attr(X, "scaled:scale")))
 }
 ```
+
+
 
 These are the transformed coefficients. Note the we do not include the estimated intercept, which is zero.
 
@@ -272,21 +279,29 @@ Xtest <- matrix(rnorm(1000 * 3, mean = 1), ncol = 3)
 colnames(Xtest) <- letters[1:3]
 ytest <- 1 + 2 * Xtest[, 2] - 3 * Xtest[, 3] + rnorm(1000, sd = 0.02)
 lasso(Xtest, ytest, lambda = 0)
+```
+
+That looks very correct! We can also check if $\lambda_{max}$ is correct.
+
+```{r}
+lambda_max <- standardize(Xtest, ytest)$lambda_max
+lasso(Xtest, ytest, c(lambda_max * 0.99, lambda_max))
 rm(Xtest, ytest)
 ```
 
-That looks very correct!
+Indeed, using $0.99 \lambda_{max}$ yields one nonzero coefficients, while using $\lambda_{max}$ yields all zero coefficients, except for the intercept which we do not penalize.
 
 ## Cross Validation
 
 In order to determine the optimal value of $\lambda$, cross validation is a good method. We do it ten-fold, by randomly splitting the data into ten folds, fitting the lasso on nine of them, and computing the prediction error on the tenth.
 
 ```{r}
-cv_lasso <- function(X, y, nlambda = 100, nfolds = 10){
-  # Create nfolds random folds
-  foldid <- cut(sample(nrow(X)), breaks = nfolds, labels = FALSE)
+cv_lasso <- function(X, y, foldid, nlambda = 100){
   # Create the lambda vector
-  lambda <- exp(seq(log(1), log(1e-6), length.out = nlambda))
+  lambda_max <- standardize(X, y)$lambda_max
+  lambda <- exp(seq(log(lambda_max), log(1e-3 * lambda_max), 
+                    length.out = nlambda))
+  nfolds <- max(foldid)
   # Perform cross validation
   squared_error <- matrix(nrow = nfolds, ncol = nlambda)
   for(i in seq(1, nfolds)){
@@ -298,26 +313,80 @@ cv_lasso <- function(X, y, nlambda = 100, nfolds = 10){
     }
   }
   mse <- colSums(squared_error) / nrow(X)
+  lambda_min <- lambda[which.min(mse)]
+  sdse <- apply(squared_error / nrow(X) * nfolds, 2, sd)
+  lambda_1se <- max(lambda[mse < min(mse + sdse / sqrt(nfolds))])
+  
+  # Do a final fit
+  beta <- lasso(X, y, lambda)
+  # Find the number of nonzero values
+  nz <- apply(beta, 2, function(x) sum(x != 0))
   
   # Return the values
-  list(mse = mse, lambda = lambda)
+  list(beta = beta, nz = nz,
+       mse = mse, sdse = sdse, lambda = lambda, 
+       lambda_min = lambda_min,
+       lambda_1se = lambda_1se)
 }
 ```
 
-We can now compute the cross-validated lasso.
+We can now compute the cross-validated lasso, where we make sure the cross-validation folds are exactly the same as with glmnet in the previous post.
 
 ```{r}
-fit <- cv_lasso(X, y, nlambda = 30)
+set.seed(123)
+foldid <- cut(sample(nrow(X)), breaks = 10, labels = FALSE)
+system.time(fit <- cv_lasso(X, y, foldid))
 ```
+
+Note that it takes a whole lot longer than `cv.glmnet`. We could probably speed up a bit by adapting an *active set strategy* in the coordinate descent algorithm, and only check every, say, 50th iteration whether any of the currently zero coefficients should be nonzero, while updating the nonzero values in every iteration. Anyhow, iterations like this is not what are was built for, and shows the advantage of using compiled code.
 
 ## Plotting
 
-We finally plot the cross-validation error curve.
+We finally plot the cross-validation error curve. [This site](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781849513067/3/ch03lvl1sec07/adding-error-bars) gave good help in figuring out how to plot the errorbars, and the source code to `plot.cv.glmnet` revealed how to plot the number of nonzero coefficients on top.
 
 ```{r}
 plot(log(fit$lambda), fit$mse, 
-     xlim = rev(range(log(fit$lambda))),
-     type = "p", col = "red",
-     xlab = expression(log(lambda)), ylab = "Mean-Squared Error")
+     type = "p", col = "red", pch = 20,
+     xlab = expression(log(lambda)), ylab = "Mean-Squared Error",
+     ylim = c(min(fit$mse - fit$sdse), max(fit$mse + fit$sdse)))
+abline(v = log(fit$lambda_min), lty = 2)
+abline(v = log(fit$lambda_1se), lty = 2)
+arrows(x0 = log(fit$lambda), y0 = fit$mse - fit$sdse,
+       x1 = log(fit$lambda), y1 = fit$mse + fit$sdse, 
+       angle = 90, code = 3, length = 0.04, lwd = 0.4)
+axis(side = 3, at = log(fit$lambda), labels = paste(fit$nz), 
+     tick = FALSE, line = 0)
 ```
+
+## Checking the Results
+
+Finally, we compare the results to [those obtained with glmnet](http://osorensen.rbind.io/post/lasso-in-12-languages/), to check that the implementation is correct. Note that there seems to be a scaling issue with the value of $\lambda$, probably related to some division by $n$, but this has no impact on the solution.
+
+We find the coefficients at $\lambda_{min}$.
+
+```{r}
+fit$beta[, fit$lambda == fit$lambda_min, drop = FALSE]
+```
+
+These values are practically identical to those given by glmnet.
+
+Next, the coefficients at $\lambda_{1se}$ are:
+
+```{r}
+fit$beta[, fit$lambda == fit$lambda_1se, drop = FALSE]
+```
+
+These are also really close to the values obtained with glmnet.
+
+Finally, we can look at the mean squared errors.
+
+```{r}
+fit$mse[fit$lambda == fit$lambda_min]
+```
+
+```{r}
+fit$mse[fit$lambda == fit$lambda_1se]
+```
+
+These are also really close the the glmnet values.
 

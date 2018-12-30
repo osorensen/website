@@ -24,35 +24,59 @@ image:
 </div>
 <div id="solution-using-glmnet" class="section level2">
 <h2>Solution Using glmnet</h2>
-<p>In R, the <strong>glmnet</strong> package is the main tool for computing the lasso. It is based on a Fortran implementation of the coordinate descent. When implementing the lasso in various languages, I will use the <a href="http://lib.stat.cmu.edu/datasets/boston">Boston house-price data</a>, and try to predict the median house value using the other variables in the dataset. This dataset is actually also available in R through the <strong>MASS</strong> package, so in order to have a reference solution, we can execute the following lines:</p>
+<p>In R, the <strong>glmnet</strong> package is the main tool for computing the lasso. It is based on a Fortran implementation of the coordinate descent. When implementing the lasso in various languages, I will use the <a href="http://lib.stat.cmu.edu/datasets/boston">Boston house-price data</a>, and try to predict the median house value using the other variables in the dataset. This dataset is actually also available in R through the <strong>MASS</strong> package, so in order to have a reference solution, we can execute the following lines, where we create the ten-fold cross-validation outside in order to ensure that it will be the same when reimplementing it.</p>
 <pre class="r"><code>library(glmnet)
 library(glmnetUtils)
 library(MASS)
-fit &lt;- cv.glmnet(medv ~ ., data = Boston)</code></pre>
+set.seed(123)
+foldid &lt;- cut(sample(nrow(Boston)), breaks = 10, labels = FALSE)
+system.time(fit &lt;- cv.glmnet(medv ~ ., data = Boston, foldid = foldid))</code></pre>
+<pre><code>##    user  system elapsed 
+##   0.107   0.004   0.112</code></pre>
 <p>This estimates the cross-validated loss function of the lasso along a grid of <span class="math inline">\(\lambda\)</span> values. We can visualize it as follows:</p>
 <pre class="r"><code>plot(fit)</code></pre>
 <p><img src="/post/2018-12-28-lasso-in-twelve-languages_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>The numbers in the upper horizontal bar show how many coefficients are nonzero. The rightmost line is the value of <span class="math inline">\(\lambda\)</span> corresponding to the “one standard error rule”, and we choose this one as our final value of the regularization parameter. We get the regression coefficients as follows:</p>
+<p>The numbers in the upper horizontal bar show how many coefficients are nonzero. The rightmost line is the value of <span class="math inline">\(\lambda\)</span> corresponding to the “one standard error rule”. We get the regression coefficients as follows, first at <span class="math inline">\(\lambda_{min}\)</span>.</p>
+<pre class="r"><code>coef(fit, s = &quot;lambda.min&quot;)</code></pre>
+<pre><code>## 14 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                         1
+## (Intercept)  34.594713527
+## crim         -0.099226869
+## zn            0.041830020
+## indus         .          
+## chas          2.688250324
+## nox         -16.401122000
+## rm            3.861229965
+## age           .          
+## dis          -1.404571749
+## rad           0.256788019
+## tax          -0.009997514
+## ptratio      -0.931437290
+## black         0.009049252
+## lstat        -0.522505968</code></pre>
+<p>Next at <span class="math inline">\(\lambda_{1se}\)</span>.</p>
 <pre class="r"><code>coef(fit, s = &quot;lambda.1se&quot;)</code></pre>
 <pre><code>## 14 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                        1
-## (Intercept) 16.268762344
-## crim        -0.019439916
-## zn           .          
+## (Intercept) 20.443234513
+## crim        -0.029579467
+## zn           0.005117086
 ## indus        .          
-## chas         1.791658202
-## nox         -2.085387000
-## rm           4.259590139
+## chas         2.168428935
+## nox         -6.478368167
+## rm           4.261458164
 ## age          .          
-## dis         -0.237030301
+## dis         -0.553162685
 ## rad          .          
 ## tax          .          
-## ptratio     -0.771520796
-## black        0.006407868
-## lstat       -0.517661470</code></pre>
+## ptratio     -0.813351925
+## black        0.006958142
+## lstat       -0.519363373</code></pre>
 <p>In addition, we can find the cross-validation estimate of the mean squared error:</p>
+<pre class="r"><code>fit$cvm[fit$lambda == fit$lambda.min]</code></pre>
+<pre><code>## [1] 23.68254</code></pre>
 <pre class="r"><code>fit$cvm[fit$lambda == fit$lambda.1se]</code></pre>
-<pre><code>## [1] 27.25923</code></pre>
+<pre><code>## [1] 25.91843</code></pre>
 <p>These are the values I will try to reproduce by actually implementing the lasso in twelve different languages.</p>
 </div>
 <div id="steps-involved-in-computing-the-lasso" class="section level2">
