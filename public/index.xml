@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Øystein Sørensen on Øystein Sørensen</title>
-    <link>http://osorensen.rbind.io/</link>
+    <link>/</link>
     <description>Recent content in Øystein Sørensen on Øystein Sørensen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -12,10 +12,10 @@
     
     <item>
       <title>Implementing the Lasso, Part I: R</title>
-      <link>http://osorensen.rbind.io/post/implementing-the-lasso-part-i-r/</link>
+      <link>/post/implementing-the-lasso-part-i-r/</link>
       <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://osorensen.rbind.io/post/implementing-the-lasso-part-i-r/</guid>
+      <guid>/post/implementing-the-lasso-part-i-r/</guid>
       <description>
 
 
@@ -183,7 +183,7 @@ plot(t, soft_threshold(t, lambda), type = &amp;quot;l&amp;quot;,
      ylab = expression(S(t, lambda)),
      main = &amp;quot;Soft thresholding operator&amp;quot;)
 abline(a = 0, b = 0, lty = 2)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;http://osorensen.rbind.io/post/2018-12-28-implementing-the-lasso-part-i-r_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-12-28-implementing-the-lasso-part-i-r_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This also summarizes how the lasso works. If a coefficient is too small, it is set exactly to zero!&lt;/p&gt;
 &lt;p&gt;Next, we need to implement the actual coordinate descent algorithm taking &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;, &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;, and &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; as input. It returns an estimate of &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;. We assume the data are standardized, and hence do not estimate the intercept in this loop.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coordinate_descent &amp;lt;- function(X, y, lambda, beta_init = NULL,
@@ -238,18 +238,18 @@ colnames(Xtest) &amp;lt;- letters[1:3]
 ytest &amp;lt;- 1 + 2 * Xtest[, 2] - 3 * Xtest[, 3] + rnorm(1000, sd = 0.02)
 lasso(Xtest, ytest, lambda = 0)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##                    [,1]
-## INTERCEPT  1.0008283517
-## a         -0.0005470972
-## b          1.9997526335
-## c         -2.9998055359&lt;/code&gt;&lt;/pre&gt;
+## INTERCEPT  0.9997233507
+## a          0.0008707513
+## b          1.9993238170
+## c         -2.9994459277&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;That looks very correct! We can also check if &lt;span class=&#34;math inline&#34;&gt;\(\lambda_{max}\)&lt;/span&gt; is correct.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lambda_max &amp;lt;- standardize(Xtest, ytest)$lambda_max
 lasso(Xtest, ytest, c(lambda_max * 0.99, lambda_max))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##                  [,1]       [,2]
-## INTERCEPT  0.04207374 0.01237216
-## a          0.00000000 0.00000000
-## b          0.00000000 0.00000000
-## c         -0.03010121 0.00000000&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                   [,1]       [,2]
+## INTERCEPT  0.003830354 -0.0264467
+## a          0.000000000  0.0000000
+## b          0.000000000  0.0000000
+## c         -0.030032481  0.0000000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rm(Xtest, ytest)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Indeed, using &lt;span class=&#34;math inline&#34;&gt;\(0.99 \lambda_{max}\)&lt;/span&gt; yields one nonzero coefficients, while using &lt;span class=&#34;math inline&#34;&gt;\(\lambda_{max}\)&lt;/span&gt; yields all zero coefficients, except for the intercept which we do not penalize.&lt;/p&gt;
 &lt;/div&gt;
@@ -293,7 +293,7 @@ lasso(Xtest, ytest, c(lambda_max * 0.99, lambda_max))&lt;/code&gt;&lt;/pre&gt;
 foldid &amp;lt;- cut(sample(nrow(X)), breaks = 10, labels = FALSE)
 system.time(fit &amp;lt;- cv_lasso(X, y, foldid))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##  16.432   2.980  19.419&lt;/code&gt;&lt;/pre&gt;
+##  16.518   2.849  19.388&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Note that it takes a whole lot longer than &lt;code&gt;cv.glmnet&lt;/code&gt;. We could probably speed up a bit by adapting an &lt;em&gt;active set strategy&lt;/em&gt; in the coordinate descent algorithm, and only check every, say, 50th iteration whether any of the currently zero coefficients should be nonzero, while updating the nonzero values in every iteration. Anyhow, iterations like this is not what are was built for, and shows the advantage of using compiled code.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;plotting&#34; class=&#34;section level2&#34;&gt;
@@ -310,7 +310,7 @@ arrows(x0 = log(fit$lambda), y0 = fit$mse - fit$sdse,
        angle = 90, code = 3, length = 0.04, lwd = 0.4)
 axis(side = 3, at = log(fit$lambda), labels = paste(fit$nz), 
      tick = FALSE, line = 0)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;http://osorensen.rbind.io/post/2018-12-28-implementing-the-lasso-part-i-r_files/figure-html/unnamed-chunk-30-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-12-28-implementing-the-lasso-part-i-r_files/figure-html/unnamed-chunk-30-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;checking-the-results&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Checking the Results&lt;/h2&gt;
@@ -369,10 +369,10 @@ axis(side = 3, at = log(fit$lambda), labels = paste(fit$nz),
     
     <item>
       <title>Lasso in Twelve Languages</title>
-      <link>http://osorensen.rbind.io/post/lasso-in-12-languages/</link>
+      <link>/post/lasso-in-12-languages/</link>
       <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://osorensen.rbind.io/post/lasso-in-12-languages/</guid>
+      <guid>/post/lasso-in-12-languages/</guid>
       <description>
 
 
@@ -393,10 +393,10 @@ set.seed(123)
 foldid &amp;lt;- cut(sample(nrow(Boston)), breaks = 10, labels = FALSE)
 system.time(fit &amp;lt;- cv.glmnet(medv ~ ., data = Boston, foldid = foldid))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   0.092   0.005   0.097&lt;/code&gt;&lt;/pre&gt;
+##   0.096   0.003   0.100&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This estimates the cross-validated loss function of the lasso along a grid of &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; values. We can visualize it as follows:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(fit)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;http://osorensen.rbind.io/post/2018-12-28-lasso-in-twelve-languages_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-12-28-lasso-in-twelve-languages_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;The numbers in the upper horizontal bar show how many coefficients are nonzero. The rightmost line is the value of &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; corresponding to the “one standard error rule”. We get the regression coefficients as follows, first at &lt;span class=&#34;math inline&#34;&gt;\(\lambda_{min}\)&lt;/span&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coef(fit, s = &amp;quot;lambda.min&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## 14 x 1 sparse Matrix of class &amp;quot;dgCMatrix&amp;quot;
@@ -486,6 +486,16 @@ until convergence, where &lt;span class=&#34;math inline&#34;&gt;\(S(\cdot, \cdo
 &lt;p&gt;And as a bonus, Microsoft Excel, obviously.&lt;/p&gt;
 &lt;p&gt;I will write one blogpost for each, detailing the solution. The number twelwe was chosen for reasons related to the number of full moons occuring between each time the earth circles around the sun, so the absolute deadline for finishing everything is on the 31st December 2019.&lt;/p&gt;
 &lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Privacy Policy</title>
+      <link>/privacy/</link>
+      <pubDate>Thu, 28 Jun 2018 00:00:00 +0200</pubDate>
+      
+      <guid>/privacy/</guid>
+      <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
 </description>
     </item>
     

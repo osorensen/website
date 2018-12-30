@@ -234,18 +234,18 @@ colnames(Xtest) &lt;- letters[1:3]
 ytest &lt;- 1 + 2 * Xtest[, 2] - 3 * Xtest[, 3] + rnorm(1000, sd = 0.02)
 lasso(Xtest, ytest, lambda = 0)</code></pre>
 <pre><code>##                    [,1]
-## INTERCEPT  1.0008283517
-## a         -0.0005470972
-## b          1.9997526335
-## c         -2.9998055359</code></pre>
+## INTERCEPT  0.9997233507
+## a          0.0008707513
+## b          1.9993238170
+## c         -2.9994459277</code></pre>
 <p>That looks very correct! We can also check if <span class="math inline">\(\lambda_{max}\)</span> is correct.</p>
 <pre class="r"><code>lambda_max &lt;- standardize(Xtest, ytest)$lambda_max
 lasso(Xtest, ytest, c(lambda_max * 0.99, lambda_max))</code></pre>
-<pre><code>##                  [,1]       [,2]
-## INTERCEPT  0.04207374 0.01237216
-## a          0.00000000 0.00000000
-## b          0.00000000 0.00000000
-## c         -0.03010121 0.00000000</code></pre>
+<pre><code>##                   [,1]       [,2]
+## INTERCEPT  0.003830354 -0.0264467
+## a          0.000000000  0.0000000
+## b          0.000000000  0.0000000
+## c         -0.030032481  0.0000000</code></pre>
 <pre class="r"><code>rm(Xtest, ytest)</code></pre>
 <p>Indeed, using <span class="math inline">\(0.99 \lambda_{max}\)</span> yields one nonzero coefficients, while using <span class="math inline">\(\lambda_{max}\)</span> yields all zero coefficients, except for the intercept which we do not penalize.</p>
 </div>
@@ -289,7 +289,7 @@ lasso(Xtest, ytest, c(lambda_max * 0.99, lambda_max))</code></pre>
 foldid &lt;- cut(sample(nrow(X)), breaks = 10, labels = FALSE)
 system.time(fit &lt;- cv_lasso(X, y, foldid))</code></pre>
 <pre><code>##    user  system elapsed 
-##  16.432   2.980  19.419</code></pre>
+##  16.518   2.849  19.388</code></pre>
 <p>Note that it takes a whole lot longer than <code>cv.glmnet</code>. We could probably speed up a bit by adapting an <em>active set strategy</em> in the coordinate descent algorithm, and only check every, say, 50th iteration whether any of the currently zero coefficients should be nonzero, while updating the nonzero values in every iteration. Anyhow, iterations like this is not what are was built for, and shows the advantage of using compiled code.</p>
 </div>
 <div id="plotting" class="section level2">

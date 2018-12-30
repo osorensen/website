@@ -4,7 +4,7 @@
     
     <url>
     
-      <loc>http://osorensen.rbind.io/post/implementing-the-lasso-part-i-r/</loc>
+      <loc>/post/implementing-the-lasso-part-i-r/</loc>
       <lastmod>2018-12-28T00:00:00+00:00</lastmod>
     </url>
     
@@ -12,7 +12,7 @@
     
     <url>
     
-      <loc>http://osorensen.rbind.io/post/lasso-in-12-languages/</loc>
+      <loc>/post/lasso-in-12-languages/</loc>
       <lastmod>2018-12-28T00:00:00+00:00</lastmod>
     </url>
     
@@ -20,7 +20,15 @@
     
     <url>
     
-      <loc>http://osorensen.rbind.io/post/</loc>
+      <loc>/privacy/</loc>
+      <lastmod>2018-06-28T00:00:00+02:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/post/</loc>
       <lastmod>2017-01-01T00:00:00+01:00</lastmod>
     </url>
     
@@ -28,7 +36,7 @@
     
     <url>
     
-      <loc>http://osorensen.rbind.io/categories/</loc>
+      <loc>/categories/</loc>
       <priority>0</priority>
     </url>
     
@@ -36,7 +44,7 @@
     
     <url>
     
-      <loc>http://osorensen.rbind.io/tags/lasso2019/</loc>
+      <loc>/tags/lasso2019/</loc>
       <lastmod>2018-12-28T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -45,7 +53,7 @@
     
     <url>
     
-      <loc>http://osorensen.rbind.io/categories/machine-learning/</loc>
+      <loc>/categories/machine-learning/</loc>
       <lastmod>2018-12-28T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -54,7 +62,7 @@
     
     <url>
     
-      <loc>http://osorensen.rbind.io/publication_types/</loc>
+      <loc>/publication_types/</loc>
       <priority>0</priority>
     </url>
     
@@ -62,7 +70,7 @@
     
     <url>
     
-      <loc>http://osorensen.rbind.io/categories/statistics/</loc>
+      <loc>/categories/statistics/</loc>
       <lastmod>2018-12-28T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -71,7 +79,7 @@
     
     <url>
     
-      <loc>http://osorensen.rbind.io/tags/</loc>
+      <loc>/tags/</loc>
       <lastmod>2018-12-28T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -80,7 +88,7 @@
     
     <url>
     
-      <loc>http://osorensen.rbind.io/</loc>
+      <loc>/</loc>
       <lastmod>2017-10-15T00:00:00+02:00</lastmod>
       <priority>0</priority>
     </url>
