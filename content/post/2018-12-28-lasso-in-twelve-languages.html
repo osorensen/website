@@ -32,7 +32,7 @@ set.seed(123)
 foldid &lt;- cut(sample(nrow(Boston)), breaks = 10, labels = FALSE)
 system.time(fit &lt;- cv.glmnet(medv ~ ., data = Boston, foldid = foldid))</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.107   0.004   0.112</code></pre>
+##   0.092   0.005   0.097</code></pre>
 <p>This estimates the cross-validated loss function of the lasso along a grid of <span class="math inline">\(\lambda\)</span> values. We can visualize it as follows:</p>
 <pre class="r"><code>plot(fit)</code></pre>
 <p><img src="/post/2018-12-28-lasso-in-twelve-languages_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>

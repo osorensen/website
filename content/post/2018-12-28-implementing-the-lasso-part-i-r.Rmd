@@ -15,6 +15,8 @@ image:
 
 In a [previous post](http://osorensen.rbind.io/post/lasso-in-12-languages/), I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. I am not going to use any external dependencies, i.e., no calls to `library()`. This is obviously not how we we do it in real life, but really useful in order to understand what the algorithm really does. Also, anyone who has tried to convince an IT department in a large corporation to install R packages, or installing a package with lots of dependencies on a high-performance computing cluster, knows the value of base R.
 
+The whole point of this is my wish to improve my coding skills, but feel free to read on if interested!
+
 ## Download Data
 
 First, we need to download the [Boston housing dataset](http://lib.stat.cmu.edu/datasets/boston), which we are going to analyze. We start by reading in all the lines.
@@ -390,3 +392,10 @@ fit$mse[fit$lambda == fit$lambda_1se]
 
 These are also really close the the glmnet values.
 
+## Summary
+
+Implementing this took longer than expected! I was expecting to spend a few hours, but all the nitty gritty with scaling and transformations took days. Luckily, these details carry over to all the other languages, so it was good to go through.
+
+Implementing algorithms is also **not** what R is good at. Rather, R is a great interface to algorithms written in compiled languages like C/C++ and Fortran. However, it was fun to do, and the whole point of this is learning, which I definitely did.
+
+Next up is C++, which I hope to get closer to the speed of glmnet's Fortran code. I am also giving a [talk on Rcpp](https://www.meetup.com/Oslo-useR-Group/events/256805098/) for the Oslo useR! Group in February, so need to read up on C++ language anyway :-)

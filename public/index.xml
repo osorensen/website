@@ -20,6 +20,7 @@
 
 
 &lt;p&gt;In a &lt;a href=&#34;http://osorensen.rbind.io/post/lasso-in-12-languages/&#34;&gt;previous post&lt;/a&gt;, I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. I am not going to use any external dependencies, i.e., no calls to &lt;code&gt;library()&lt;/code&gt;. This is obviously not how we we do it in real life, but really useful in order to understand what the algorithm really does. Also, anyone who has tried to convince an IT department in a large corporation to install R packages, or installing a package with lots of dependencies on a high-performance computing cluster, knows the value of base R.&lt;/p&gt;
+&lt;p&gt;The whole point of this is my wish to improve my coding skills, but feel free to read on if interested!&lt;/p&gt;
 &lt;div id=&#34;download-data&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Download Data&lt;/h2&gt;
 &lt;p&gt;First, we need to download the &lt;a href=&#34;http://lib.stat.cmu.edu/datasets/boston&#34;&gt;Boston housing dataset&lt;/a&gt;, which we are going to analyze. We start by reading in all the lines.&lt;/p&gt;
@@ -236,19 +237,19 @@ abline(a = 0, b = 0, lty = 2)&lt;/code&gt;&lt;/pre&gt;
 colnames(Xtest) &amp;lt;- letters[1:3]
 ytest &amp;lt;- 1 + 2 * Xtest[, 2] - 3 * Xtest[, 3] + rnorm(1000, sd = 0.02)
 lasso(Xtest, ytest, lambda = 0)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##                    [,1]
-## INTERCEPT  0.9996458559
-## a          0.0009181074
-## b          2.0000177931
-## c         -3.0001809756&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                   [,1]
+## INTERCEPT  0.998488534
+## a          0.001126666
+## b          2.001006444
+## c         -2.999602037&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;That looks very correct! We can also check if &lt;span class=&#34;math inline&#34;&gt;\(\lambda_{max}\)&lt;/span&gt; is correct.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lambda_max &amp;lt;- standardize(Xtest, ytest)$lambda_max
 lasso(Xtest, ytest, c(lambda_max * 0.99, lambda_max))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##                  [,1]        [,2]
-## INTERCEPT  0.01147424 -0.01653618
-## a          0.00000000  0.00000000
-## b          0.00000000  0.00000000
-## c         -0.02846543  0.00000000&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                  [,1]       [,2]
+## INTERCEPT -0.07188652 -0.1025239
+## a          0.00000000  0.0000000
+## b          0.00000000  0.0000000
+## c         -0.03024841  0.0000000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rm(Xtest, ytest)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Indeed, using &lt;span class=&#34;math inline&#34;&gt;\(0.99 \lambda_{max}\)&lt;/span&gt; yields one nonzero coefficients, while using &lt;span class=&#34;math inline&#34;&gt;\(\lambda_{max}\)&lt;/span&gt; yields all zero coefficients, except for the intercept which we do not penalize.&lt;/p&gt;
 &lt;/div&gt;
@@ -292,7 +293,7 @@ lasso(Xtest, ytest, c(lambda_max * 0.99, lambda_max))&lt;/code&gt;&lt;/pre&gt;
 foldid &amp;lt;- cut(sample(nrow(X)), breaks = 10, labels = FALSE)
 system.time(fit &amp;lt;- cv_lasso(X, y, foldid))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##  16.744   2.672  19.470&lt;/code&gt;&lt;/pre&gt;
+##  16.393   2.967  19.370&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Note that it takes a whole lot longer than &lt;code&gt;cv.glmnet&lt;/code&gt;. We could probably speed up a bit by adapting an &lt;em&gt;active set strategy&lt;/em&gt; in the coordinate descent algorithm, and only check every, say, 50th iteration whether any of the currently zero coefficients should be nonzero, while updating the nonzero values in every iteration. Anyhow, iterations like this is not what are was built for, and shows the advantage of using compiled code.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;plotting&#34; class=&#34;section level2&#34;&gt;
@@ -357,6 +358,12 @@ axis(side = 3, at = log(fit$lambda), labels = paste(fit$nz),
 &lt;pre&gt;&lt;code&gt;## [1] 25.80286&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;These are also really close the the glmnet values.&lt;/p&gt;
 &lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;p&gt;Implementing this took longer than expected! I was expecting to spend a few hours, but all the nitty gritty with scaling and transformations took days. Luckily, these details carry over to all the other languages, so it was good to go through.&lt;/p&gt;
+&lt;p&gt;Implementing algorithms is also &lt;strong&gt;not&lt;/strong&gt; what R is good at. Rather, R is a great interface to algorithms written in compiled languages like C/C++ and Fortran. However, it was fun to do, and the whole point of this is learning, which I definitely did.&lt;/p&gt;
+&lt;p&gt;Next up is C++, which I hope to get closer to the speed of glmnet’s Fortran code. I am also giving a &lt;a href=&#34;https://www.meetup.com/Oslo-useR-Group/events/256805098/&#34;&gt;talk on Rcpp&lt;/a&gt; for the Oslo useR! Group in February, so need to read up on C++ language anyway :-)&lt;/p&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -386,7 +393,7 @@ set.seed(123)
 foldid &amp;lt;- cut(sample(nrow(Boston)), breaks = 10, labels = FALSE)
 system.time(fit &amp;lt;- cv.glmnet(medv ~ ., data = Boston, foldid = foldid))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   0.107   0.004   0.112&lt;/code&gt;&lt;/pre&gt;
+##   0.092   0.005   0.097&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This estimates the cross-validated loss function of the lasso along a grid of &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; values. We can visualize it as follows:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(fit)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;http://osorensen.rbind.io/post/2018-12-28-lasso-in-twelve-languages_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
