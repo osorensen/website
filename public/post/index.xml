@@ -12,14 +12,5 @@
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>Lasso in Twelve Languages</title>
-      <link>/post/lasso-in-12-languages/</link>
-      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/lasso-in-12-languages/</guid>
-      <description>During the holidays, I finally took the time to read The Pragmatic Programmer. The book inspired me to learn some new programming languages, so in 2019, I am going to implement Tibshirani’s lasso in twelve different languages, some of which I know very well, and others in which I have never even said hello world. This post is a warm-up, in which I am going to give a brief introduction to the lasso and show how it can be computed very conveniently using the glmnet package.</description>
-    </item>
-    
   </channel>
 </rss>
