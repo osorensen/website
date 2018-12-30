@@ -2,22 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lasso2019 on Øystein Sørensen</title>
-    <link>/tags/lasso2019/</link>
+    <link>http://osorensen.rbind.io/tags/lasso2019/</link>
     <description>Recent content in Lasso2019 on Øystein Sørensen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
     <lastBuildDate>Fri, 28 Dec 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/lasso2019/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://osorensen.rbind.io/tags/lasso2019/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Lasso in Twelve Languages</title>
-      <link>/post/lasso-in-12-languages/</link>
+      <title>Implementing the Lasso, Part I: R</title>
+      <link>http://osorensen.rbind.io/post/implementing-the-lasso-part-i-r/</link>
       <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/lasso-in-12-languages/</guid>
+      <guid>http://osorensen.rbind.io/post/implementing-the-lasso-part-i-r/</guid>
+      <description>In a previous post, I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. I am not going to use any external dependencies, i.e., no calls to library(). This is obviously not how we we do it in real life, but really useful in order to understand what the algorithm really does.</description>
+    </item>
+    
+    <item>
+      <title>Lasso in Twelve Languages</title>
+      <link>http://osorensen.rbind.io/post/lasso-in-12-languages/</link>
+      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://osorensen.rbind.io/post/lasso-in-12-languages/</guid>
       <description>During the holidays, I finally took the time to read The Pragmatic Programmer. The book inspired me to learn some new programming languages, so in 2019, I am going to implement Tibshirani’s lasso in twelve different languages, some of which I know very well, and others in which I have never even said hello world. This post is a warm-up, in which I am going to give a brief introduction to the lasso and show how it can be computed very conveniently using the glmnet package.</description>
     </item>
     

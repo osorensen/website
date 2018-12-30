@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Øystein Sørensen on Øystein Sørensen</title>
-    <link>/</link>
+    <link>http://osorensen.rbind.io/</link>
     <description>Recent content in Øystein Sørensen on Øystein Sørensen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,12 +11,481 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Privacy Policy</title>
-      <link>/privacy/</link>
-      <pubDate>Thu, 28 Jun 2018 00:00:00 +0200</pubDate>
+      <title>Implementing the Lasso, Part I: R</title>
+      <link>http://osorensen.rbind.io/post/implementing-the-lasso-part-i-r/</link>
+      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>/privacy/</guid>
-      <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
+      <guid>http://osorensen.rbind.io/post/implementing-the-lasso-part-i-r/</guid>
+      <description>
+
+
+&lt;p&gt;In a &lt;a href=&#34;http://osorensen.rbind.io/post/lasso-in-12-languages/&#34;&gt;previous post&lt;/a&gt;, I briefly described the Lasso, and my plan for implementing it in twelve languages in 2019. To start out easily, and have a reference, I am beginning with R. I am not going to use any external dependencies, i.e., no calls to &lt;code&gt;library()&lt;/code&gt;. This is obviously not how we we do it in real life, but really useful in order to understand what the algorithm really does. Also, anyone who has tried to convince an IT department in a large corporation to install R packages, or installing a package with lots of dependencies on a high-performance computing cluster, knows the value of base R.&lt;/p&gt;
+&lt;p&gt;The whole point of this is my wish to improve my coding skills, but feel free to read on if interested!&lt;/p&gt;
+&lt;div id=&#34;download-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Download Data&lt;/h2&gt;
+&lt;p&gt;First, we need to download the &lt;a href=&#34;http://lib.stat.cmu.edu/datasets/boston&#34;&gt;Boston housing dataset&lt;/a&gt;, which we are going to analyze. We start by reading in all the lines.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;vars &amp;lt;- scan(file = &amp;quot;http://lib.stat.cmu.edu/datasets/boston&amp;quot;, 
+             what = character(), sep = &amp;quot;\n&amp;quot;, strip.white = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next, we extract the variable names, which start at the line “Variables in order”. We deleted everything up to this index.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;start_index &amp;lt;- grep(&amp;quot;Variables in order&amp;quot;, vars)
+vars &amp;lt;- vars[- seq(1, start_index, 1)]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Starting here, we add variable names until we reach a numeric. Performance of this tiny loop is not an issue, so I am growing the vector.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;names &amp;lt;- character()
+while(TRUE){
+  # Find location of first non-upper case letter
+  end &amp;lt;- regexpr(&amp;quot;[^[:upper:]]&amp;quot;, vars[[1]])
+  # Break out of loop if first letter is not uppercase
+  if(end &amp;lt;= 1) {
+    break
+  } else {
+    new_name &amp;lt;- substr(vars[[1]], 1, end - 1)
+    names &amp;lt;- c(names, new_name)  
+  }
+  # Delete the item, and move to the next
+  vars &amp;lt;- vars[-1]
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These are the variable names:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;names&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;CRIM&amp;quot;    &amp;quot;ZN&amp;quot;      &amp;quot;INDUS&amp;quot;   &amp;quot;CHAS&amp;quot;    &amp;quot;NOX&amp;quot;     &amp;quot;RM&amp;quot;      &amp;quot;AGE&amp;quot;    
+##  [8] &amp;quot;DIS&amp;quot;     &amp;quot;RAD&amp;quot;     &amp;quot;TAX&amp;quot;     &amp;quot;PTRATIO&amp;quot; &amp;quot;B&amp;quot;       &amp;quot;LSTAT&amp;quot;   &amp;quot;MEDV&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we have come to the numeric values, which are printed below:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(vars)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;0.00632  18.00   2.310  0  0.5380  6.5750  65.20  4.0900   1  296.0  15.30&amp;quot;
+## [2] &amp;quot;396.90   4.98  24.00&amp;quot;                                                      
+## [3] &amp;quot;0.02731   0.00   7.070  0  0.4690  6.4210  78.90  4.9671   2  242.0  17.80&amp;quot;
+## [4] &amp;quot;396.90   9.14  21.60&amp;quot;                                                      
+## [5] &amp;quot;0.02729   0.00   7.070  0  0.4690  7.1850  61.10  4.9671   2  242.0  17.80&amp;quot;
+## [6] &amp;quot;392.83   4.03  34.70&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There is one issue here, namely that each data point takes up two lines. We handle this by reading the number of variables in &lt;code&gt;vars&lt;/code&gt; into each row.&lt;/p&gt;
+&lt;p&gt;We first split the values by one or more space.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;values &amp;lt;- strsplit(vars, split = &amp;quot;[[:space:]]+&amp;quot;)
+head(values, 2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [[1]]
+##  [1] &amp;quot;0.00632&amp;quot; &amp;quot;18.00&amp;quot;   &amp;quot;2.310&amp;quot;   &amp;quot;0&amp;quot;       &amp;quot;0.5380&amp;quot;  &amp;quot;6.5750&amp;quot;  &amp;quot;65.20&amp;quot;  
+##  [8] &amp;quot;4.0900&amp;quot;  &amp;quot;1&amp;quot;       &amp;quot;296.0&amp;quot;   &amp;quot;15.30&amp;quot;  
+## 
+## [[2]]
+## [1] &amp;quot;396.90&amp;quot; &amp;quot;4.98&amp;quot;   &amp;quot;24.00&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We then unlist and convert to a numeric vector.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;values &amp;lt;- as.numeric(unlist(values))
+head(values)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1]  0.00632 18.00000  2.31000  0.00000  0.53800  6.57500&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally, we convert to a matrix and set the column names.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;values &amp;lt;- matrix(values, ncol = length(names), byrow = TRUE,
+                 dimnames = list(NULL, names))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we have our dataset:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(values)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         CRIM ZN INDUS CHAS   NOX    RM  AGE    DIS RAD TAX PTRATIO      B
+## [1,] 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90
+## [2,] 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90
+## [3,] 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83
+## [4,] 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63
+## [5,] 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90
+## [6,] 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12
+##      LSTAT MEDV
+## [1,]  4.98 24.0
+## [2,]  9.14 21.6
+## [3,]  4.03 34.7
+## [4,]  2.94 33.4
+## [5,]  5.33 36.2
+## [6,]  5.21 28.7&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can finish off by extracting the response &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; and the covariates &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;X &amp;lt;- values[, setdiff(colnames(values), &amp;quot;MEDV&amp;quot;)]
+y &amp;lt;- values[, &amp;quot;MEDV&amp;quot;]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;standardize-variables&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Standardize Variables&lt;/h2&gt;
+&lt;p&gt;Considering the lasso criterion,&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat{\beta} = \text{arg}~\text{min}_{\beta} 1/(2n)\left\| y - X \beta\right\|_{2}^{2} + \lambda \left\|\beta\right\|_{1}\]&lt;/span&gt;
+it is clear the if the columns of &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; do not have equal variance, then the columns with high variance will be penalized more than the columns with low variance, since the regularization parameter &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; is the same for all of them. The common way of dealing with this is by a reparametrization First, I create a function which standardizes the variables, &lt;a href=&#34;https://stackoverflow.com/questions/23686067/default-lambda-sequence-in-glmnet-for-cross-validation&#34;&gt;using exactly the same transformations as glmnet&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Also, the value of &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; yielding the zero solution is given by&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\lambda_{max} = max_{j}\left|x_{j}^{T} y\right|/n\]&lt;/span&gt;
+which we can see by differentiating the criterion and setting &lt;span class=&#34;math inline&#34;&gt;\(\beta=0\)&lt;/span&gt;. Hence, we also compute &lt;span class=&#34;math inline&#34;&gt;\(\lambda_{max}\)&lt;/span&gt; in this function.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;standardize &amp;lt;- function(X, y){
+  mysd &amp;lt;- function(y) sqrt(sum((y-mean(y))^2)/length(y))
+  X &amp;lt;- scale(X, scale = apply(X, 2, mysd))
+  y &amp;lt;- scale(y, scale = mysd(y))
+  lambda_max &amp;lt;- max(abs(colSums(as.matrix(X) * as.vector(y)))) / nrow(X)
+  return(list(X = X, y = y, lambda_max = lambda_max))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is an example of how it works:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;stvars &amp;lt;- standardize(X, y)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The column averages are kept in the attribute &lt;code&gt;scaled:center&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;attr(stvars$X, &amp;quot;scaled:center&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         CRIM           ZN        INDUS         CHAS          NOX 
+##   3.61352356  11.36363636  11.13677866   0.06916996   0.55469506 
+##           RM          AGE          DIS          RAD          TAX 
+##   6.28463439  68.57490119   3.79504269   9.54940711 408.23715415 
+##      PTRATIO            B        LSTAT 
+##  18.45553360 356.67403162  12.65306324&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The standard devitations are kept in &lt;code&gt;scaled:scale&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;attr(stvars$X, &amp;quot;scaled:scale&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        CRIM          ZN       INDUS        CHAS         NOX          RM 
+##   8.5930414  23.2993957   6.8535706   0.2537429   0.1157631   0.7019225 
+##         AGE         DIS         RAD         TAX     PTRATIO           B 
+##  28.1210326   2.1036284   8.6986511 168.3704950   2.1628052  91.2046075 
+##       LSTAT 
+##   7.1340016&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The same applies to &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;attr(stvars$y, &amp;quot;scaled:center&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 22.53281&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;attr(stvars$y, &amp;quot;scaled:scale&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 9.188012&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;An important aspect is that the intercept becomes zero when we have centered all the variables. We can illustrate this with the following linear model.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lmfit &amp;lt;- with(stvars, lm(y ~ X))
+coef(lmfit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   (Intercept)         XCRIM           XZN        XINDUS         XCHAS 
+##  1.060774e-15 -1.010171e-01  1.177152e-01  1.533520e-02  7.419883e-02 
+##          XNOX           XRM          XAGE          XDIS          XRAD 
+## -2.238480e-01  2.910565e-01  2.118638e-03 -3.378363e-01  2.897491e-01 
+##          XTAX      XPTRATIO            XB        XLSTAT 
+## -2.260317e-01 -2.242712e-01  9.243223e-02 -4.074469e-01&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next, given coefficient estimates, we need to transform them back to their original scale. The formulas are well described &lt;a href=&#34;https://stats.stackexchange.com/questions/235057/convert-standardized-coefficients-to-unstandardized-metric-coefficients-for-li&#34;&gt;here&lt;/a&gt;, so I won’t repeat them.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;transform_beta &amp;lt;- function(beta, X, y){
+  intercept &amp;lt;- attr(y, &amp;quot;scaled:center&amp;quot;) - 
+    sum(beta * attr(X, &amp;quot;scaled:center&amp;quot;) / attr(X, &amp;quot;scaled:scale&amp;quot;)) *
+    attr(y, &amp;quot;scaled:scale&amp;quot;)
+  
+  c(INTERCEPT = intercept, 
+    attr(y, &amp;quot;scaled:scale&amp;quot;) * (beta / attr(X, &amp;quot;scaled:scale&amp;quot;)))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These are the transformed coefficients. Note the we do not include the estimated intercept, which is zero.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;(beta1 &amp;lt;- with(stvars, transform_beta(coef(lmfit)[-1], X, y)))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     INTERCEPT         XCRIM           XZN        XINDUS         XCHAS 
+##  3.645949e+01 -1.080114e-01  4.642046e-02  2.055863e-02  2.686734e+00 
+##          XNOX           XRM          XAGE          XDIS          XRAD 
+## -1.776661e+01  3.809865e+00  6.922246e-04 -1.475567e+00  3.060495e-01 
+##          XTAX      XPTRATIO            XB        XLSTAT 
+## -1.233459e-02 -9.527472e-01  9.311683e-03 -5.247584e-01&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These are the ones obtained with untransformed data.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;(beta2 &amp;lt;- coef(lm(y ~ X)))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   (Intercept)         XCRIM           XZN        XINDUS         XCHAS 
+##  3.645949e+01 -1.080114e-01  4.642046e-02  2.055863e-02  2.686734e+00 
+##          XNOX           XRM          XAGE          XDIS          XRAD 
+## -1.776661e+01  3.809865e+00  6.922246e-04 -1.475567e+00  3.060495e-01 
+##          XTAX      XPTRATIO            XB        XLSTAT 
+## -1.233459e-02 -9.527472e-01  9.311683e-03 -5.247584e-01&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;They are equal, so the transformation seems to work.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;max(abs(beta1 - beta2))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 2.842171e-13&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;coordinate-descent&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Coordinate Descent&lt;/h2&gt;
+&lt;p&gt;The main part of the coordinate descent algorithm is the soft-thresholding function. It is defined as &lt;span class=&#34;math inline&#34;&gt;\(S(t, \lambda) = \text{sign}(t)(|t| - \lambda)_{+}\)&lt;/span&gt;, &lt;a href=&#34;https://web.stanford.edu/~hastie/Papers/ESLII.pdf&#34;&gt;cf. ESLII, p. 93&lt;/a&gt;. We implement it as follows.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;soft_threshold &amp;lt;- function(t, lambda){
+  test &amp;lt;- abs(t) - lambda
+  sign(t) * ifelse(test &amp;gt; 0, test, 0) 
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The plot below illustrates how it works.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lambda &amp;lt;- 1
+t &amp;lt;- seq(from = -2, to = 2, by = 0.1)
+plot(t, soft_threshold(t, lambda), type = &amp;quot;l&amp;quot;,
+     ylab = expression(S(t, lambda)),
+     main = &amp;quot;Soft thresholding operator&amp;quot;)
+abline(a = 0, b = 0, lty = 2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;http://osorensen.rbind.io/post/2018-12-28-implementing-the-lasso-part-i-r_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This also summarizes how the lasso works. If a coefficient is too small, it is set exactly to zero!&lt;/p&gt;
+&lt;p&gt;Next, we need to implement the actual coordinate descent algorithm taking &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;, &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;, and &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; as input. It returns an estimate of &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;. We assume the data are standardized, and hence do not estimate the intercept in this loop.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coordinate_descent &amp;lt;- function(X, y, lambda, beta_init = NULL,
+                               tol = 1e-7, maxit = 1000){
+  # Number of coefficients
+  p &amp;lt;- ncol(X)
+  # Initial value of beta
+  if(is.null(beta_init)) {
+    beta &amp;lt;- rep(0, ncol(X))
+  } else {
+    beta &amp;lt;- beta_init
+  }
+  # Control parameters to avoid an infinite loop
+  eps &amp;lt;- 100
+  control &amp;lt;- 0
+  
+  while(eps &amp;gt; tol &amp;amp;&amp;amp; control &amp;lt; maxit){
+    beta_old &amp;lt;- beta
+    # Loop around the coefficients
+    for(j in seq(from = 1, to = p, by = 1)){
+      # Current partial residual
+      pres &amp;lt;- (y - X[, -j, drop = FALSE] %*% beta[-j])
+      # Sum to soft-threshold
+      t &amp;lt;- mean(X[, j] * pres)
+      # Update current beta
+      beta[j] &amp;lt;- soft_threshold(t, lambda)
+    }
+    eps &amp;lt;- sum(abs(beta - beta_old))
+    control &amp;lt;- control + 1
+  }
+  return(beta)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We are now ready to compute the lasso.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lasso &amp;lt;- function(X, y, lambda){
+  # Scale and center
+  stvars &amp;lt;- standardize(X, y)
+  
+  # Run the lasso for each value of lambda, using the previous value for a warm start
+  beta &amp;lt;- matrix(nrow = ncol(X), ncol = length(lambda))
+  for(i in seq_along(lambda)){
+    beta[, i] &amp;lt;- with(stvars, 
+                      coordinate_descent(X, y, lambda = lambda[[i]], 
+                                         beta_init = if(i &amp;gt; 1) beta[, i-1] else NULL))
+  }
+  beta &amp;lt;- with(stvars, apply(beta, 2, transform_beta, X, y))
+  # Return beta
+  return(beta)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We try a very simple simulated example to confirm that the implementation is correct, setting &lt;span class=&#34;math inline&#34;&gt;\(\lambda = 0\)&lt;/span&gt; to get the least squares solution.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Xtest &amp;lt;- matrix(rnorm(1000 * 3, mean = 1), ncol = 3)
+colnames(Xtest) &amp;lt;- letters[1:3]
+ytest &amp;lt;- 1 + 2 * Xtest[, 2] - 3 * Xtest[, 3] + rnorm(1000, sd = 0.02)
+lasso(Xtest, ytest, lambda = 0)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                    [,1]
+## INTERCEPT  1.0008283517
+## a         -0.0005470972
+## b          1.9997526335
+## c         -2.9998055359&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That looks very correct! We can also check if &lt;span class=&#34;math inline&#34;&gt;\(\lambda_{max}\)&lt;/span&gt; is correct.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lambda_max &amp;lt;- standardize(Xtest, ytest)$lambda_max
+lasso(Xtest, ytest, c(lambda_max * 0.99, lambda_max))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                  [,1]       [,2]
+## INTERCEPT  0.04207374 0.01237216
+## a          0.00000000 0.00000000
+## b          0.00000000 0.00000000
+## c         -0.03010121 0.00000000&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rm(Xtest, ytest)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Indeed, using &lt;span class=&#34;math inline&#34;&gt;\(0.99 \lambda_{max}\)&lt;/span&gt; yields one nonzero coefficients, while using &lt;span class=&#34;math inline&#34;&gt;\(\lambda_{max}\)&lt;/span&gt; yields all zero coefficients, except for the intercept which we do not penalize.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;cross-validation&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Cross Validation&lt;/h2&gt;
+&lt;p&gt;In order to determine the optimal value of &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt;, cross validation is a good method. We do it ten-fold, by randomly splitting the data into ten folds, fitting the lasso on nine of them, and computing the prediction error on the tenth.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cv_lasso &amp;lt;- function(X, y, foldid, nlambda = 100){
+  # Create the lambda vector
+  lambda_max &amp;lt;- standardize(X, y)$lambda_max
+  lambda &amp;lt;- exp(seq(log(lambda_max), log(1e-3 * lambda_max), 
+                    length.out = nlambda))
+  nfolds &amp;lt;- max(foldid)
+  # Perform cross validation
+  squared_error &amp;lt;- matrix(nrow = nfolds, ncol = nlambda)
+  for(i in seq(1, nfolds)){
+    beta &amp;lt;- lasso(X[foldid != i, , drop = FALSE], y[foldid != i], lambda)
+    
+    for(j in seq(1, nlambda)){
+      squared_error[i, j] &amp;lt;- sum((y[foldid == i] - beta[1, j] - 
+                                    X[foldid == i, , drop = FALSE] %*% beta[-1, j])^2)
+    }
+  }
+  mse &amp;lt;- colSums(squared_error) / nrow(X)
+  lambda_min &amp;lt;- lambda[which.min(mse)]
+  sdse &amp;lt;- apply(squared_error / nrow(X) * nfolds, 2, sd)
+  lambda_1se &amp;lt;- max(lambda[mse &amp;lt; min(mse + sdse / sqrt(nfolds))])
+  
+  # Do a final fit
+  beta &amp;lt;- lasso(X, y, lambda)
+  # Find the number of nonzero values
+  nz &amp;lt;- apply(beta, 2, function(x) sum(x != 0))
+  
+  # Return the values
+  list(beta = beta, nz = nz,
+       mse = mse, sdse = sdse, lambda = lambda, 
+       lambda_min = lambda_min,
+       lambda_1se = lambda_1se)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can now compute the cross-validated lasso, where we make sure the cross-validation folds are exactly the same as with glmnet in the previous post.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;set.seed(123)
+foldid &amp;lt;- cut(sample(nrow(X)), breaks = 10, labels = FALSE)
+system.time(fit &amp;lt;- cv_lasso(X, y, foldid))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    user  system elapsed 
+##  16.432   2.980  19.419&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note that it takes a whole lot longer than &lt;code&gt;cv.glmnet&lt;/code&gt;. We could probably speed up a bit by adapting an &lt;em&gt;active set strategy&lt;/em&gt; in the coordinate descent algorithm, and only check every, say, 50th iteration whether any of the currently zero coefficients should be nonzero, while updating the nonzero values in every iteration. Anyhow, iterations like this is not what are was built for, and shows the advantage of using compiled code.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plotting&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Plotting&lt;/h2&gt;
+&lt;p&gt;We finally plot the cross-validation error curve. &lt;a href=&#34;https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781849513067/3/ch03lvl1sec07/adding-error-bars&#34;&gt;This site&lt;/a&gt; gave good help in figuring out how to plot the errorbars, and the source code to &lt;code&gt;plot.cv.glmnet&lt;/code&gt; revealed how to plot the number of nonzero coefficients on top.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(log(fit$lambda), fit$mse, 
+     type = &amp;quot;p&amp;quot;, col = &amp;quot;red&amp;quot;, pch = 20,
+     xlab = expression(log(lambda)), ylab = &amp;quot;Mean-Squared Error&amp;quot;,
+     ylim = c(min(fit$mse - fit$sdse), max(fit$mse + fit$sdse)))
+abline(v = log(fit$lambda_min), lty = 2)
+abline(v = log(fit$lambda_1se), lty = 2)
+arrows(x0 = log(fit$lambda), y0 = fit$mse - fit$sdse,
+       x1 = log(fit$lambda), y1 = fit$mse + fit$sdse, 
+       angle = 90, code = 3, length = 0.04, lwd = 0.4)
+axis(side = 3, at = log(fit$lambda), labels = paste(fit$nz), 
+     tick = FALSE, line = 0)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;http://osorensen.rbind.io/post/2018-12-28-implementing-the-lasso-part-i-r_files/figure-html/unnamed-chunk-30-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;checking-the-results&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Checking the Results&lt;/h2&gt;
+&lt;p&gt;Finally, we compare the results to &lt;a href=&#34;http://osorensen.rbind.io/post/lasso-in-12-languages/&#34;&gt;those obtained with glmnet&lt;/a&gt;, to check that the implementation is correct. Note that there seems to be a scaling issue with the value of &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt;, probably related to some division by &lt;span class=&#34;math inline&#34;&gt;\(n\)&lt;/span&gt;, but this has no impact on the solution.&lt;/p&gt;
+&lt;p&gt;We find the coefficients at &lt;span class=&#34;math inline&#34;&gt;\(\lambda_{min}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit$beta[, fit$lambda == fit$lambda_min, drop = FALSE]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                    [,1]
+## INTERCEPT  34.513305737
+## CRIM       -0.098896046
+## ZN          0.041622066
+## INDUS       0.000000000
+## CHAS        2.683895646
+## NOX       -16.343459403
+## RM          3.863042585
+## AGE         0.000000000
+## DIS        -1.399357895
+## RAD         0.255304812
+## TAX        -0.009932879
+## PTRATIO    -0.930777502
+## B           0.009035310
+## LSTAT      -0.522483326&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These values are practically identical to those given by glmnet.&lt;/p&gt;
+&lt;p&gt;Next, the coefficients at &lt;span class=&#34;math inline&#34;&gt;\(\lambda_{1se}\)&lt;/span&gt; are:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit$beta[, fit$lambda == fit$lambda_1se, drop = FALSE]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                   [,1]
+## INTERCEPT 20.870385234
+## CRIM      -0.031078538
+## ZN         0.006879888
+## INDUS      0.000000000
+## CHAS       2.206875612
+## NOX       -6.916062381
+## RM         4.254274727
+## AGE        0.000000000
+## DIS       -0.594231978
+## RAD        0.000000000
+## TAX        0.000000000
+## PTRATIO   -0.814146380
+## B          0.007013715
+## LSTAT     -0.519821160&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These are also really close to the values obtained with glmnet.&lt;/p&gt;
+&lt;p&gt;Finally, we can look at the mean squared errors.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit$mse[fit$lambda == fit$lambda_min]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 23.6809&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit$mse[fit$lambda == fit$lambda_1se]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 25.80286&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These are also really close the the glmnet values.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;p&gt;Implementing this took longer than expected! I was expecting to spend a few hours, but all the nitty gritty with scaling and transformations took days. Luckily, these details carry over to all the other languages, so it was good to go through.&lt;/p&gt;
+&lt;p&gt;Implementing algorithms is also &lt;strong&gt;not&lt;/strong&gt; what R is good at. Rather, R is a great interface to algorithms written in compiled languages like C/C++ and Fortran. However, it was fun to do, and the whole point of this is learning, which I definitely did.&lt;/p&gt;
+&lt;p&gt;Next up is C++, which I hope to get closer to the speed of glmnet’s Fortran code. I am also giving a &lt;a href=&#34;https://www.meetup.com/Oslo-useR-Group/events/256805098/&#34;&gt;talk on Rcpp&lt;/a&gt; for the Oslo useR! Group in February, so need to read up on C++ language anyway :-)&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Lasso in Twelve Languages</title>
+      <link>http://osorensen.rbind.io/post/lasso-in-12-languages/</link>
+      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://osorensen.rbind.io/post/lasso-in-12-languages/</guid>
+      <description>
+
+
+&lt;p&gt;During the holidays, I finally took the time to read &lt;a href=&#34;https://www.amazon.com/Pragmatic-Programmer-Journeyman-Master/dp/020161622X/ref=sr_1_1?ie=UTF8&amp;amp;qid=1546001035&amp;amp;sr=8-1&amp;amp;keywords=pragmatic+programmer&#34;&gt;The Pragmatic Programmer&lt;/a&gt;. The book inspired me to learn some new programming languages, so in 2019, I am going to implement &lt;a href=&#34;http://statweb.stanford.edu/~tibs/lasso.html&#34;&gt;Tibshirani’s lasso&lt;/a&gt; in twelve different languages, some of which I know very well, and others in which I have never even said &lt;em&gt;hello world&lt;/em&gt;. This post is a warm-up, in which I am going to give a brief introduction to the lasso and show how it can be computed very conveniently using the &lt;strong&gt;glmnet&lt;/strong&gt; package.&lt;/p&gt;
+&lt;div id=&#34;lasso&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Lasso&lt;/h2&gt;
+&lt;p&gt;I chose the lasso because is a fairly simple and very well-known machine learning algorithm, cited tens of thousands of times. It imposes an &lt;span class=&#34;math inline&#34;&gt;\(\ell_{1}\)&lt;/span&gt;-penalty on the coefficients of a regression model. In its simplest case, the criterion is&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\hat{\beta} = \text{arg}~\text{min}_{\beta} \left\| y - X \beta\right\|_{2}^{2} + \lambda \left\|\beta\right\|_{1}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; is a regularization parameter, &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; is a response vector, and &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; is a matrix of regression coefficients. Because of the absolute value in the penalty term (&lt;span class=&#34;math inline&#34;&gt;\(\|\beta\|_{1} = \sum_{j} |\beta_{j}|\)&lt;/span&gt;), the lasso estimate &lt;span class=&#34;math inline&#34;&gt;\(\hat{\beta}\)&lt;/span&gt; typically sets some of the regression coefficients exactly to zero. This yields a sparse solution, in contrast to what an &lt;span class=&#34;math inline&#34;&gt;\(\ell_{2}\)&lt;/span&gt;-penalty would give, at the same time the criterion is convex, making it much more efficient than, say, best subset selection. These properties make the lasso really useful in a lot of settings, including in &lt;a href=&#34;https://www.deeplearningbook.org/contents/regularization.html&#34;&gt;regularization of neural networks&lt;/a&gt; estimation of graphical model structures, and generalized linear models. The theory of the lasso has been described in &lt;strong&gt;lots of papers&lt;/strong&gt;, much of which is summarized in &lt;a href=&#34;https://www.springer.com/la/book/9783642201912&#34;&gt;this book&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;solution-using-glmnet&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Solution Using glmnet&lt;/h2&gt;
+&lt;p&gt;In R, the &lt;strong&gt;glmnet&lt;/strong&gt; package is the main tool for computing the lasso. It is based on a Fortran implementation of the coordinate descent. When implementing the lasso in various languages, I will use the &lt;a href=&#34;http://lib.stat.cmu.edu/datasets/boston&#34;&gt;Boston house-price data&lt;/a&gt;, and try to predict the median house value using the other variables in the dataset. This dataset is actually also available in R through the &lt;strong&gt;MASS&lt;/strong&gt; package, so in order to have a reference solution, we can execute the following lines, where we create the ten-fold cross-validation outside in order to ensure that it will be the same when reimplementing it.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(glmnet)
+library(glmnetUtils)
+library(MASS)
+set.seed(123)
+foldid &amp;lt;- cut(sample(nrow(Boston)), breaks = 10, labels = FALSE)
+system.time(fit &amp;lt;- cv.glmnet(medv ~ ., data = Boston, foldid = foldid))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    user  system elapsed 
+##   0.092   0.005   0.097&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This estimates the cross-validated loss function of the lasso along a grid of &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; values. We can visualize it as follows:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;http://osorensen.rbind.io/post/2018-12-28-lasso-in-twelve-languages_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The numbers in the upper horizontal bar show how many coefficients are nonzero. The rightmost line is the value of &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; corresponding to the “one standard error rule”. We get the regression coefficients as follows, first at &lt;span class=&#34;math inline&#34;&gt;\(\lambda_{min}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coef(fit, s = &amp;quot;lambda.min&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 14 x 1 sparse Matrix of class &amp;quot;dgCMatrix&amp;quot;
+##                         1
+## (Intercept)  34.594713527
+## crim         -0.099226869
+## zn            0.041830020
+## indus         .          
+## chas          2.688250324
+## nox         -16.401122000
+## rm            3.861229965
+## age           .          
+## dis          -1.404571749
+## rad           0.256788019
+## tax          -0.009997514
+## ptratio      -0.931437290
+## black         0.009049252
+## lstat        -0.522505968&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next at &lt;span class=&#34;math inline&#34;&gt;\(\lambda_{1se}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;coef(fit, s = &amp;quot;lambda.1se&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 14 x 1 sparse Matrix of class &amp;quot;dgCMatrix&amp;quot;
+##                        1
+## (Intercept) 20.443234513
+## crim        -0.029579467
+## zn           0.005117086
+## indus        .          
+## chas         2.168428935
+## nox         -6.478368167
+## rm           4.261458164
+## age          .          
+## dis         -0.553162685
+## rad          .          
+## tax          .          
+## ptratio     -0.813351925
+## black        0.006958142
+## lstat       -0.519363373&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In addition, we can find the cross-validation estimate of the mean squared error:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit$cvm[fit$lambda == fit$lambda.min]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 23.68254&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit$cvm[fit$lambda == fit$lambda.1se]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 25.91843&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These are the values I will try to reproduce by actually implementing the lasso in twelve different languages.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;steps-involved-in-computing-the-lasso&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Steps Involved in Computing the Lasso&lt;/h2&gt;
+&lt;p&gt;Packages/libraries/etc. for computing the lasso exist in several languages, but in order to make it a bit more interesting, I am going to implement what &lt;strong&gt;glmnet&lt;/strong&gt; computed for me above by actually coding it. This includes:&lt;/p&gt;
+&lt;div id=&#34;data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Data&lt;/h3&gt;
+&lt;p&gt;Download the &lt;a href=&#34;http://lib.stat.cmu.edu/datasets/boston&#34;&gt;Boston Housing Dataset&lt;/a&gt; and convert it to a proper object.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;standardization&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Standardization&lt;/h3&gt;
+&lt;p&gt;Standardization of covariates before using the algorithm and rescaling to get &lt;span class=&#34;math inline&#34;&gt;\(\hat{\beta}\)&lt;/span&gt; in the proper scale. This is because all columns of &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; must have the same standard deviation as long as we use a common &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;coordinate-descent&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Coordinate Descent&lt;/h3&gt;
+&lt;p&gt;Implement the &lt;a href=&#34;https://projecteuclid.org/euclid.aoas/1206367819&#34;&gt;coordinate descent algorithm&lt;/a&gt; for estimating &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt; at a given &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt;. This involves iterating&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\tilde{\beta}_{j}(\lambda) \leftarrow S\left(\sum_{i=1}^{N} x_{ij}(y_{i} - \tilde{y}_{i}^{(j)}), \lambda \right)\]&lt;/span&gt;
+until convergence, where &lt;span class=&#34;math inline&#34;&gt;\(S(\cdot, \cdot)\)&lt;/span&gt; is the soft-thresholding operator and &lt;span class=&#34;math inline&#34;&gt;\(\tilde{y}_{i}^{(j)}\)&lt;/span&gt; is the current fitted value for observation &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt; with covariate &lt;span class=&#34;math inline&#34;&gt;\(j\)&lt;/span&gt; removed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;cross-validation&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Cross-Validation&lt;/h3&gt;
+&lt;p&gt;Ten-fold cross-validation for estimating the mean-squared prediction error as a function of &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt;. Ideally this can be done in parallel.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plotting&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Plotting&lt;/h3&gt;
+&lt;p&gt;Function for plotting the cross-validation curve.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;plan&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Plan&lt;/h2&gt;
+&lt;p&gt;My current plan is to implement the lasso in the following languages, partly based on looking at &lt;a href=&#34;https://insights.stackoverflow.com/survey/2018/#most-popular-technologies&#34;&gt;the Stack Overflow Developer Survey&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bash (must be possible…)&lt;/li&gt;
+&lt;li&gt;C (should be really fast)&lt;/li&gt;
+&lt;li&gt;C++ (using classes and stuff, not C-style)&lt;/li&gt;
+&lt;li&gt;Fortran (really old and really fast?)&lt;/li&gt;
+&lt;li&gt;Java&lt;/li&gt;
+&lt;li&gt;JavaScript&lt;/li&gt;
+&lt;li&gt;Julia (might be the next big thing, so worth learning?)&lt;/li&gt;
+&lt;li&gt;Common Lisp (because references to Lisp keep showing up in R)&lt;/li&gt;
+&lt;li&gt;GNU Octave&lt;/li&gt;
+&lt;li&gt;Python (obviously)&lt;/li&gt;
+&lt;li&gt;R&lt;/li&gt;
+&lt;li&gt;Scala (the main language used in Apache Spark, so it must me good to know, right?)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And as a bonus, Microsoft Excel, obviously.&lt;/p&gt;
+&lt;p&gt;I will write one blogpost for each, detailing the solution. The number twelwe was chosen for reasons related to the number of full moons occuring between each time the earth circles around the sun, so the absolute deadline for finishing everything is on the 31st December 2019.&lt;/p&gt;
+&lt;/div&gt;
 </description>
     </item>
     
