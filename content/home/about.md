@@ -31,4 +31,4 @@ weight = 1
 
 # Biography
 
-Øystein Sørensen is an associate professor of statistics at the [Center for Lifespan Changes in Brain and Cognition](http://www.oslobrains.no) at the University of Oslo.
+I am an associate professor of statistics at the [Center for Lifespan Changes in Brain and Cognition](http://www.oslobrains.no) at the University of Oslo. Here I work with great brain scientist who have large longitudinal datasets that require lots of interesting statistical methodology. I have also developed R packages, worked with measurement error modeling, and Bayesian modeling of preference data.
