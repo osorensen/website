@@ -64,6 +64,7 @@ Download the [Boston Housing Dataset](http://lib.stat.cmu.edu/datasets/boston) a
 ### Standardization
 Standardization of covariates before using the algorithm and rescaling to get $\hat{\beta}$ in the proper scale. This is because all columns of $X$ must have the same standard deviation as long as we use a common $\lambda$.
 
+
 ### Coordinate Descent
 Implement the [coordinate descent algorithm](https://projecteuclid.org/euclid.aoas/1206367819) for estimating $\beta$ at a given $\lambda$. This involves iterating 
 

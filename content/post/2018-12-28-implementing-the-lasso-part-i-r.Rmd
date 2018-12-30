@@ -105,18 +105,84 @@ y <- values[, "MEDV"]
 Considering the lasso criterion,
 
 $$\hat{\beta} = \text{arg}~\text{min}_{\beta} \left\| y - X \beta\right\|_{2}^{2} + \lambda \left\|\beta\right\|_{1}$$
-it is clear the if the columns of $X$ do not have equal variance, then the columns with high variance will be penalized more than the columns with low variance, since the regularization parameter $\lambda$ is the same for all of them. The common way of dealing with this is by a reparametrization, where we instead compute 
+it is clear the if the columns of $X$ do not have equal variance, then the columns with high variance will be penalized more than the columns with low variance, since the regularization parameter $\lambda$ is the same for all of them. The common way of dealing with this is by a reparametrization First, I create a function which standardizes the variables, [using exactly the same transformations as glmnet](https://stackoverflow.com/questions/23686067/default-lambda-sequence-in-glmnet-for-cross-validation).
 
-$$\tilde{\beta} = \sigma_{X} \odot \hat{\beta}$$
-
-where $\sigma_{X}$ is the vector of standard deviations of the columns of $X$, and $\odot$ is the elementwise product. We standardize $X$, compute $\tilde{\beta}$ and then find $\hat{\beta}$ by dividing by $\sigma_{X}$. In addition, we would like to center all the variables by subtracting their mean and doing the same with $y$. The base R `scale()` function does the job. The values we need are stored in the attributes of `Xsc`:
 
 ```{r}
-attr(scale(X), "scaled:scale")
-attr(scale(y, scale = FALSE), "scaled:center")
+standardize <- function(X, y){
+  mysd <- function(y) sqrt(sum((y-mean(y))^2)/length(y))
+  X <- scale(X, scale = apply(X, 2, mysd))
+  y <- scale(y, scale = mysd(y))
+  return(list(X = X, y = y))
+}
 ```
 
-We will actually implement this with the lasso function below.
+Here is an example of how it works:
+
+```{r}
+stvars <- standardize(X, y)
+```
+
+The column averages are kept in the attribute `scaled:center`.
+
+```{r}
+attr(stvars$X, "scaled:center")
+```
+
+The standard devitations are kept in `scaled:scale`:
+
+```{r}
+attr(stvars$X, "scaled:scale")
+```
+
+The same applies to $y$.
+
+```{r}
+attr(stvars$y, "scaled:center")
+```
+
+```{r}
+attr(stvars$y, "scaled:scale")
+```
+
+An important aspect is that the intercept becomes zero when we have centered all the variables. We can illustrate this with the following linear model.
+
+```{r}
+lmfit <- with(stvars, lm(y ~ X))
+coef(lmfit)
+```
+
+Next, given coefficient estimates, we need to transform them back to their original scale. The formulas are well described [here](https://stats.stackexchange.com/questions/235057/convert-standardized-coefficients-to-unstandardized-metric-coefficients-for-li), so I won't repeat them.
+
+```{r}
+transform_beta <- function(beta, X, y){
+  intercept <- attr(y, "scaled:center") - 
+    sum(beta * attr(X, "scaled:center") / attr(X, "scaled:scale")) *
+    attr(y, "scaled:scale")
+  
+  c(INTERCEPT = intercept, 
+    attr(y, "scaled:scale") * (beta / attr(X, "scaled:scale")))
+}
+```
+
+These are the transformed coefficients. Note the we do not include the estimated intercept, which is zero.
+
+```{r}
+(beta1 <- with(stvars, transform_beta(coef(lmfit)[-1], X, y)))
+```
+
+These are the ones obtained with untransformed data.
+
+```{r}
+(beta2 <- coef(lm(y ~ X)))
+```
+
+They are equal, so the transformation seems to work.
+
+```{r}
+max(abs(beta1 - beta2))
+```
+
 
 ## Coordinate Descent
 
@@ -142,7 +208,7 @@ abline(a = 0, b = 0, lty = 2)
 
 This also summarizes how the lasso works. If a coefficient is too small, it is set exactly to zero!
 
-Next, we need to implement the actual coordinate descent algorithm taking $X$, $y$, and $\lambda$ as input. It returns an estimate of $\beta$.
+Next, we need to implement the actual coordinate descent algorithm taking $X$, $y$, and $\lambda$ as input. It returns an estimate of $\beta$. We assume the data are standardized, and hence do not estimate the intercept in this loop.
 
 ```{r}
 coordinate_descent <- function(X, y, lambda, beta_init = NULL,
@@ -182,25 +248,17 @@ We are now ready to compute the lasso.
 
 ```{r}
 lasso <- function(X, y, lambda){
-  # Scale and center X
-  X <- scale(X)
-  # Center y
-  y <- scale(y, scale = FALSE)
+  # Scale and center
+  stvars <- standardize(X, y)
   
   # Run the lasso for each value of lambda, using the previous value for a warm start
   beta <- matrix(nrow = ncol(X), ncol = length(lambda))
   for(i in seq_along(lambda)){
-    beta[, i] <- coordinate_descent(X, y, lambda[[i]], 
-                                    if(i > 1) beta[, i-1] else NULL)
+    beta[, i] <- with(stvars, 
+                      coordinate_descent(X, y, lambda = lambda[[i]], 
+                                         beta_init = if(i > 1) beta[, i-1] else NULL))
   }
-  # Transform coordinates (using recycling)
-  beta <- beta / attr(X, "scaled:scale")
-  # Add intercept
-  beta0 <- attr(y, "scaled:center") - 
-    sum(beta * attr(X, "scaled:center") /attr(X, "scaled:scale"))
-  beta <- rbind(beta0, beta)
-  # Add names
-  rownames(beta) <- c("Intercept", colnames(X))  
+  beta <- with(stvars, apply(beta, 2, transform_beta, X, y))
   # Return beta
   return(beta)
 }
@@ -212,21 +270,12 @@ We try a very simple simulated example to confirm that the implementation is cor
 ```{r}
 Xtest <- matrix(rnorm(1000 * 3, mean = 1), ncol = 3)
 colnames(Xtest) <- letters[1:3]
-ytest <- 1 - 2 * Xtest[, 2] - 3 * Xtest[, 3] + rnorm(1000, sd = 0.02)
+ytest <- 1 + 2 * Xtest[, 2] - 3 * Xtest[, 3] + rnorm(1000, sd = 0.02)
 lasso(Xtest, ytest, lambda = 0)
 rm(Xtest, ytest)
 ```
 
 That looks very correct!
-
-As second test is given by the glmnet fit from the introductory blogpost. There the minimized prediction error was achieved at around $\log(\lambda) = -1$. We hence try this.
-
-
-```{r}
-round(lasso(X, y, lambda = exp(-1)), 3)
-```
-
-Comparing to the glmnet fit, this seems to be at the right order of magnitude. Until further, the implementation seems sound, so we go on to cross-validation, which should give very close to glmnet-fit.
 
 ## Cross Validation
 
@@ -237,14 +286,11 @@ cv_lasso <- function(X, y, nlambda = 100, nfolds = 10){
   # Create nfolds random folds
   foldid <- cut(sample(nrow(X)), breaks = nfolds, labels = FALSE)
   # Create the lambda vector
-  lambda <- exp(seq(log(10), log(0.1), length.out = nlambda))
+  lambda <- exp(seq(log(1), log(1e-6), length.out = nlambda))
   # Perform cross validation
   squared_error <- matrix(nrow = nfolds, ncol = nlambda)
   for(i in seq(1, nfolds)){
     beta <- lasso(X[foldid != i, , drop = FALSE], y[foldid != i], lambda)
-    apply(beta, 2, function(b) {
-      sum((y[foldid == i] - b[1] - X[foldid == i, ] %*% b[-1])^2)
-    })
     
     for(j in seq(1, nlambda)){
       squared_error[i, j] <- sum((y[foldid == i] - beta[1, j] - 
@@ -252,17 +298,16 @@ cv_lasso <- function(X, y, nlambda = 100, nfolds = 10){
     }
   }
   mse <- colSums(squared_error) / nrow(X)
-  mse_sd <- apply(squared_error, 2, sd) / sqrt(nrow(X))
   
   # Return the values
-  list(mse = mse, mse_sd = mse_sd, lambda = lambda)
+  list(mse = mse, lambda = lambda)
 }
 ```
 
 We can now compute the cross-validated lasso.
 
 ```{r}
-fit <- cv_lasso(X, y, nlambda = 100)
+fit <- cv_lasso(X, y, nlambda = 30)
 ```
 
 ## Plotting
@@ -270,7 +315,9 @@ fit <- cv_lasso(X, y, nlambda = 100)
 We finally plot the cross-validation error curve.
 
 ```{r}
-plot(log(fit$lambda), fit$mse, type = "p", col = "red",
+plot(log(fit$lambda), fit$mse, 
+     xlim = rev(range(log(fit$lambda))),
+     type = "p", col = "red",
      xlab = expression(log(lambda)), ylab = "Mean-Squared Error")
 ```
 
