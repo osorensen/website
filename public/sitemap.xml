@@ -4,15 +4,23 @@
     
     <url>
     
-      <loc>http://osorensen.rbind.io/post/</loc>
-      <lastmod>2017-01-01T00:00:00+01:00</lastmod>
+      <loc>/post/in-which-language-is-r-written/</loc>
+      <lastmod>2019-01-13T00:00:00+00:00</lastmod>
     </url>
     
   
     
     <url>
     
-      <loc>http://osorensen.rbind.io/categories/</loc>
+      <loc>/privacy/</loc>
+      <lastmod>2018-06-28T00:00:00+02:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/categories/</loc>
       <priority>0</priority>
     </url>
     
@@ -20,7 +28,8 @@
     
     <url>
     
-      <loc>http://osorensen.rbind.io/publication_types/</loc>
+      <loc>/post/</loc>
+      <lastmod>2019-01-13T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -28,7 +37,7 @@
     
     <url>
     
-      <loc>http://osorensen.rbind.io/tags/</loc>
+      <loc>/publication_types/</loc>
       <priority>0</priority>
     </url>
     
@@ -36,7 +45,24 @@
     
     <url>
     
-      <loc>http://osorensen.rbind.io/</loc>
+      <loc>/categories/r/</loc>
+      <lastmod>2019-01-13T00:00:00+00:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/tags/</loc>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/</loc>
       <lastmod>2017-10-15T00:00:00+02:00</lastmod>
       <priority>0</priority>
     </url>

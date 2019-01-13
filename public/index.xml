@@ -2,13 +2,108 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Øystein Sørensen on Øystein Sørensen</title>
-    <link>http://osorensen.rbind.io/</link>
+    <link>/</link>
     <description>Recent content in Øystein Sørensen on Øystein Sørensen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
     <lastBuildDate>Sun, 15 Oct 2017 00:00:00 +0200</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>In Which Language is R Written?</title>
+      <link>/post/in-which-language-is-r-written/</link>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/in-which-language-is-r-written/</guid>
+      <description>
+
+
+&lt;p&gt;In preparing for my upcoming Rcpp talk at the &lt;a href=&#34;https://www.meetup.com/Oslo-useR-Group/events/256805098/&#34;&gt;Oslo useR! Group&lt;/a&gt;, I started wondering how much of R is actually written in C or Fortran. I have of course been trained to think that vectorization is great, because then you let C or Fortran do the job, but how much of R is actually written in these languages? Some searching led me to &lt;a href=&#34;https://web.archive.org/web/20180612142342/http://librestats.com/2011/08/27/how-much-of-r-is-written-in-r/&#34;&gt;this blog&lt;/a&gt;, which analyzes R-2.13.1. However, that post is from 2011, and at the time of writing R has reached version 3-5.2. In addition, the post uses Bash scripts rather than R itself. In this post, I hence reexamine the question, using R all the way, which will be a good exercise. Note that this analysis covers the functions in &lt;a href=&#34;https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html&#34;&gt;base R&lt;/a&gt;, i.e., stuff like &lt;code&gt;apply()&lt;/code&gt;, &lt;code&gt;data.frame()&lt;/code&gt;, &lt;code&gt;plot()&lt;/code&gt;, and (I guess, but really have no idea) the code that actually makes R run.&lt;/p&gt;
+&lt;p&gt;I start by defining the R version I want, and the path to which the source file should be saved.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;r_version &amp;lt;- &amp;quot;3.5.2&amp;quot;
+tarfile &amp;lt;- paste0(&amp;quot;./R-&amp;quot;, r_version, &amp;quot;.tar.gz&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then I download the source:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;download.file(url = paste0(&amp;quot;https://cran.r-project.org/src/base/R-3/R-&amp;quot;, 
+                           r_version, &amp;quot;.tar.gz&amp;quot;),
+              destfile = tarfile)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Having downloaded it, I unpack the tar file and remove it. We now have a R-3.5.2 directory.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;untar(tarfile)
+file.remove(tarfile)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I also define the path to the source code, which is in the &lt;code&gt;src&lt;/code&gt; subdirectory.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;(src_path &amp;lt;- paste0(&amp;quot;./R-&amp;quot;, r_version, &amp;quot;/src/&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;./R-3.5.2/src/&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In order to see which files are in &lt;code&gt;src&lt;/code&gt;, I list all files that end with a &lt;code&gt;.&lt;/code&gt; followed by alphanumeric characters.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;files &amp;lt;- list.files(src_path, pattern = &amp;quot;\\.[[:alnum:]]+$&amp;quot;, recursive = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next, I take a first look at all the file endings under &lt;code&gt;src&lt;/code&gt;. As we can see, the main languages are C (&lt;code&gt;.c&lt;/code&gt;), Fortran (&lt;code&gt;.f&lt;/code&gt;) and R (&lt;code&gt;.R&lt;/code&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(stringr)
+(file_count &amp;lt;- table(str_extract(files, &amp;quot;\\.[:alnum:]+$&amp;quot;)))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##        .3      .afm      .bib      .bmp        .c  .charset      .csv 
+##         1        91         3         1       497         1         2 
+##      .def      .dif     .dist      .doc      .enc        .f    .flate 
+##         5         1         1         1        18        38         1 
+##       .gz        .h     .hide     .html      .ico       .in      .isl 
+##        15       170         2         2         1        82         3 
+##      .iss        .m .manifest       .mo   .modreg    .notes       .nw 
+##         7         1         8       279         1         1         1 
+## .packages    .patch      .pdf      .png       .po  .portsrc      .pot 
+##         1         1        18         3       256         1        25 
+##        .R       .rc       .Rd      .rda      .Rnw       .RR    .Rterm 
+##       772         9      1422         9        21         5         1 
+##    .rtest      .rtf    .rules        .S     .save     .site      .svg 
+##         1         1         1         1        10         1         1 
+##      .tab      .tcl      .tgz       .ts      .txt     .unix      .win 
+##         6        11        15         1         9         1        47 
+##  .windows        .y       .zi      .zip 
+##         1         3         1         1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I now count the number of lines in each C, Fortran, and R file. I use the &lt;code&gt;map&lt;/code&gt; function from &lt;code&gt;purrr&lt;/code&gt;, which is part of the tidyverse. The pattern &lt;code&gt;&amp;quot;\\.[c|f|R]$&amp;quot;&lt;/code&gt; means &lt;em&gt;everything that ends with a period followed by c, f or R&lt;/em&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+library(R.utils) # For countLines
+
+stats &amp;lt;- str_subset(files, &amp;quot;\\.[c|f|R]$&amp;quot;) %&amp;gt;% 
+  split(str_extract(., &amp;quot;\\.[c|f|R]$&amp;quot;)) %&amp;gt;% 
+  map_dfr(function(x){
+  tibble(
+    Lines = sum(map_int(x, ~ countLines(paste0(src_path, .x)))),
+    Files = length(x)
+  )
+    }, .id = &amp;quot;Language&amp;quot;) %&amp;gt;% 
+  mutate(
+    Language = recode(Language, `.c` = &amp;quot;C&amp;quot;, `.f` = &amp;quot;Fortran&amp;quot;, `.R` = &amp;quot;R&amp;quot;),
+    LinesPct = paste(100 * round(Lines / sum(Lines), 2), &amp;quot;%&amp;quot;),
+    FilesPct = paste(100 * round(Files / sum(Files), 2), &amp;quot;%&amp;quot;)
+    )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We now have the required numbers, and can make a plot.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(stats, aes(x = Language, y = Lines, label = LinesPct)) +
+  geom_col() +
+  geom_text(position = position_stack(vjust = 0.5), color = &amp;quot;white&amp;quot;) +
+  ggtitle(&amp;quot;Number of lines per language in base R&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-01-13-in-which-language-is-r-written_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;So, the conclusion is that most of base R is written in C or Fortran, at least in terms of lines of code. This is of course good, because it lets us write fast code, e.g., through vectorization.&lt;/p&gt;
+&lt;p&gt;The number of files per language was shown above, but we can plot this as well.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(stats, aes(x = Language, y = Files, label = FilesPct)) +
+  geom_col() +
+  geom_text(position = position_stack(vjust = 0.5), color = &amp;quot;white&amp;quot;) +
+  ggtitle(&amp;quot;Number of lines per language in base R&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-01-13-in-which-language-is-r-written_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;It seems like there are some really long files with Fortran code in there!&lt;/p&gt;
+&lt;p&gt;Finally I delete the R source code which was downloaded.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;unlink(paste0(&amp;quot;./R-&amp;quot;, r_version), recursive = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;An interesting follow-up would be to study how this has change over time, and also for CRAN packages.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Privacy Policy</title>
+      <link>/privacy/</link>
+      <pubDate>Thu, 28 Jun 2018 00:00:00 +0200</pubDate>
+      
+      <guid>/privacy/</guid>
+      <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
     
   </channel>
 </rss>
