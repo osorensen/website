@@ -112,4 +112,4 @@ unlink(paste0("./R-", r_version), recursive = TRUE)
 ```
 
 
-An interesting follow-up would be to study how this has change over time, and also for CRAN packages.
+An interesting follow-up would be to study how this has changed over time, and also for CRAN packages.
