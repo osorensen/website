@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R on Øystein Sørensen</title>
-    <link>/categories/r/</link>
+    <link>https://osorensen.rbind.io/categories/r/</link>
     <description>Recent content in R on Øystein Sørensen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
     <lastBuildDate>Sun, 13 Jan 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://osorensen.rbind.io/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>In Which Language is R Written?</title>
-      <link>/post/in-which-language-is-r-written/</link>
+      <link>https://osorensen.rbind.io/post/in-which-language-is-r-written/</link>
       <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/post/in-which-language-is-r-written/</guid>
+      <guid>https://osorensen.rbind.io/post/in-which-language-is-r-written/</guid>
       <description>In preparing for my upcoming Rcpp talk at the Oslo useR! Group, I started wondering how much of R is actually written in C or Fortran. I have of course been trained to think that vectorization is great, because then you let C or Fortran do the job, but how much of R is actually written in these languages? Some searching led me to this blog, which analyzes R-2.13.1. However, that post is from 2011, and at the time of writing R has reached version 3-5.</description>
     </item>
     
