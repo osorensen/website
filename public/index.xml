@@ -1,22 +1,74 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Øystein Sørensen on Øystein Sørensen</title>
-    <link>https://osorensen.rbind.io/</link>
-    <description>Recent content in Øystein Sørensen on Øystein Sørensen</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>&amp;copy; 2018</copyright>
-    <lastBuildDate>Sun, 15 Oct 2017 00:00:00 +0200</lastBuildDate>
-    <atom:link href="/" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>In Which Language is R Written?</title>
-      <link>https://osorensen.rbind.io/post/in-which-language-is-r-written/</link>
-      <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://osorensen.rbind.io/post/in-which-language-is-r-written/</guid>
-      <description>
+  <title>Øystein Sørensen</title>
+  <link>/</link>
+  <description>Recent content on Øystein Sørensen</description>
+  <generator>Hugo -- gohugo.io</generator>
+<language>en-us</language>
+<copyright>&amp;copy; 2018</copyright>
+<lastBuildDate>Sun, 15 Oct 2017 00:00:00 +0200</lastBuildDate>
+
+<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+
+
+<item>
+  <title></title>
+  <link>/home/hero_carousel/</link>
+  <pubDate>Sun, 15 Oct 2017 00:00:00 +0200</pubDate>
+  
+<guid>/home/hero_carousel/</guid>
+  <description></description>
+  </item>
+  
+<item>
+  <title></title>
+  <link>/home/about/</link>
+  <pubDate>Wed, 20 Apr 2016 00:00:00 +0200</pubDate>
+  
+<guid>/home/about/</guid>
+  <description>
+
+&lt;h1 id=&#34;biography&#34;&gt;Biography&lt;/h1&gt;
+
+&lt;p&gt;I am an associate professor of statistics at the &lt;a href=&#34;http://www.oslobrains.no&#34; target=&#34;_blank&#34;&gt;Center for Lifespan Changes in Brain and Cognition&lt;/a&gt; at the University of Oslo. Here I work with great brain scientist who have large longitudinal datasets that require lots of interesting statistical methodology. I have also developed R packages, worked with measurement error modeling, and Bayesian modeling of preference data.&lt;/p&gt;
+</description>
+  </item>
+  
+<item>
+  <title>Recent Posts</title>
+  <link>/home/posts/</link>
+  <pubDate>Wed, 20 Apr 2016 00:00:00 +0200</pubDate>
+  
+<guid>/home/posts/</guid>
+  <description></description>
+  </item>
+  
+<item>
+  <title>Tags</title>
+  <link>/home/tags/</link>
+  <pubDate>Wed, 20 Sep 2017 00:00:00 +0200</pubDate>
+  
+<guid>/home/tags/</guid>
+  <description></description>
+  </item>
+  
+<item>
+  <title>Experience</title>
+  <link>/home/experience/</link>
+  <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+  
+<guid>/home/experience/</guid>
+  <description></description>
+  </item>
+  
+<item>
+  <title>In Which Language is R Written?</title>
+  <link>/post/in-which-language-is-r-written/</link>
+  <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
+  
+<guid>/post/in-which-language-is-r-written/</guid>
+  <description>
 
 
 &lt;p&gt;In preparing for my upcoming Rcpp talk at the &lt;a href=&#34;https://www.meetup.com/Oslo-useR-Group/events/256805098/&#34;&gt;Oslo useR! Group&lt;/a&gt;, I started wondering how much of R is actually written in C or Fortran. I have of course been trained to think that vectorization is great, because then you let C or Fortran do the job, but how much of R is actually written in these languages? Some searching led me to &lt;a href=&#34;https://web.archive.org/web/20180612142342/http://librestats.com/2011/08/27/how-much-of-r-is-written-in-r/&#34;&gt;this blog&lt;/a&gt;, which analyzes R-2.13.1. However, that post is from 2011, and at the time of writing R has reached version 3-5.2. In addition, the post uses Bash scripts rather than R itself. In this post, I hence reexamine the question, using R all the way, which will be a good exercise. Note that this analysis covers the functions in &lt;a href=&#34;https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html&#34;&gt;base R&lt;/a&gt;, i.e., stuff like &lt;code&gt;apply()&lt;/code&gt;, &lt;code&gt;data.frame()&lt;/code&gt;, &lt;code&gt;plot()&lt;/code&gt;, and (I guess, but really have no idea) the code that actually makes R run.&lt;/p&gt;
@@ -80,20 +132,30 @@ stats &amp;lt;- str_subset(files, &amp;quot;\\.[c|f|R]$&amp;quot;) %&amp;gt;%
   geom_col() +
   geom_text(position = position_stack(vjust = 0.5), color = &amp;quot;white&amp;quot;) +
   ggtitle(&amp;quot;Number of lines per language in base R&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://osorensen.rbind.io/post/2019-01-13-in-which-language-is-r-written_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-01-13-in-which-language-is-r-written_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;So, the conclusion is that most of base R is written in C or Fortran, at least in terms of lines of code. This is of course good, because it lets us write fast code, e.g., through vectorization.&lt;/p&gt;
 &lt;p&gt;The number of files per language was shown above, but we can plot this as well.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(stats, aes(x = Language, y = Files, label = FilesPct)) +
   geom_col() +
   geom_text(position = position_stack(vjust = 0.5), color = &amp;quot;white&amp;quot;) +
   ggtitle(&amp;quot;Number of lines per language in base R&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://osorensen.rbind.io/post/2019-01-13-in-which-language-is-r-written_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-01-13-in-which-language-is-r-written_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;It seems like there are some really long files with Fortran code in there!&lt;/p&gt;
 &lt;p&gt;Finally I delete the R source code which was downloaded.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;unlink(paste0(&amp;quot;./R-&amp;quot;, r_version), recursive = TRUE)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;An interesting follow-up would be to study how this has changed over time, and also for CRAN packages.&lt;/p&gt;
 </description>
-    </item>
-    
-  </channel>
-</rss>
+  </item>
+  
+<item>
+  <title>Privacy Policy</title>
+  <link>/privacy/</link>
+  <pubDate>Thu, 28 Jun 2018 00:00:00 +0200</pubDate>
+  
+<guid>/privacy/</guid>
+  <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
+</description>
+  </item>
+  
+</channel>
+  </rss>
