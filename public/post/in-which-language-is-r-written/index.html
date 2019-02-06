@@ -440,7 +440,7 @@ file.remove(tarfile)</code></pre>
 ##         6        11        15         1         9         1        47 
 ##  .windows        .y       .zi      .zip 
 ##         1         3         1         1</code></pre>
-<p>I now count the number of lines in each C, Fortran, and R file. I use the <code>map</code> function from <code>purrr</code>, which is part of the tidyverse. The pattern <code>&quot;\\.[c|f|R]$&quot;</code> means <em>everything that ends with a period followed by c, f or R</em>.</p>
+<p>I now count the number of lines in each C, Fortran, and R file. I use the <code>map</code> function from <code>purrr</code>, which is part of the tidyverse. The pattern <code>"\\.[c|f|R]$"</code> means <em>everything that ends with a period followed by c, f or R</em>.</p>
 <pre class="r"><code>library(tidyverse)
 library(R.utils) # For countLines
 

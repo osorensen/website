@@ -11,6 +11,20 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Slides from talk at Oslo UseR! Group</title>
+      <link>http://osorensen.rbind.io/post/slides-from-talk-at-oslo-user-group/</link>
+      <pubDate>Wed, 06 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://osorensen.rbind.io/post/slides-from-talk-at-oslo-user-group/</guid>
+      <description>
+
+
+&lt;p&gt;Tonight I gave a presentation of Rcpp at the Oslo UseR! Group. The slides are &lt;a href=&#34;https://osorensen.github.io/user-rcpp-2019/presentation.html#1&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;It was a nice opportunity to meet some of the many R users in town. Thanks to &lt;a href=&#34;https://www.ddrive.no/&#34;&gt;Deemah&lt;/a&gt; for organizing!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>In Which Language is R Written?</title>
       <link>http://osorensen.rbind.io/post/in-which-language-is-r-written/</link>
       <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
@@ -58,7 +72,7 @@ file.remove(tarfile)&lt;/code&gt;&lt;/pre&gt;
 ##         6        11        15         1         9         1        47 
 ##  .windows        .y       .zi      .zip 
 ##         1         3         1         1&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I now count the number of lines in each C, Fortran, and R file. I use the &lt;code&gt;map&lt;/code&gt; function from &lt;code&gt;purrr&lt;/code&gt;, which is part of the tidyverse. The pattern &lt;code&gt;&amp;quot;\\.[c|f|R]$&amp;quot;&lt;/code&gt; means &lt;em&gt;everything that ends with a period followed by c, f or R&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;I now count the number of lines in each C, Fortran, and R file. I use the &lt;code&gt;map&lt;/code&gt; function from &lt;code&gt;purrr&lt;/code&gt;, which is part of the tidyverse. The pattern &lt;code&gt;&#34;\\.[c|f|R]$&#34;&lt;/code&gt; means &lt;em&gt;everything that ends with a period followed by c, f or R&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
 library(R.utils) # For countLines
 

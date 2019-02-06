@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
-    <lastBuildDate>Sun, 13 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 06 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://osorensen.rbind.io/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Slides from talk at Oslo UseR! Group</title>
+      <link>http://osorensen.rbind.io/post/slides-from-talk-at-oslo-user-group/</link>
+      <pubDate>Wed, 06 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://osorensen.rbind.io/post/slides-from-talk-at-oslo-user-group/</guid>
+      <description>Tonight I gave a presentation of Rcpp at the Oslo UseR! Group. The slides are here.
+It was a nice opportunity to meet some of the many R users in town. Thanks to Deemah for organizing!</description>
+    </item>
     
     <item>
       <title>In Which Language is R Written?</title>
