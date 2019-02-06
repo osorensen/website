@@ -6,7 +6,7 @@
 
 # The URL of your website.
 # End your URL with a `/` trailing slash, e.g. `https://example.com/`.
-baseurl = "http://osorensen.rbind.io/"
+baseurl = "https://osorensen.rbind.io/"
 
 # Title of your site
 title = "Øystein Sørensen"
@@ -37,8 +37,7 @@ defaultContentLanguageInSubdir = false
 enableGitInfo = false
 
 [outputs]
-  home = [ "HTML", "CSS", "RSS", "JSON" ]
-  section = [ "HTML", "RSS" ]
+  home = [ "HTML", "CSS", "RSS", "JSON"]
 
 # Configure BlackFriday Markdown rendering.
 #   See: https://gohugo.io/getting-started/configuration/#configure-blackfriday

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Øystein Sørensen</title>
-    <link>http://osorensen.rbind.io/tags/</link>
+    <link>https://osorensen.rbind.io/tags/</link>
     <description>Recent content in Tags on Øystein Sørensen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
     <lastBuildDate>Wed, 06 Feb 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://osorensen.rbind.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://osorensen.rbind.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Rcpp</title>
-      <link>http://osorensen.rbind.io/tags/rcpp/</link>
+      <link>https://osorensen.rbind.io/tags/rcpp/</link>
       <pubDate>Wed, 06 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://osorensen.rbind.io/tags/rcpp/</guid>
+      <guid>https://osorensen.rbind.io/tags/rcpp/</guid>
       <description></description>
     </item>
     
