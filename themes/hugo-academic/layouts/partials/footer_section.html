@@ -2,7 +2,7 @@
   {{ with .Site.GetPage "privacy.md" }}
   <p class="powered-by">
     {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
-  </p>
+  </p>2
   {{ end }}
 
   <p class="powered-by">
@@ -10,7 +10,7 @@
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
-    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>. Posts are also published on <a href="https://www.r-bloggers.com/" target="_blank" rel="noopener">R-bloggers</a>.
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
 
     {{ if ne .Type "docs" }}
     <span class="float-right" aria-hidden="true">

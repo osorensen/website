@@ -11,7 +11,6 @@ image:
   focal_point: ''
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <p>In preparing for my upcoming Rcpp talk at the <a href="https://www.meetup.com/Oslo-useR-Group/events/256805098/">Oslo useR! Group</a>, I started wondering how much of R is actually written in C or Fortran. I have of course been trained to think that vectorization is great, because then you let C or Fortran do the job, but how much of R is actually written in these languages? Some searching led me to <a href="https://web.archive.org/web/20180612142342/http://librestats.com/2011/08/27/how-much-of-r-is-written-in-r/">this blog</a>, which analyzes R-2.13.1. However, that post is from 2011, and at the time of writing R has reached version 3-5.2. In addition, the post uses Bash scripts rather than R itself. In this post, I hence reexamine the question, using R all the way, which will be a good exercise. Note that this analysis covers the functions in <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html">base R</a>, i.e., stuff like <code>apply()</code>, <code>data.frame()</code>, <code>plot()</code>, and (I guess, but really have no idea) the code that actually makes R run.</p>

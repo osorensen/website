@@ -47,7 +47,7 @@ It was a nice opportunity to meet some of the many R users in town. Thanks to De
       <pubDate>Sun, 13 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://osorensen.rbind.io/post/in-which-language-is-r-written/</guid>
-      <description>In preparing for my upcoming Rcpp talk at the Oslo useR! Group, I started wondering how much of R is actually written in C or Fortran. I have of course been trained to think that vectorization is great, because then you let C or Fortran do the job, but how much of R is actually written in these languages? Some searching led me to this blog, which analyzes R-2.</description>
+      <description>In preparing for my upcoming Rcpp talk at the Oslo useR! Group, I started wondering how much of R is actually written in C or Fortran. I have of course been trained to think that vectorization is great, because then you let C or Fortran do the job, but how much of R is actually written in these languages? Some searching led me to this blog, which analyzes R-2.13.1. However, that post is from 2011, and at the time of writing R has reached version 3-5.</description>
     </item>
     
   </channel>
