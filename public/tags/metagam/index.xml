@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>metagam on Øystein Sørensen</title>
+    <link>https://osorensen.rbind.io/tags/metagam/</link>
+    <description>Recent content in metagam on Øystein Sørensen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Wed, 17 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://osorensen.rbind.io/tags/metagam/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Presentation of metagam at ERUM2020</title>
+      <link>https://osorensen.rbind.io/post/presentation-of-metagam-at-erum2020/</link>
+      <pubDate>Wed, 17 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://osorensen.rbind.io/post/presentation-of-metagam-at-erum2020/</guid>
+      <description>The European R User Meeting 2020 has so far been a really great event, with interesting talks and online presentations working smoothly. I presented the metagam package this morning, and the slides are available here.</description>
+    </item>
+    
+  </channel>
+</rss>
