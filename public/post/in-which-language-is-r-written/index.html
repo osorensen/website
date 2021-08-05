@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 3.2.0">
-  <meta name="generator" content="Hugo 0.72.0" />
+  <meta name="generator" content="Hugo 0.74.3" />
   <meta name="author" content="Øystein Sørensen">
 
   
@@ -15,7 +15,7 @@
   
     
   
-  <meta name="description" content="In preparing for my upcoming Rcpp talk at the Oslo useR! Group, I started wondering how much of R is actually written in C or Fortran. I have of course been trained to think that vectorization is great, because then you let C or Fortran do the job, but how much of R is actually written in these languages? Some searching led me to this blog, which analyzes R-2.">
+  <meta name="description" content="In preparing for my upcoming Rcpp talk at the Oslo useR! Group, I started wondering how much of R is actually written in C or Fortran. I have of course been trained to think that vectorization is great, because then you let C or Fortran do the job, but how much of R is actually written in these languages? Some searching led me to this blog, which analyzes R-2.13.1. However, that post is from 2011, and at the time of writing R has reached version 3-5.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://osorensen.rbind.io/post/in-which-language-is-r-written/">
@@ -123,7 +123,7 @@
   <meta property="og:site_name" content="Øystein Sørensen">
   <meta property="og:url" content="https://osorensen.rbind.io/post/in-which-language-is-r-written/">
   <meta property="og:title" content="In Which Language is R Written? | Øystein Sørensen">
-  <meta property="og:description" content="In preparing for my upcoming Rcpp talk at the Oslo useR! Group, I started wondering how much of R is actually written in C or Fortran. I have of course been trained to think that vectorization is great, because then you let C or Fortran do the job, but how much of R is actually written in these languages? Some searching led me to this blog, which analyzes R-2."><meta property="og:image" content="https://osorensen.rbind.io/img/portrait.jpg">
+  <meta property="og:description" content="In preparing for my upcoming Rcpp talk at the Oslo useR! Group, I started wondering how much of R is actually written in C or Fortran. I have of course been trained to think that vectorization is great, because then you let C or Fortran do the job, but how much of R is actually written in these languages? Some searching led me to this blog, which analyzes R-2.13.1. However, that post is from 2011, and at the time of writing R has reached version 3-5."><meta property="og:image" content="https://osorensen.rbind.io/img/portrait.jpg">
   <meta property="og:locale" content="en-us">
   
   <meta property="article:published_time" content="2019-01-13T00:00:00&#43;00:00">
@@ -399,7 +399,6 @@
 
     <div class="article-style" itemprop="articleBody">
       
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <p>In preparing for my upcoming Rcpp talk at the <a href="https://www.meetup.com/Oslo-useR-Group/events/256805098/">Oslo useR! Group</a>, I started wondering how much of R is actually written in C or Fortran. I have of course been trained to think that vectorization is great, because then you let C or Fortran do the job, but how much of R is actually written in these languages? Some searching led me to <a href="https://web.archive.org/web/20180612142342/http://librestats.com/2011/08/27/how-much-of-r-is-written-in-r/">this blog</a>, which analyzes R-2.13.1. However, that post is from 2011, and at the time of writing R has reached version 3-5.2. In addition, the post uses Bash scripts rather than R itself. In this post, I hence reexamine the question, using R all the way, which will be a good exercise. Note that this analysis covers the functions in <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html">base R</a>, i.e., stuff like <code>apply()</code>, <code>data.frame()</code>, <code>plot()</code>, and (I guess, but really have no idea) the code that actually makes R run.</p>
@@ -614,7 +613,7 @@ stats &lt;- str_subset(files, &quot;\\.[c|f|R]$&quot;) %&gt;%
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
-    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>. Posts are also published on <a href="https://www.r-bloggers.com/" target="_blank" rel="noopener">R-bloggers</a>.
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
 
     
     <span class="float-right" aria-hidden="true">

@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
-    <lastBuildDate>Fri, 19 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 07 Jun 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://osorensen.rbind.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>latent variables</title>
+      <link>https://osorensen.rbind.io/categories/latent-variables/</link>
+      <pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://osorensen.rbind.io/categories/latent-variables/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>R</title>
