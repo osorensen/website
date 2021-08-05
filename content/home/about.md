@@ -11,8 +11,8 @@ weight = 1
 [interests]
   interests = [
     "Longitudinal Data Analysis",
-    "Bayesian Statistics",
-    "R Programming"
+    "Generalized Additive Models",
+    "Statistical Software"
   ]
 
 # List your qualifications (such as academic degrees).
@@ -31,4 +31,4 @@ weight = 1
 
 # Biography
 
-I am an associate professor of statistics at the [Center for Lifespan Changes in Brain and Cognition](http://www.oslobrains.no) at the University of Oslo. Here I work with great brain scientist who have large longitudinal datasets that require lots of interesting statistical methodology. I have also developed R packages, worked with measurement error modeling, and Bayesian modeling of preference data.
+I am an Associate Professor in Statistics at the [Center for Lifespan Changes in Brain and Cognition](http://www.oslobrains.no) at the University of Oslo. I do both methodological and applied work related to analysis of neuroimaging data, and I'm particularly interested in statistical methodology for analyzing how changes in the brain are related to changes in cognition, and genetic and environmental factors. I have also developed several R packages, and I'm currently an associate editor of the [Journal of Open Source Software](https://joss.theoj.org/).
