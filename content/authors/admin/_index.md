@@ -46,4 +46,4 @@ user_groups:
 
 I am an associate professor of statistics at the [Center for Lifespan Changes in Brain and Cognition](https://www.oslobrains.no/) (LCBC). I'm involved in many exciting projects at LCBC, typically aimed at understanding how the human brain and cognitive function develop over the lifespan. The goal of my methodological work is to contribute statistical methodology and software for analyzing longitudinal neuroimaging data.
 
-
+This website summarizes my main scientific publications and research software. Click on the icons to the left to see my full publication list in Google Scholar and my software projects at GitHub.
