@@ -2,8 +2,7 @@
 authors:
 - admin
 avatar_image: portrait.jpeg
-bio: My research interests include distributed robotics, mobile computing and programmable
-  matter.
+bio: My research interests analysis of neuroimaging data and statistical software development.
 btn:
 - label: Download Resume
   url: https://sourcethemes.com/academic/docs/install/
