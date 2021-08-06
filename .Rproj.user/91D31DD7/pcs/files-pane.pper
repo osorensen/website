@@ -1,0 +1,9 @@
+{
+    "path" : "~/Repos/website/public",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}
