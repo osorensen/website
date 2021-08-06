@@ -1,4 +1,0 @@
-"0","ggplot(stats, aes(x = Language, y = Lines, label = LinesPct)) +"
-"0","  geom_col() +"
-"0","  geom_text(position = position_stack(vjust = 0.5), color = ""white"") +"
-"0","  ggtitle(""Number of lines per language in base R"")"

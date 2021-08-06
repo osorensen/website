@@ -1,1 +1,0 @@
-"0","files <- list.files(src_path, pattern = ""\\.[[:alnum:]]+$"", recursive = TRUE)"

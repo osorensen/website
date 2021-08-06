@@ -1,2 +1,0 @@
-"0","r_version <- ""3.5.2"""
-"0","tarfile <- paste0(""./R-"", r_version, "".tar.gz"")"
