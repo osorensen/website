@@ -1,0 +1,88 @@
+---
+title: In Which Language is R Written?
+authors: 
+- admin
+date: '2019-01-13'
+slug: in-which-language-is-r-written
+categories:
+  - R
+tags: [R]
+image:
+  caption: ''
+  focal_point: ''
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>In preparing for my upcoming Rcpp talk at the <a href="https://www.meetup.com/Oslo-useR-Group/events/256805098/">Oslo useR! Group</a>, I started wondering how much of R is actually written in C or Fortran. I have of course been trained to think that vectorization is great, because then you let C or Fortran do the job, but how much of R is actually written in these languages? Some searching led me to <a href="https://web.archive.org/web/20180612142342/http://librestats.com/2011/08/27/how-much-of-r-is-written-in-r/">this blog</a>, which analyzes R-2.13.1. However, that post is from 2011, and at the time of writing R has reached version 3-5.2. In addition, the post uses Bash scripts rather than R itself. In this post, I hence reexamine the question, using R all the way, which will be a good exercise. Note that this analysis covers the functions in <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html">base R</a>, i.e., stuff like <code>apply()</code>, <code>data.frame()</code>, <code>plot()</code>, and (I guess, but really have no idea) the code that actually makes R run.</p>
+<p>I start by defining the R version I want, and the path to which the source file should be saved.</p>
+<pre class="r"><code>r_version &lt;- &quot;3.5.2&quot;
+tarfile &lt;- paste0(&quot;./R-&quot;, r_version, &quot;.tar.gz&quot;)</code></pre>
+<p>Then I download the source:</p>
+<pre class="r"><code>download.file(url = paste0(&quot;https://cran.r-project.org/src/base/R-3/R-&quot;, 
+                           r_version, &quot;.tar.gz&quot;),
+              destfile = tarfile)</code></pre>
+<p>Having downloaded it, I unpack the tar file and remove it. We now have a R-3.5.2 directory.</p>
+<pre class="r"><code>untar(tarfile)
+file.remove(tarfile)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>I also define the path to the source code, which is in the <code>src</code> subdirectory.</p>
+<pre class="r"><code>(src_path &lt;- paste0(&quot;./R-&quot;, r_version, &quot;/src/&quot;))</code></pre>
+<pre><code>## [1] &quot;./R-3.5.2/src/&quot;</code></pre>
+<p>In order to see which files are in <code>src</code>, I list all files that end with a <code>.</code> followed by alphanumeric characters.</p>
+<pre class="r"><code>files &lt;- list.files(src_path, pattern = &quot;\\.[[:alnum:]]+$&quot;, recursive = TRUE)</code></pre>
+<p>Next, I take a first look at all the file endings under <code>src</code>. As we can see, the main languages are C (<code>.c</code>), Fortran (<code>.f</code>) and R (<code>.R</code>).</p>
+<pre class="r"><code>library(stringr)
+(file_count &lt;- table(str_extract(files, &quot;\\.[:alnum:]+$&quot;)))</code></pre>
+<pre><code>## 
+##        .3      .afm      .bib      .bmp        .c  .charset      .csv      .def 
+##         1        91         3         1       497         1         2         5 
+##      .dif     .dist      .doc      .enc        .f    .flate       .gz        .h 
+##         1         1         1        18        38         1        15       170 
+##     .hide     .html      .ico       .in      .isl      .iss        .m .manifest 
+##         2         2         1        82         3         7         1         8 
+##       .mo   .modreg    .notes       .nw .packages    .patch      .pdf      .png 
+##       279         1         1         1         1         1        18         3 
+##       .po  .portsrc      .pot        .R       .rc       .Rd      .rda      .Rnw 
+##       256         1        25       772         9      1422         9        21 
+##       .RR    .Rterm    .rtest      .rtf    .rules        .S     .save     .site 
+##         5         1         1         1         1         1        10         1 
+##      .svg      .tab      .tcl      .tgz       .ts      .txt     .unix      .win 
+##         1         6        11        15         1         9         1        47 
+##  .windows        .y       .zi      .zip 
+##         1         3         1         1</code></pre>
+<p>I now count the number of lines in each C, Fortran, and R file. I use the <code>map</code> function from <code>purrr</code>, which is part of the tidyverse. The pattern <code>"\\.[c|f|R]$"</code> means <em>everything that ends with a period followed by c, f or R</em>.</p>
+<pre class="r"><code>library(tidyverse)
+library(R.utils) # For countLines
+
+stats &lt;- str_subset(files, &quot;\\.[c|f|R]$&quot;) %&gt;% 
+  split(str_extract(., &quot;\\.[c|f|R]$&quot;)) %&gt;% 
+  map_dfr(function(x){
+  tibble(
+    Lines = sum(map_int(x, ~ countLines(paste0(src_path, .x)))),
+    Files = length(x)
+  )
+    }, .id = &quot;Language&quot;) %&gt;% 
+  mutate(
+    Language = recode(Language, `.c` = &quot;C&quot;, `.f` = &quot;Fortran&quot;, `.R` = &quot;R&quot;),
+    LinesPct = paste(100 * round(Lines / sum(Lines), 2), &quot;%&quot;),
+    FilesPct = paste(100 * round(Files / sum(Files), 2), &quot;%&quot;)
+    )</code></pre>
+<p>We now have the required numbers, and can make a plot.</p>
+<pre class="r"><code>ggplot(stats, aes(x = Language, y = Lines, label = LinesPct)) +
+  geom_col() +
+  geom_text(position = position_stack(vjust = 0.5), color = &quot;white&quot;) +
+  ggtitle(&quot;Number of lines per language in base R&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>So, the conclusion is that most of base R is written in C or Fortran, at least in terms of lines of code. This is of course good, because it lets us write fast code, e.g., through vectorization.</p>
+<p>The number of files per language was shown above, but we can plot this as well.</p>
+<pre class="r"><code>ggplot(stats, aes(x = Language, y = Files, label = FilesPct)) +
+  geom_col() +
+  geom_text(position = position_stack(vjust = 0.5), color = &quot;white&quot;) +
+  ggtitle(&quot;Number of lines per language in base R&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>It seems like there are some really long files with Fortran code in there!</p>
+<p>Finally I delete the R source code which was downloaded.</p>
+<pre class="r"><code>unlink(paste0(&quot;./R-&quot;, r_version), recursive = TRUE)</code></pre>
+<p>An interesting follow-up would be to study how this has changed over time, and also for CRAN packages.</p>

@@ -26,9 +26,6 @@ organizations:
   url: "https://www.uio.no/"
 role: Associate Professor of Statistics
 social:
-- icon: envelope
-  icon_pack: fas
-  link: '#contact'
 - icon: twitter
   icon_pack: fab
   link: https://twitter.com/SorensenOystein
@@ -44,6 +41,6 @@ user_groups:
 - Visitors
 ---
 
-I am an associate professor of statistics at the [Center for Lifespan Changes in Brain and Cognition](https://www.oslobrains.no/) (LCBC). I'm involved in many exciting projects at LCBC, typically aimed at understanding how the human brain and cognitive function develop over the lifespan. The goal of my methodological work is to contribute statistical methodology and software for analyzing longitudinal neuroimaging data.
+I am an associate professor of statistics at the [Center for Lifespan Changes in Brain and Cognition](https://www.oslobrains.no/) (LCBC). At LCBC I'm involved in many exciting projects aimed at understanding how the human brain and cognitive function develop over the lifespan, and how they're affect by other variables like sleep, genetic variations, and demographics. My methodological work is inspired these applications, with the goal of developing analysis methods and software for analyzing complex longitudinal data.
 
-This website summarizes my main scientific publications and research software. Click on the icons to the left to see my full publication list in Google Scholar and my software projects at GitHub.
+This website summarizes my main statistical publications and research software. Click on the icons to the left to see my full publication list in Google Scholar and all my software projects at GitHub.
