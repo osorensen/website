@@ -3,7 +3,7 @@ date: "2020-02-20T00:00:00Z"
 doi: ""
 featured: false
 image:
-  focal_point: "center"
+  focal_point: ""
   preview_only: false
 projects: []
 publication: 'R Package available from CRAN'
@@ -15,14 +15,6 @@ tags:
 - R
 title: metagam
 ---
-
-{{% alert note %}}
-Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-{{% /alert %}}
-
-{{% alert note %}}
-Click the *Slides* button above to demo academia's Markdown slides feature.
-{{% /alert %}}
 
 [R package available from CRAN](https://cran.r-project.org/package=metagam).
 
