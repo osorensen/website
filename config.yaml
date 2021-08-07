@@ -17,8 +17,9 @@ ignoreFiles:
   - .ipynb_checkpoints$
   - \.Rmd$
   - \.Rmarkdown$
-  - _files$
   - _cache$
+  - \\.knit\\.md$
+  - \\.utf8\\.md$
 outputs:
   home:
     - HTML
@@ -41,3 +42,7 @@ taxonomies:
   category: categories
   publication_type: publication_types
   tag: tags
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
