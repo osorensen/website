@@ -1,9 +1,9 @@
 {
-    "path": "~/Repos/website/content/post/2019-02-06-slides-from-talk-at-oslo-user-group",
+    "path": "~/Repos/website/content/talk",
     "sortOrder": [
         {
             "columnIndex": 2,
-            "ascending": false
+            "ascending": true
         }
     ]
 }
