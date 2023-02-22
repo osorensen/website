@@ -4,17 +4,17 @@ authors:
 - admin
 - Anders M. Fjell
 - Kristine B. Walhovd
-date: "2021-05-06T00:00:00Z"
+date: "2023-02-22T00:00:00Z"
 doi: ""
 featured: false
 image:
   focal_point: ""
   preview_only: false
 projects: []
-publication: 'arXiv preprint'
+publication: 'Accepted for publication in Psychometrika'
 publication_short: ""
 publication_types:
-- "3"
+- "2"
 publishDate: "2017-01-01T00:00:00Z"
 tags:
 - GALAMM
@@ -22,6 +22,6 @@ tags:
 title: "Longitudinal modeling of age-dependent latent traits with generalized additive latent and mixed models"
 ---
 
-We present generalized additive latent and mixed models (GALAMMs) for analysis of clustered data with latent and observed variables depending smoothly on observed variables. A profile likelihood algorithm is proposed, and we derive asymptotic standard errors of both smooth and parametric terms. The work was motivated by applications in cognitive neuroscience, and we show how GALAMMs can successfully model the complex lifespan trajectory of latent episodic memory, along with a discrepant trajectory of working memory, as well as the effect of latent socioeconomic status on hippocampal development. Simulation experiments suggest that model estimates are accurate even with moderate sample sizes.
+We present generalized additive latent and mixed models (GALAMMs) for analysis of clustered data with responses and latent variables depending smoothly on observed variables. A scalable maximum likelihood estimation algorithm is proposed, utilizing the Laplace approximation, sparse matrix computation, and automatic differentiation. Mixed response types, heteroscedasticity, and crossed random effects are naturally incorporated into the framework. The models developed were motivated by applications in cognitive neuroscience, and two case studies are presented. First, we show how GALAMMs can jointly model the complex lifespan trajectories of episodic memory, working memory, and speed/executive function, measured by the California Verbal Learning Test (CVLT), digit span tests, and Stroop tests, respectively. Next, we study the effect of socioeconomic status on brain structure, using data on education and income together with hippocampal volumes estimated by magnetic resonance imaging. By combining semiparametric estimation with latent variable modeling, GALAMMs allow a more realistic representation of how brain and cognition vary across the lifespan, while simultaneously estimating latent traits from measured items. Simulation experiments suggest that model estimates are accurate even with moderate sample sizes.
 
 [Link to arXiv preprint.](https://arxiv.org/abs/2105.02488)
