@@ -17,4 +17,4 @@ image:
 projects: []
 ---
 
-Slides for my presentation at CMStatistics 2021 are available [here](https://osorensen.github.io/CFECM2021/presentation.html). The talk was about generalized additive latent and mixed models, which is further described [in this post](publication/galamm-2021/).
+Slides for my presentation at CMStatistics 2021 are available [here](https://osorensen.github.io/CFECM2021/presentation.html). The talk was about generalized additive latent and mixed models, which is further described [in this post](publication/psychometrika-2023/).
