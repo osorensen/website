@@ -2,7 +2,7 @@
 authors:
 - admin
 avatar_image: portrait.jpeg
-bio: My research interests analysis of neuroimaging data and statistical software development.
+bio: My research interests include latent variable modeling, computational algorithms, and statistical software development.
 display_education: true
 education:
   courses:
@@ -14,8 +14,8 @@ education:
     year: 2011
 email: ""
 interests:
-- Longitudinal analysis of neuroimaging data
-- Multilevel models
+- Latent variable modeling
+- Computation
 - Statistical software
 name: Øystein Sørensen
 organizations:
@@ -23,9 +23,6 @@ organizations:
   url: "https://www.uio.no/"
 role: Associate Professor of Statistics
 social:
-- icon: twitter
-  icon_pack: fab
-  link: https://twitter.com/SorensenOystein
 - icon: google-scholar
   icon_pack: ai
   link: https://scholar.google.com/citations?user=neOqbw0AAAAJ&hl=sv
