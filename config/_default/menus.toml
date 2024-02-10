@@ -30,9 +30,3 @@
 
 
 
-# Link to a PDF of your resume/CV from the menu.
-# To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
-[[main]]
-   name = "CV"
-   url = "https://github.com/osorensen/CV/raw/main/cv/cv.pdf"
-   weight = 70
