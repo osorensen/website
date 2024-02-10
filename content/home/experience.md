@@ -2,7 +2,7 @@
 # Experience widget.
 widget = "experience"  # See https://sourcethemes.com/academic/docs/page-builder/
 headless = true  # This file represents a page section.
-active = false  # Activate this widget? true/false
+active = true  # Activate this widget? true/false
 weight = 95  # Order that this section will appear.
 
 title = "Experience"
@@ -18,12 +18,33 @@ date_format = "Jan 2006"
 #   Leave `date_end` empty if it's your current employer.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 [[experience]]
+  title = "Professor of Biostatistics"
+  company = "University of Oslo"
+  company_url = "https://www.uio.no/"
+  location = "Oslo"
+  date_start = "2024-01-01"
+  date_end = ""
+  description = """
+  Department of Psychology.
+  """
+  
+[[experience]]
+  title = "Associate Editor"
+  company = "Journal of Open Source Software"
+  company_url = "https://joss.theoj.org/"
+  location = "Oslo"
+  date_start = "2021-06-01"
+  date_end = ""
+  description = """
+  """
+
+[[experience]]
   title = "Associate Professor of Statistics"
   company = "University of Oslo"
   company_url = "https://www.uio.no/"
   location = "Oslo"
   date_start = "2018-09-01"
-  date_end = ""
+  date_end = "2023-12-31"
   description = """
   Working at the Center for Lifespan Changes in Brain and Cognition, Department of Psychology.
   """
